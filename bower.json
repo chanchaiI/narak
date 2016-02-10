@@ -1,0 +1,25 @@
+{
+  "name": "Narak App",
+  "description": "",
+  "main": "",
+  "authors": [
+    "Chanchai Itthiamornlerd <chanchai.itthiamornlerd@allianz.com>"
+  ],
+  "license": "MIT",
+  "moduleType": [],
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.5.0",
+    "angular-route": "^1.5.0",
+    "ng-file-upload": "^11.2.3",
+    "ng-img-crop": "ngImgCrop#^0.3.2"
+  }
+}
