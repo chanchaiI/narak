@@ -1,3 +1,3 @@
 # narak
 
-This is for narak project
+This is for Narak project
