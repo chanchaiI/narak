@@ -1,7 +1,6 @@
 {
   "name": "Narak App",
   "description": "",
-  "main": "",
   "authors": [
     "Chanchai Itthiamornlerd <chanchai.itthiamornlerd@allianz.com>"
   ],
@@ -21,5 +20,10 @@
     "angular-route": "^1.5.0",
     "ng-file-upload": "^11.2.3",
     "ng-img-crop": "ngImgCrop#^0.3.2"
+  },
+  "overrides": {
+    "angular": {
+      "main": "angular.min.js"
+    }
   }
 }

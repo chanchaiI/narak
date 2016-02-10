@@ -29,7 +29,7 @@ gulp.task('inject', function () {
 
 
     var wiredepOptions = {
-        directory: 'bower_components'
+        directory: '../bower_components'
     };
 
     return gulp.src(path.src + '/*.html')
