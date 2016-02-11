@@ -10,5 +10,5 @@ export function config ($logProvider, toastrConfig, FacebookProvider) {
   toastrConfig.preventDuplicates = true;
   toastrConfig.progressBar = true;
 
-  FacebookProvider.init('')
+  FacebookProvider.init('528815997279289'); // TODO: Add facebook App Id
 }
