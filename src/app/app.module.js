@@ -3,9 +3,9 @@
 import { config } from './app.config';
 import { routerConfig } from './app.route';
 import { runBlock } from './app.run';
-import { MainController } from './main/main.controller'
+import { MainController } from './main/main.controller';
 
-angular.module('narak', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', 'ngMessages', 'ngAria', 'ui.router', 'ngMaterial', 'toastr', ''])
+angular.module('narak', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', 'ngMessages', 'ngAria', 'ui.router', 'ngMaterial', 'toastr', 'facebook', 'ngFileUpload'])
     .constant('malarkey', malarkey)
     .constant('moment', moment)
     .config(config)
