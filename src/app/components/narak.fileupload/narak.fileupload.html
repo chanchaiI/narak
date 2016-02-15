@@ -1,14 +1,14 @@
 <div class="upload-img-wrapper">
-    <button ngf-select ng-model="picFile" accept="image/*">
+    <md-button class="md-raised animated infinite" ngf-select ng-model="picFile" accept="image/*">
         Select Picture
-    </button>
+    </md-button>
     <div ngf-drop ng-model="picFile" ngf-pattern="image/*" class="cropArea">
+        <span style="margin: 0 auto;">Drop Image here</span>
         <img-crop image="picFile | ngfDataUrl"
                   result-image="image"
-                  area-type="square">
+                  area-type="square" ng-show="!!picFile">
         </img-crop>
     </div>
-    <button ng-click="upload(image)">Submit</button>
     <span ng-show="result">Upload Successful</span>
     <span class="err" ng-show="errorMsg">{{errorMsg}}</span>
 </div>

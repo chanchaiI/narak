@@ -1,8 +1,9 @@
 .cropArea {
-  background: #E4E4E4;
+  background: #F8F8F8;
+  border: 5px dashed #DDD;
   overflow: hidden;
-  width:500px;
-  height:350px;
+  width:400px;
+  height:300px;
 }
 form .progress {
   line-height: 15px;

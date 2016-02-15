@@ -5,14 +5,32 @@
       <!--where navbar placed-->
     </header>
 
-    <section class="jumbotron">
-      <md-input-container>
-        <input type="text" ng-model="vm.babyName" aria-label="Baby Name" required>
-      </md-input-container>
-      <narak-file-upload model="vm.croppedImage"></narak-file-upload>
-      <md-button class="md-raised animated infinite" ng-class="vm.classAnimation" ng-click="vm.showToastr()">Submit</md-button>
-
+    <section flex layout="row">
+      <section flex>
+        <md-input-container>
+          <label for="babyName">ชื่อ</label>
+          <input type="text" id="babyName" ng-model="vm.baby.name" aria-label="ชื่อ" required>
+        </md-input-container>
+        <md-input-container>
+          <label for="babyNickName">ชื่อเล่น</label>
+          <input type="text" id="babyNickName" ng-model="vm.baby.nickname" aria-label="ชื่อเล่น" required>
+        </md-input-container>
+        <div flex="100" layout="row">
+          <label flex layout="column" layout-align="center">อายุ</label>
+          <md-input-container flex>
+            <label for="babyYears">ปี</label>
+            <input type="number" id="babyYears" ng-model="vm.baby.years" aria-label="ปี" required>
+          </md-input-container>
+          <md-input-container flex>
+            <label for="babyMonths">เดือน</label>
+            <input type="number" id="babyMonths" ng-model="vm.baby.months" aria-label="เดือน" required>
+          </md-input-container>
+        </div>
+        <md-button class="md-raised animated infinite" ng-class="vm.classAnimation" ng-click="vm.submit()">Submit</md-button>
+      </section>
+      <section flex>
+        <narak-file-upload model="vm.croppedImage"></narak-file-upload>
+      </section>
     </section>
-
   </md-content>
 </div>

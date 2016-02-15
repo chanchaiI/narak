@@ -19,7 +19,11 @@ export class NarakFileUploadComponent{
         $scope.image = this.model;
         $scope.upload = (dataUrl) => {
             $rootScope.$broadcast(NarakFileUploadComponent.IMAGE_SUBMITTED_EVENT, dataUrl);
-        }
+        };
+
+        $scope.$watch('image', (newModel)=>{
+            this.model = newModel;
+        });
     }
 }
 
