@@ -6,9 +6,11 @@
     </header>
 
     <section class="jumbotron">
-
+      <md-input-container>
+        <input type="text" ng-model="vm.babyName" aria-label="Baby Name" required>
+      </md-input-container>
       <narak-file-upload model="vm.croppedImage"></narak-file-upload>
-      <md-button class="md-raised animated infinite" ng-class="main.classAnimation" ng-click="vm.showToastr()">Submit</md-button>
+      <md-button class="md-raised animated infinite" ng-class="vm.classAnimation" ng-click="vm.showToastr()">Submit</md-button>
 
     </section>
 
