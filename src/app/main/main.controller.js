@@ -10,39 +10,77 @@ export class MainController {
         this.$timeout = $timeout;
         this.$document = $document;
         this.$window = $window;
-        this.croppedImage = '';
-        this.baby = {
-            name: '',
-            nickName: '',
-            years: null,
-            months: null
-        };
+
 
         this.activate();
     }
 
     activate(){
-
+        this.croppedImage = '';
+        this.baby = {
+            name: '',
+            nickname: '',
+            years: null,
+            months: null
+        };
     }
 
-    submit() {
-        var canvas = angular.element('<canvas/>')[0];
-        var context = canvas.getContext('2d');
-        var imageObj = new Image();
-        imageObj.onload = () =>{
-            canvas.width = imageObj.width;
-            canvas.height = imageObj.height;
-            context.drawImage(imageObj, 0, 0, imageObj.width, imageObj.height);
-            context.font = '20px Open Sans Condensed';
-            context.fillText(this.baby.name, 0, imageObj.height/2);
+    preview() {
+        if(this.$scope.form.$valid){
+            var canvas = angular.element(document.querySelector('#preview'))[0];
+            var context = canvas.getContext('2d');
 
-            // open the image in a new browser tab
-            // the user can right-click and save that image
-            var win= this.$window.open();
-            win.document.write('<img src="'+canvas.toDataURL()+'"/>');
-        };
+            var templateImage = new Image();
 
-        imageObj.src = this.croppedImage;
+            templateImage.onload = () =>{
+                canvas.width = templateImage.width;
+                canvas.height = templateImage.height;
+                context.font = 'bold 13px Open Sans Condensed';
+                context.font.fontcolor('#CCC');
+
+                var kidImage = new Image();
+                kidImage.onload = () =>{
+                    drawKidImage(context, kidImage);
+                    drawTemplate(context, templateImage);
+
+                    var textPaddingLeft = 43;
+
+                    drawText(context, this.baby.name, '#FFF', {x: textPaddingLeft, y:templateImage.height - 28});
+                    var nameDetail = context.measureText(this.baby.name);
+
+                    drawText(context, '( น้อง' + this.baby.nickname + ' )' , '#FFF',
+                        {x: textPaddingLeft + 5 + nameDetail.width, y:templateImage.height - 28});
+
+                    if(!!this.baby.years || !!this.baby.months){
+                        drawText(context, (!!this.baby.years ? this.baby.years +' ปี ': '') +
+                        (!!this.baby.months ?  this.baby.months + ' เดือน': ''), '#FFF',
+                            {x: textPaddingLeft , y:templateImage.height - 10});
+                    }
+
+                    // open the image in a new browser tab
+                    // the user can right-click and save that image
+                    //var win= this.$window.open();
+                    //win.document.write('<img src="'+canvas.toDataURL()+'"/>');
+                };
+
+                kidImage.src = this.croppedImage;
+
+                function drawKidImage(context, imageObj){
+                    context.drawImage(imageObj, 30, 40, imageObj.width, imageObj.height);
+                }
+
+                function drawTemplate(context, templateImage){
+                    context.drawImage(templateImage, 0, 0, templateImage.width, templateImage.height);
+                }
+
+                function drawText(context, text, style, position){
+                    context.fillStyle = style;
+                    context.fillText(text, position.x, position.y);
+                }
+            };
+
+            templateImage.src = 'assets/images/narak_template.png';
+        }
     }
 
     upload(){

@@ -3,9 +3,9 @@
         Select Picture
     </md-button>
     <div ngf-drop ng-model="picFile" ngf-pattern="image/*" class="cropArea">
-        <span style="margin: 0 auto;">Drop Image here</span>
+        <div style="margin: 120px auto; text-align: center;" ng-if="!picFile">Drop Image here</div>
         <img-crop image="picFile | ngfDataUrl"
-                  result-image="image"
+                  result-image="image" result-image-size="300"
                   area-type="square" ng-show="!!picFile">
         </img-crop>
     </div>
