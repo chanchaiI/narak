@@ -15,7 +15,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/api/v1/products/{id?}', ['middleware' => 'auth.basic', function($id = null) {
+Route::post('/v1/post/', [ function($id = null) {
     if ($id == null) {
         $products = App\Product::all(array('id', 'name', 'price'));
     } else {
@@ -28,7 +28,7 @@ Route::get('/api/v1/products/{id?}', ['middleware' => 'auth.basic', function($id
     ));
 }]);
 
-Route::get('/api/v1/categories/{id?}', ['middleware' => 'auth.basic', function($id = null) {
+Route::get('/v1/post/{id?}', [ function($id = null) {
     if ($id == null) {
         $categories = App\Category::all(array('id', 'name'));
     } else {
