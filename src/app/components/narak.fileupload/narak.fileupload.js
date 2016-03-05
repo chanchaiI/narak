@@ -17,13 +17,14 @@ export class NarakFileUploadComponent{
         'ngInject';
 
         $scope.image = this.model;
-        $scope.upload = (dataUrl) => {
-            $rootScope.$broadcast(NarakFileUploadComponent.IMAGE_SUBMITTED_EVENT, dataUrl);
-        };
 
         $scope.$watch('image', (newModel)=>{
             this.model = newModel;
         });
+
+        $scope.notifyChange = ()=>{
+            $rootScope.$broadcast('img-change');
+        }
     }
 }
 

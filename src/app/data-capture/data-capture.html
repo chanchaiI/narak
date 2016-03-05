@@ -1,0 +1,45 @@
+<div layout="vertical" layout-fill>
+
+    <md-content>
+        <header>
+            <!--where navbar placed-->
+        </header>
+
+        <section flex layout="row">
+            <section flex>
+                <form name="form" novalidate>
+                    <md-input-container>
+                        <label for="babyName">ชื่อ</label>
+                        <input type="text" id="babyName" name="babyName" ng-model="vm.baby.name"
+                               aria-label="ชื่อ" required>
+                        <div ng-messages="form.babyName.$error" role="alert">
+                            <div ng-message="required">This field is required.</div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container>
+                        <label for="babyNickName">ชื่อเล่น</label>
+                        <input type="text" id="babyNickName" name="babyNickName" ng-model="vm.baby.nickname"
+                               aria-label="ชื่อเล่น" required>
+                        <div ng-messages="form.babyNickName.$error" role="alert">
+                            <div ng-message="required">This field is required.</div>
+                        </div>
+                    </md-input-container>
+                    <div flex="100" layout="row">
+                        <label flex layout="column" layout-align="center">อายุ</label>
+                        <md-input-container flex>
+                            <label for="babyYears">ปี</label>
+                            <input type="number" id="babyYears" ng-model="vm.baby.years" aria-label="ปี" max="5" required>
+                        </md-input-container>
+                        <md-input-container flex>
+                            <label for="babyMonths">เดือน</label>
+                            <input type="number" id="babyMonths" ng-model="vm.baby.months" aria-label="เดือน" min="1" max="12" required>
+                        </md-input-container>
+                    </div>
+                    <md-button class="md-raised animated infinite" ng-class="vm.classAnimation" ng-click="vm.next()">
+                        Next
+                    </md-button>
+                </form>
+            </section>
+        </section>
+    </md-content>
+</div>

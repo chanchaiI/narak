@@ -1,0 +1,21 @@
+<div layout="vertical" layout-fill>
+    <md-content>
+        <section>
+            <form name="selectForm">
+                <div ng-if="vm.selectedTemplate == null">
+                    <div>กรุณาเลือกกรอบรูป</div>
+                </div>
+                <div ng-repeat="(key, value) in vm.templates">
+                    <input type="radio" ng-model="vm.selectedTemplate" ng-value="value">
+                    {{value.name}}
+                    <div>
+                        <img width="200" height="200" src="{{vm.templatePath + value.path}}">
+                    </div>
+                </div>
+                <md-button class="md-raised animated infinite" ng-click="vm.next()">
+                    Next
+                </md-button>
+            </form>
+        </section>
+    </md-content>
+</div>

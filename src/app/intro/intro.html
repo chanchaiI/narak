@@ -1,0 +1,10 @@
+<md-content>
+    <header>
+        <div class="jumbotron" ng-if="!vm.isFacebookReady">Loading...</div>
+    </header>
+    <section>
+        <md-button class="md-raised animated infinite" ng-click="vm.login();" ng-if="vm.isFacebookReady">
+            Login
+        </md-button>
+    </section>
+</md-content>

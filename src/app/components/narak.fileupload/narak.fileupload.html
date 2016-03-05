@@ -6,7 +6,7 @@
         <div style="margin: 120px auto; text-align: center;" ng-if="!picFile">Drop Image here</div>
         <img-crop image="picFile | ngfDataUrl"
                   result-image="image" result-image-size="300"
-                  area-type="square" ng-show="!!picFile">
+                  area-type="square" ng-show="!!picFile" on-change="notifyChange()">
         </img-crop>
     </div>
     <span ng-show="result">Upload Successful</span>
