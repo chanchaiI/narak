@@ -1,4 +1,4 @@
-export function config ($logProvider, toastrConfig, FacebookProvider) {
+export function config ($logProvider, toastrConfig, FacebookProvider, cfpLoadingBarProvider) {
   'ngInject';
   // Enable log
   $logProvider.debugEnabled(true);
@@ -11,4 +11,6 @@ export function config ($logProvider, toastrConfig, FacebookProvider) {
   toastrConfig.progressBar = true;
 
   FacebookProvider.init('528815997279289'); // TODO: Add Facebook App Id
+
+  cfpLoadingBarProvider.spinnerTemplate = '<div class="loading-backdrop"></div>';
 }

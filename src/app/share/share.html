@@ -1,7 +1,14 @@
-<md-content>
-    <section>
-        <md-button class="md-raised animated infinite" ng-click="vm.share()">
-            แชร์อีกครั้ง
-        </md-button>
-    </section>
-</md-content>
+<div layout="vertical" layout-fill>
+    <md-content flex>
+        <header>
+
+        </header>
+        <section flex layout="column" flex>
+            <div layout="row" layout-align="center">
+                <md-button class="md-raised animated infinite" ng-click="vm.share()" flex="20">
+                    Share on Facebook
+                </md-button>
+            </div>
+        </section>
+    </md-content>
+</div>

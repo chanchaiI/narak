@@ -1,0 +1,46 @@
+<div layout="vertical" layout-fill ng-cloak>
+    <md-content flex layout="column">
+        <header flex="20" layout="column">
+            <div class="jumbotron" flex>
+                <a href="/">
+                    <img src="assets/images/logo.png"/>
+                </a>
+            </div>
+        </header>
+        <section layout="column" flex="30" class="popular-vote">
+            <header>
+                POPULAR VOTE
+            </header>
+            <section layout="row" layout-align="center" class="body">
+                <div class="vote-item" flex="30" ng-repeat="item in vm.popularVotes">
+                    <a href="/#/detail/{{item.id}}" target="_blank">
+                        <img src="{{ vm.constant.uploadedPath + item.image_path}}" style="width: auto; height: 95%">
+                    </a>
+                    <div>
+                        <span>{{item.kid_name}}</span>
+                        <button ng-click="vm.vote()">vote</button>
+                    </div>
+                </div>
+            </section>
+        </section>
+        <section layout="column" flex class="post-wrapper">
+            <header>
+                    <a ng-click="vm.getPosts('all', 1)" href="javascript:void(0)" class="category-selector">น่ารักจังทั้งหมด</a>
+                    <a ng-click="vm.getPosts(1, 1)" href="javascript:void(0)" class="category-selector">น่ารักฉลาดเรียนรู้</a>
+                    <a ng-click="vm.getPosts(2, 1)" href="javascript:void(0)" class="category-selector">น่ารักอารมณ์ดี</a>
+                    <a ng-click="vm.getPosts(3, 1)" href="javascript:void(0)" class="category-selector">น่ารักนักสร้างสรรค์</a>
+            </header>
+            <section layout="row" layout-align="center" class="body" layout-wrap>
+                <div class="vote-item" flex="25" ng-repeat="item in vm.posts">
+                    <a href="/#/detail/{{item.id}}" target="_blank">
+                        <img src="{{ vm.constant.uploadedPath + item.image_path}}" style="width: auto; height: 85%">
+                    </a>
+                    <div>
+                        <span>{{item.kid_name}}</span>
+                        <button ng-click="vm.vote()">vote</button>
+                    </div>
+                </div>
+            </section>
+        </section>
+    </md-content>
+</div>

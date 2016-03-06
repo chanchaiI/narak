@@ -12,39 +12,28 @@
 */
 
 Route::post('/v1/auth/', [ function() {
-    return App\Http\Controllers\Auth\AuthController::create();
+    return App\Http\Controllers\Auth\AuthController::getUser();
+}]);
+
+Route::get('/v1/post/{id?}/upload', [ function($id = null) {
+    return App\Http\Controllers\Post\PostController::checkUploaded($id);
 }]);
 
 Route::post('/v1/post/{id?}/upload', [ function($id = null) {
     return App\Http\Controllers\Post\PostController::upload($id);
 }]);
-//
-//Route::post('/v1/post/', [ function($id = null) {
-//    if ($id == null) {
-//        $products = App\Product::all(array('id', 'name', 'price'));
-//    } else {
-//        $products = App\Product::find($id, array('id', 'name', 'price'));
-//    }
-//    return Response::json(array(
-//        'error' => false,
-//        'products' => $products,
-//        'status_code' => 200
-//    ));
-//}]);
-//
-//Route::get('/v1/post/{id?}', [ function($id = null) {
-//    if ($id == null) {
-//        $categories = App\Category::all(array('id', 'name'));
-//    } else {
-//        $categories = App\Category::find($id, array('id', 'name'));
-//    }
-//    return Response::json(array(
-//        'error' => false,
-//        'user' => $categories,
-//        'status_code' => 200
-//    ));
-//}]);
 
+Route::get('/v1/post/{id?}', [ function($id = null) {
+    return App\Http\Controllers\Post\PostController::getPostById($id);
+}]);
+
+Route::get('/v1/post/{size?}/popular/', [ function($size = 3) {
+    return App\Http\Controllers\Post\PostController::getPopularVote($size);
+}]);
+
+Route::get('/v1/post/{category_id?}/page/{pageNumber}/', [ function($category_id = null, $pageNumber = 1) {
+    return App\Http\Controllers\Post\PostController::getPosts($category_id, $pageNumber);
+}]);
 /*
 |--------------------------------------------------------------------------
 | Application Routes

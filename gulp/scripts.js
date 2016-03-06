@@ -41,7 +41,7 @@ function webpackWrapper(watch, test, callback) {
     }
   };
 
-  var sources = [ path.join(conf.paths.src, '/app/app.module.js') ];
+  var sources = [ path.join(conf.paths.src, '/app/app' + (!!conf.module ? '.' + conf.module : '') + '.module.js') ];
   if (test) {
     sources.push(path.join(conf.paths.src, '/app/**/*.spec.js'));
   }

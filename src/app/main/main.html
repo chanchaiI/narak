@@ -1,19 +1,26 @@
 <div layout="vertical" layout-fill>
-    <md-content>
+    <md-content flex>
         <header>
-            Upload picture
+            Upload รูปภาพ
         </header>
-        <section flex layout="row">
-            <section flex style="padding-left: 50px;">
-                <narak-file-upload model="vm.croppedImage"></narak-file-upload>
-            </section>
-            <section flex style="padding-left: 50px;">
-                <canvas id="preview"></canvas>
-            </section>
+        <section flex layout="column" flex layout-align="center">
+            <div layout="row" flex="100" layout-align="center">
+                <div layout="column" flex>
+                    <section flex layout="row" >
+                        <section flex="50" style="padding-left: 50px;" layout-align="center">
+                            <narak-file-upload model="vm.croppedImage"></narak-file-upload>
+                        </section>
+                        <section flex="50" style="padding-left: 50px;" layout-align="center">
+                            <canvas id="preview"></canvas>
+                        </section>
+                    </section>
+                    <div layout="row" layout-align="center">
+                        <md-button flex="20" class="md-raised animated infinite" ng-click="vm.submit()">
+                            Upload & Share
+                        </md-button>
+                    </div>
+                </div>
+            </div>
         </section>
-
-        <md-button class="md-raised animated infinite" ng-click="vm.submit()">
-            Upload & Share
-        </md-button>
     </md-content>
 </div>

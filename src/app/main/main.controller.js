@@ -37,6 +37,7 @@ export class MainController {
             this.$state.go('select-template');
             return;
         }
+        this.baby.category_id = this.selectedTemplate.id;
 
         this.$scope.$on('img-change', ()=> {
             this.preview();
@@ -73,11 +74,6 @@ export class MainController {
                         (!!this.baby.months ? this.baby.months + ' เดือน' : ''), '#FFF',
                         {x: textPaddingLeft, y: templateImage.height - 10});
                 }
-
-                // open the image in a new browser tab
-                // the user can right-click and save that image
-                //var win= this.$window.open();
-                //win.document.write('<img src="'+canvas.toDataURL()+'"/>');
             };
 
             kidImage.src = this.croppedImage;

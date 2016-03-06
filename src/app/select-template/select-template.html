@@ -1,21 +1,37 @@
 <div layout="vertical" layout-fill>
-    <md-content>
-        <section>
-            <form name="selectForm">
-                <div ng-if="vm.selectedTemplate == null">
-                    <div>กรุณาเลือกกรอบรูป</div>
+    <md-content flex>
+        <header>
+            <!--where navbar placed-->
+        </header>
+        <section flex layout="column" flex layout-align="center">
+            <div layout="row" flex="100" layout-align="center">
+                <div layout="row" flex="100">
+                    <form name="selectForm" flex>
+                        <div ng-if="vm.selectedTemplate == null">
+                            <div>กรุณาเลือกกรอบรูป</div>
+                        </div>
+                        <div layout="row" layout-align="center">
+                            <div ng-repeat="(key, value) in vm.categories" flex="30" layout="column">
+                                <div>
+                                    <input type="radio" ng-model="vm.selectedTemplate" ng-value="value">
+                                </div>
+                                <div layout="column">
+                                    <div flex>{{value.name}}</div>
+                                    <div flex>
+                                        <img width="200" height="200" src="{{vm.templatePath + value.path}}">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div layout="row" layout-align="center">
+                            <md-button class="md-raised animated infinite" ng-class="vm.classAnimation"
+                                       ng-click="vm.next()" flex="20">
+                                Next
+                            </md-button>
+                        </div>
+                    </form>
                 </div>
-                <div ng-repeat="(key, value) in vm.templates">
-                    <input type="radio" ng-model="vm.selectedTemplate" ng-value="value">
-                    {{value.name}}
-                    <div>
-                        <img width="200" height="200" src="{{vm.templatePath + value.path}}">
-                    </div>
-                </div>
-                <md-button class="md-raised animated infinite" ng-click="vm.next()">
-                    Next
-                </md-button>
-            </form>
         </section>
     </md-content>
 </div>

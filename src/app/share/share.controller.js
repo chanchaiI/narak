@@ -16,7 +16,9 @@ export class ShareController {
             return this.facebook.isReady();
         }, () => {
             this.isFacebookReady = true;
-            this.getLoginStatus(this.share);
+            this.getLoginStatus(()=>{
+                this.share();
+            });
         })
 
     }

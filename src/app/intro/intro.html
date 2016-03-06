@@ -1,10 +1,36 @@
-<md-content>
-    <header>
-        <div class="jumbotron" ng-if="!vm.isFacebookReady">Loading...</div>
-    </header>
-    <section>
-        <md-button class="md-raised animated infinite" ng-click="vm.login();" ng-if="vm.isFacebookReady">
-            Login
-        </md-button>
-    </section>
-</md-content>
+<div layout="vertical" layout-fill>
+    <md-content flex>
+        <header>
+            <div class="jumbotron" ng-if="!vm.isFacebookReady">Loading...</div>
+        </header>
+        <section flex layout="column" flex>
+            <div layout="row" flex layout-align="center">
+                <div layout="row" flex="50">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut a efficitur quam, quis euismod nibh. In
+                    pharetra tellus non sapien commodo volutpat. Integer eget nisl ex. Duis malesuada scelerisque
+                    consectetur. Morbi lobortis ante vel ipsum elementum molestie. In dapibus felis vel dictum egestas.
+                    In
+                    semper iaculis orci, vitae fringilla neque interdum eu. Aenean non faucibus orci. Phasellus eros
+                    felis,
+                    sollicitudin posuere consequat cursus, tristique id elit.
+
+                    Sed elementum massa a euismod viverra. Sed elementum fringilla ultrices. Cras orci orci, auctor quis
+                    ex
+                    ut, varius malesuada lectus. Pellentesque rutrum consectetur tortor efficitur lacinia. Integer
+                    posuere,
+                    urna in malesuada ornare, risus augue fringilla felis, ac condimentum erat enim sed felis. Integer
+                    consequat fermentum nisi. Phasellus sed posuere nisl, ac varius metus. Nam at purus in ipsum
+                    faucibus
+                    fringilla vel nec ex. Nunc sed rhoncus eros, ac gravida urna.
+                </div>
+            </div>
+            <div layout="row" layout-align="center">
+                <md-button class="md-raised animated infinite"
+                           ng-click="vm.login();"
+                           ng-if="vm.isFacebookReady" flex="20">
+                    เข้าร่วมกิจกรรม
+                </md-button>
+            </div>
+        </section>
+    </md-content>
+</div>

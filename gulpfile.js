@@ -8,6 +8,7 @@
 
 var gulp = require('gulp');
 var wrench = require('wrench');
+var conf = require('./gulp/conf');
 
 /**
  *  This will load all js or coffee files in the gulp directory
@@ -25,5 +26,10 @@ wrench.readdirSyncRecursive('./gulp').filter(function(file) {
  *  main optimization build task
  */
 gulp.task('default', ['clean'], function () {
+  gulp.start('build');
+});
+
+gulp.task('vote', ['clean'], function () {
+  conf.module = 'vote';
   gulp.start('build');
 });

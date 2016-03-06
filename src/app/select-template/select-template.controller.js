@@ -4,7 +4,7 @@ export class SelectTemplateController {
         'ngInject';
 
         this.$state = $state;
-        this.templates = CONSTANT.templates;
+        this.categories = CONSTANT.categories;
         this.templatePath = CONSTANT.templatePath;
         this.dataService = DataService;
         this.selectedTemplate = null;
