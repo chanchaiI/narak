@@ -1,18 +1,12 @@
-<div layout="vertical" layout-fill ng-cloak>
-    <md-content flex layout="column">
-        <header flex="20" layout="column">
-            <div class="jumbotron" flex>
-                <a href="/">
-                    <img src="assets/images/logo.png"/>
-                </a>
-            </div>
-        </header>
-        <section layout="column" flex="30" class="popular-vote">
+<div layout="vertical" layout-fill>
+    <md-content flex>
+        <div ng-cloak layout="row" layout-align="center"><a class="main-logo"><img src="assets/images/narakjung.png"></a></div>
+        <section layout="column" class="popular-vote">
             <header>
                 POPULAR VOTE
             </header>
             <section layout="row" layout-align="center" class="body">
-                <div class="vote-item" flex="30" ng-repeat="item in vm.popularVotes">
+                <div class="vote-item" flex ng-repeat="item in vm.popularVotes">
                     <a href="/#/detail/{{item.id}}" target="_blank">
                         <img src="{{ vm.constant.uploadedPath + item.image_path}}" style="width: auto; height: 95%">
                     </a>
@@ -31,15 +25,32 @@
                     <a ng-click="vm.getPosts(3, 1)" href="javascript:void(0)" class="category-selector">น่ารักนักสร้างสรรค์</a>
             </header>
             <section layout="row" layout-align="center" class="body" layout-wrap>
-                <div class="vote-item" flex="25" ng-repeat="item in vm.posts">
-                    <a href="/#/detail/{{item.id}}" target="_blank">
-                        <img src="{{ vm.constant.uploadedPath + item.image_path}}" style="width: auto; height: 85%">
-                    </a>
-                    <div>
-                        <span>{{item.kid_name}}</span>
-                        <button ng-click="vm.vote()">vote</button>
-                    </div>
-                </div>
+                <md-card ng-repeat="item in vm.posts" flex="25">
+                    <!--<md-card-title>-->
+                        <!--<md-card-title-text layout="column" layout-align="start">-->
+                            <!--<span class="md-headline">Card with image</span>-->
+                            <!--<span class="md-subhead">Extra Large</span>-->
+                        <!--</md-card-title-text>-->
+                    <!--</md-card-title>-->
+                    <md-card-content layout="row" layout-align="space-between">
+                        <div class="md-media-l card-media">
+                            <a href="/#/detail/{{item.id}}" target="_blank">
+                                <img src="{{ vm.constant.uploadedPath + item.image_path}}" style="width: 90%; height: auto;">
+                            </a>
+                        </div>
+                        <md-card-actions layout="column">
+                            <md-button class="md-icon-button" aria-label="Vote">
+                                <md-icon md-font-library="material-icons" ng-click="vm.vote()">star</md-icon>
+                            </md-button>
+                            <md-button class="md-icon-button" aria-label="Detail">
+                                <md-icon md-font-library="material-icons">more_horiz</md-icon>
+                            </md-button>
+                            <md-button class="md-icon-button" aria-label="Share">
+                                <md-icon md-font-library="material-icons">share</md-icon>
+                            </md-button>
+                        </md-card-actions>
+                    </md-card-content>
+                </md-card>
             </section>
         </section>
     </md-content>

@@ -1,32 +1,36 @@
+
 <div layout="vertical" layout-fill>
     <md-content flex>
+        <div ng-cloak layout="row" layout-align="center"><a class="main-logo"><img src="assets/images/narakjung.png"></a></div>
+
         <header>
             <!--where navbar placed-->
         </header>
         <section flex layout="column" flex layout-align="center">
             <div layout="row" flex="100" layout-align="center">
                 <div layout="row" flex="100">
-                    <form name="selectForm" flex>
-                        <div ng-if="vm.selectedTemplate == null">
-                            <div>กรุณาเลือกกรอบรูป</div>
+                    <form name="selectForm" novalidate flex>
+                        <h2>
+                            เลือกกรอบรูป
+                        </h2>
+                        <div ng-messages="selectForm.selectedTemplate.$error" role="alert">
+                            <div ng-message="required" style="color: rgb(244,67,54)">กรุณาเลือกกรอบรูป</div>
                         </div>
                         <div layout="row" layout-align="center">
-                            <div ng-repeat="(key, value) in vm.categories" flex="30" layout="column">
-                                <div>
-                                    <input type="radio" ng-model="vm.selectedTemplate" ng-value="value">
-                                </div>
-                                <div layout="column">
+
+                            <md-radio-group name="selectedTemplate" ng-model="vm.selectedTemplate" layout="row" layout-sm="column">
+                                <md-radio-button ng-repeat="(key, value) in vm.categories" ng-value="value" style="margin-right:20px;" flex>
                                     <div flex>{{value.name}}</div>
                                     <div flex>
-                                        <img width="200" height="200" src="{{vm.templatePath + value.path}}">
+                                        <img style="background-color: #FFF;width:200px;height:200px;" src="{{vm.templatePath + value.path}}">
                                     </div>
-                                </div>
-                            </div>
+                                </md-radio-button>
+                            </md-radio-group>
                         </div>
 
                         <div layout="row" layout-align="center">
                             <md-button class="md-raised animated infinite" ng-class="vm.classAnimation"
-                                       ng-click="vm.next()" flex="20">
+                                       ng-click="vm.next()" flex="20" flex-sm="80">
                                 Next
                             </md-button>
                         </div>

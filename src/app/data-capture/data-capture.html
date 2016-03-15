@@ -1,45 +1,72 @@
+
 <div layout="vertical" layout-fill>
     <md-content flex>
+        <div ng-cloak layout="row" layout-align="center"><a class="main-logo"><img src="assets/images/narakjung.png"></a></div>
+
         <header>
             <!--where navbar placed-->
         </header>
         <section flex layout="column" flex layout-align="center">
             <div layout="row" flex="100" layout-align="center">
-                <div layout="row" flex="50">
+                <div layout="row" flex="50" flex-sm="80">
                     <form name="form" novalidate flex>
-                        <md-input-container>
-                            <label for="babyName">ชื่อ</label>
-                            <input type="text" id="babyName" name="babyName" ng-model="vm.baby.name"
-                                   aria-label="ชื่อ" required>
-                            <div ng-messages="form.babyName.$error" role="alert">
-                                <div ng-message="required">This field is required.</div>
-                            </div>
-                        </md-input-container>
-                        <md-input-container>
-                            <label for="babyNickName">ชื่อเล่น</label>
-                            <input type="text" id="babyNickName" name="babyNickName" ng-model="vm.baby.nickname"
-                                   aria-label="ชื่อเล่น" required>
-                            <div ng-messages="form.babyNickName.$error" role="alert">
-                                <div ng-message="required">This field is required.</div>
-                            </div>
-                        </md-input-container>
-                        <div flex="100" layout="row">
-                            <label flex layout="column" layout-align="center">อายุ</label>
+                        <div flex layout="row">
+                            <label flex="20" layout="column" layout-align="center">เพศ</label>
+                            <md-radio-group ng-model="vm.baby.gender" name="babyGender">
+                                <md-radio-button value="ด.ช.">ชาย</md-radio-button>
+                                <md-radio-button value="ด.ญ.">หญิง</md-radio-button>
+                                <div ng-messages="form.babyGender.$error" role="alert">
+                                    <div ng-message="required">This field is required.</div>
+                                </div>
+                            </md-radio-group>
+                        </div>
+                        <div flex layout="row">
+                            <label flex="20" layout="column" layout-align="center">{{vm.baby.gender}}</label>
+                            <md-input-container flex>
+                                <label for="babyName">ชื่อ</label>
+                                <input type="text" id="babyName" name="babyName" ng-model="vm.baby.name"
+                                       aria-label="ชื่อ" required>
+                                <div ng-messages="form.babyName.$error" role="alert">
+                                    <div ng-message="required">กรุณากรอกข้อมูล</div>
+                                </div>
+                            </md-input-container>
+                        </div>
+                        <div flex layout="row">
+                            <label flex="20" layout="column" layout-align="center">น้อง</label>
+                            <md-input-container flex>
+                                <label for="babyNickName">ชื่อเล่น</label>
+                                <input type="text" id="babyNickName" name="babyNickName" ng-model="vm.baby.nickname"
+                                       aria-label="ชื่อเล่น" required>
+                                <div ng-messages="form.babyNickName.$error" role="alert">
+                                    <div ng-message="required">กรุณากรอกข้อมูล</div>
+                                </div>
+                            </md-input-container>
+                        </div>
+                        <div flex layout="row">
+                            <label flex="20" layout="column" layout-align="center">อายุ</label>
                             <md-input-container flex>
                                 <label for="babyYears">ปี</label>
-                                <input type="number" id="babyYears" ng-model="vm.baby.years" aria-label="ปี" max="5"
+                                <input type="number" id="babyYears" name="babyYears" ng-model="vm.baby.years"
+                                       aria-label="ปี" max="5"
                                        required>
+                                <div ng-messages="form.babyYears.$error" role="alert">
+                                    <div ng-message="required">กรุณากรอกข้อมูล</div>
+                                </div>
                             </md-input-container>
                             <md-input-container flex>
                                 <label for="babyMonths">เดือน</label>
-                                <input type="number" id="babyMonths" ng-model="vm.baby.months" aria-label="เดือน"
+                                <input type="number" id="babyMonths" name="babyMonths" ng-model="vm.baby.months"
+                                       aria-label="เดือน"
                                        min="1"
                                        max="12" required>
+                                <div ng-messages="form.babyMonths.$error" role="alert">
+                                    <div ng-message="required">กรุณากรอกข้อมูล</div>
+                                </div>
                             </md-input-container>
                         </div>
                         <div layout="row" layout-align="center">
                             <md-button class="md-raised animated infinite" ng-class="vm.classAnimation"
-                                       ng-click="vm.next()" flex="30">
+                                       ng-click="vm.next()" flex="30" flex-sm="80">
                                 Next
                             </md-button>
                         </div>

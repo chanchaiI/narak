@@ -16,11 +16,12 @@ export class DataCaptureController {
     activate() {
         this.croppedImage = '';
         this.baby = this.dataService.get('baby') || {
-            name: '',
-            nickname: '',
-            years: null,
-            months: null
-        };
+                gender: 'ด.ช.',
+                name: '',
+                nickname: '',
+                years: null,
+                months: null
+            };
     }
 
     next(){

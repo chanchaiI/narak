@@ -1,7 +1,10 @@
 <div class="upload-img-wrapper">
-    <md-button class="md-raised animated infinite" ngf-select ng-model="picFile" accept="image/*">
-        Select Picture
-    </md-button>
+    <!--<md-button class="md-raised animated infinite" ngf-select ng-model="picFile" accept="image/*" ngf-capture="'camera'">-->
+        <!--Select Picture-->
+    <!--</md-button>-->
+
+    <input type="file" ngf-select ng-model="picFile" ngf-accept="'image/*'" ngf-capture="'camera'">
+
     <div ngf-drop ng-model="picFile" ngf-pattern="image/*" class="cropArea">
         <div style="margin: 120px auto; text-align: center;" ng-if="!picFile">Drop Image here</div>
         <img-crop image="picFile | ngfDataUrl"

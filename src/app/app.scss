@@ -18,6 +18,18 @@
   url(../../bower_components/material-design-iconfont/iconfont/MaterialIcons-Regular.ttf) format('truetype');
 }
 
+@font-face {
+  font-family: 'db_helvethaicamon_x75_bd';
+  src: url('../assets/fonts/db_helvethaicamon_x_bd_v3.2-webfont.eot');
+  src: url('../assets/fonts/db_helvethaicamon_x_bd_v3.2-webfont.eot?#iefix') format('embedded-opentype'),
+  url('../assets/fonts/db_helvethaicamon_x_bd_v3.2-webfont.woff2') format('woff2'),
+  url('../assets/fonts/db_helvethaicamon_x_bd_v3.2-webfont.woff') format('woff'),
+  url('../assets/fonts/db_helvethaicamon_x_bd_v3.2-webfont.ttf') format('truetype'),
+  url('../assets/fonts/db_helvethaicamon_x_bd_v3.2-webfont.svg#db_helvethaicamon_x75_bd') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
 .material-icons {
   font-family: 'Material Icons';
   font-weight: normal;
@@ -44,17 +56,93 @@
 }
 
 html {
-  font-family: 'Roboto Slab', serif;
+  font-family: 'db_helvethaicamon_x75_bd', 'Roboto Slab', serif;
   overflow-y: hidden;
+  background-color: #E9EAED;
+  font-size: 25px;
 }
 
 .page {
   bottom: 0;
-  padding-top: 10%;
+  //padding-top: 120px;
   position: absolute;
   text-align: center;
   top: 0;
   width: 100%;
+}
+
+body{
+  background-color: #9CDCF9;
+}
+
+.main-logo{
+  width: 190px;
+  img{
+    width: 190px;
+  }
+}
+
+md-content {
+  background-color: #9CDCF9;
+  color: #0A9BCB;
+}
+
+md-card md-card-title {
+  padding: 24px 16px 16px;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+}
+
+input{
+  font-family: 'db_helvethaicamon_x75_bd', 'Roboto Slab', serif;
+  color: #C0C0C0;
+  font-size: 1.2em;
+}
+
+md-input-container.md-default-theme:not(.md-input-invalid).md-input-has-value, md-input-container:not(.md-input-invalid).md-input-has-value label{
+  color: #0A9BCB;
+}
+
+.md-checked .md-label{
+  color: #E91E63;
+}
+
+md-radio-button .md-off, md-radio-button .md-label{
+  border-color: #FFF;
+  color: #FFF;
+}
+
+h2,h3{
+  color: #E91E63;
+}
+md-input-container .md-input{
+  color: #E91E63;
+  border-color: #FFF;
+}
+
+md-input-container [ng-message]{
+  font-size: 17px;
+  line-height: 19px;
+}
+
+.md-button.md-raised{
+  color: #E91E63;
+}
+
+.md-button{
+  font-size: 25px;
+
+}
+
+#preview{
+  background-color: #FFF;
 }
 
 .page.ng-leave {

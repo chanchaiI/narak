@@ -1,8 +1,9 @@
 export class SelectTemplateController {
 
-    constructor(CONSTANT, $state, DataService) {
+    constructor($scope, CONSTANT, $state, DataService) {
         'ngInject';
 
+        this.$scope = $scope;
         this.$state = $state;
         this.categories = CONSTANT.categories;
         this.templatePath = CONSTANT.templatePath;
@@ -11,7 +12,9 @@ export class SelectTemplateController {
     }
 
     next(){
-        this.dataService.set('selectedTemplate', this.selectedTemplate);
-        this.$state.go('main');
+        if (this.$scope.selectForm.$valid) {
+            this.dataService.set('selectedTemplate', this.selectedTemplate);
+            this.$state.go('main');
+        }
     }
 }

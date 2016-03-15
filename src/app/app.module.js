@@ -11,7 +11,7 @@ import { SelectTemplateController } from './select-template/select-template.cont
 import { MainController } from './main/main.controller';
 import { ShareController } from './share/share.controller';
 import { } from './components/narak.fileupload/narak.fileupload';
-//import { VoteController } from './vote/vote.controller';
+import { VoteController } from './vote/vote.controller';
 
 angular.module('narak', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', 'ngMessages', 'ngAria', 'ui.router', 'ngMaterial', 'toastr', 'facebook', 'narakFileUpload', 'angular-loading-bar'])
     .constant('malarkey', malarkey)
@@ -26,5 +26,5 @@ angular.module('narak', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', 'ngM
     .controller('SelectTemplateController', SelectTemplateController)
     .controller('MainController', MainController)
     .controller('ShareController', ShareController)
-    //.controller('VoteController', VoteController)
+    .controller('VoteController', VoteController)
 ;

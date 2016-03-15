@@ -72,11 +72,12 @@ class PostController extends Controller
         }
     }
 
-    private static function write_random_no($image, $random_no)
+    private static function write_random_no($image, $x, $y, $random_no, $fontSize, $fontColor)
     {
-        $font = 'fonts/OpenSans-Bold.ttf';
-        $white = imagecolorallocate($image, 255, 255, 255);
-        imagettftext($image, 12, 0, 333, 27, $white, $font, $random_no);
+        $font = 'fonts/db_helvethaicamon_x_bd_v3.2-webfont.ttf';
+        list($r, $g, $b) = sscanf($fontColor, "#%02x%02x%02x");
+        $fontColorResource = imagecolorallocate($image, $r, $g, $b);
+        imagettftext($image, $fontSize, 0, $x, $y, $fontColorResource, $font, $random_no);
     }
 
     public static function upload($id)
@@ -104,22 +105,25 @@ class PostController extends Controller
             $imageFile = imagecreatefromstring($decoded_data);
 
             if ($imageFile !== false) {
+                $template = json_decode($request_array[1])->template;
+
                 $destinationPath = public_path() . "/../.." . '/uploads/images/'; // upload path
                 $extension = 'jpg'; // getting image extension
-                $random_no = self::randomNumber(11111, 99999);
-                self::write_random_no($imageFile, $random_no);
+                $random_no = self::randomNumber(1111, 9999);
+                self::write_random_no($imageFile, $template->position->id->x, $template->position->id->y, $random_no, 15, $template->font->color);
                 $fileName = $random_no . '.' . $extension; // renaming image
                 $success = imagejpeg($imageFile, $destinationPath . $fileName);
 
-                $data = json_decode($request_array[1]);
+
+                $baby = json_decode($request_array[1])->baby;
                 $post = Post::create([
-                    'kid_name' => $data->name,
-                    'kid_nickname' => $data->nickname,
-                    'kid_year' => $data->years,
-                    'kid_month' => $data->months,
+                    'kid_name' => $baby->name,
+                    'kid_nickname' => $baby->nickname,
+                    'kid_year' => $baby->years,
+                    'kid_month' => $baby->months,
                     'random_no' => $random_no,
                     'image_path' => $fileName,
-                    'category_id' => $data->category_id,
+                    'category_id' => $baby->category_id,
                     'user_id' => $id
                 ]);
 

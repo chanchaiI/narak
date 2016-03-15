@@ -20,12 +20,12 @@ export class MainController {
 
     activate() {
         this.croppedImage = '';
-
-        this.user = this.dataService.get('user');
-        if(!this.user){
-            this.$state.go('intro');
-            return;
-        }
+        //
+        //this.user = this.dataService.get('user');
+        //if(!this.user){
+        //    this.$state.go('intro');
+        //    return;
+        //}
 
         this.baby = this.dataService.get('baby');
         if (!this.baby) {
@@ -53,33 +53,31 @@ export class MainController {
         templateImage.onload = () => {
             canvas.width = templateImage.width;
             canvas.height = templateImage.height;
-            context.font = 'bold 13px Open Sans Condensed';
-            context.font.fontcolor('#CCC');
+            context.font = this.selectedTemplate.font.name || '20px db_helvethaicamon_x75_bd';
+            var fontColor = this.selectedTemplate.font.color || '#CCC';
 
             var kidImage = new Image();
             kidImage.onload = () => {
-                drawKidImage(context, kidImage);
+                drawKidImage(context, this.selectedTemplate.position.kid.x || 30, this.selectedTemplate.position.kid.y || 40, kidImage);
                 drawTemplate(context, templateImage);
 
                 var textPaddingLeft = 43;
+                var name = this.baby.gender + ' ' + this.baby.name + ' ( น้อง' + this.baby.nickname + ' )';
 
-                drawText(context, this.baby.name, '#FFF', {x: textPaddingLeft, y: templateImage.height - 28});
-                var nameDetail = context.measureText(this.baby.name);
+                drawText(context, name, fontColor, {x: textPaddingLeft, y: templateImage.height - 28});
 
-                drawText(context, '( น้อง' + this.baby.nickname + ' )', '#FFF',
-                    {x: textPaddingLeft + 5 + nameDetail.width, y: templateImage.height - 28});
 
                 if (!!this.baby.years || !!this.baby.months) {
                     drawText(context, (!!this.baby.years ? this.baby.years + ' ปี ' : '') +
-                        (!!this.baby.months ? this.baby.months + ' เดือน' : ''), '#FFF',
+                        (!!this.baby.months ? this.baby.months + ' เดือน' : ''), fontColor,
                         {x: textPaddingLeft, y: templateImage.height - 10});
                 }
             };
 
             kidImage.src = this.croppedImage;
 
-            function drawKidImage(context, imageObj) {
-                context.drawImage(imageObj, 30, 40, imageObj.width, imageObj.height);
+            function drawKidImage(context, x, y, imageObj) {
+                context.drawImage(imageObj, x, y, imageObj.width, imageObj.height);
             }
 
             function drawTemplate(context, templateImage) {
@@ -100,12 +98,16 @@ export class MainController {
     submit() {
         var uploadUrl = this.constant.serviceBaseUrl + 'post/' + this.user.id + '/upload';
         var canvas = angular.element(document.querySelector('#preview'))[0];
+        var data = {
+            baby: this.baby,
+            template: this.selectedTemplate
+        };
         this.upload.http({
             url: uploadUrl,
             headers: {
                 'Content-Type': this.croppedImage.type
             },
-            data: canvas.toDataURL() + ',data=' + angular.toJson(this.baby)
+            data: canvas.toDataURL() + ',data=' + angular.toJson(data)
         }).success((response)=>{
             this.dataService.set('post', response);
             this.$state.go('share');

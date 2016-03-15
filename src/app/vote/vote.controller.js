@@ -13,6 +13,7 @@ export class VoteController {
         this.constant = CONSTANT;
         this.dataService = DataService;
         this.popularVotes = [];
+        this.posts = [];
 
         this.$scope.$watch(() => {
             return this.facebook.isReady();
@@ -30,17 +31,31 @@ export class VoteController {
     }
 
     getPopularVotes(size){
-        var getPopularVoteUrl = this.constant.serviceBaseUrl + 'post/'+ size +'/popular';
-        this.$http.get(getPopularVoteUrl).success((response)=>{
-            this.popularVotes = response;
-        });
+        //var getPopularVoteUrl = this.constant.serviceBaseUrl + 'post/'+ size +'/popular';
+        //this.$http.get(getPopularVoteUrl).success((response)=>{
+        //    this.popularVotes = response;
+        //});
+        for(var i=0; i<size; i++){
+            this.popularVotes.push({
+                image_path: '7279.jpg',
+                kid_name: 'ด.ญ. น่ารัก เทียร่า'
+            })
+        }
     }
 
     getPosts(category_id, pageNumber){
-        var getPostUrl = this.constant.serviceBaseUrl + 'post/' + category_id + '/page/' + pageNumber;
-        this.$http.get(getPostUrl).success((response)=>{
-            this.posts = response.data;
-        });
+        //var getPostUrl = this.constant.serviceBaseUrl + 'post/' + category_id + '/page/' + pageNumber;
+        //this.$http.get(getPostUrl).success((response)=>{
+        //
+        //    //this.posts = response.data;
+        //});
+
+        for(var i=0; i<10; i++){
+            this.posts.push({
+                image_path: '7279.jpg',
+                kid_name: 'ด.ญ. น่ารัก เทียร่า'
+            })
+        }
     }
 
     vote(){
