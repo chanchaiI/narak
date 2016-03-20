@@ -8,7 +8,7 @@ export class SelectTemplateController {
         this.categories = CONSTANT.categories;
         this.templatePath = CONSTANT.templatePath;
         this.dataService = DataService;
-        this.selectedTemplate = null;
+        this.selectedTemplate = this.dataService.get('selectedTemplate') || null;
     }
 
     next(){

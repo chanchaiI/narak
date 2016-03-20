@@ -5,11 +5,11 @@ import { routerConfig } from './app.vote.route';
 import { runBlock } from './app.run';
 import { constant } from './app.constant';
 import { DataService } from './services/data.service';
+import { PostService } from './services/post.service';
+import { ImageDialogController } from './vote/image.dialog.controller'
 import { VoteController } from './vote/vote.controller';
-import { VoteDetailController } from './vote-detail/vote-detail.controller';
-import { } from './components/narak.fileupload/narak.fileupload';
 
-angular.module('narak', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', 'ngMessages', 'ngAria', 'ui.router', 'ngMaterial', 'toastr', 'facebook', 'angular-loading-bar'])
+angular.module('narak', ['ngAnimate', 'ngSanitize', 'ngMessages', 'ngAria', 'ui.router', 'ngMaterial', 'facebook', 'angular-loading-bar'])
     .constant('malarkey', malarkey)
     .constant('moment', moment)
     .constant('CONSTANT', constant)
@@ -17,6 +17,7 @@ angular.module('narak', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', 'ngM
     .config(routerConfig)
     .run(runBlock)
     .service('DataService', DataService)
+    .service('PostService', PostService)
+    .controller('ImageDialogController', ImageDialogController)
     .controller('VoteController', VoteController)
-    .controller('VoteDetailController', VoteDetailController)
 ;

@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers\Post;
 
-//
-//use Input;
-//use Validator;
 use Request;
 use App\Http\Controllers\Controller;
 use Response;
 use App\Post;
+use Illuminate\Support\Facades\DB;
 
 class PostController extends Controller
 {
@@ -35,31 +33,77 @@ class PostController extends Controller
 
     public static function getPostById($id)
     {
-        return Post::where('id', $id)->first();
+        $result = Post::with('votes')->where('id', $id)->where('isPublished', 1)->first();
+        if($result != null){
+            $result->vote_count = $result->votes->count();
+            return $result;
+        }else{
+            return Response::json(array(
+                'result' => false,
+                'message' => 'Not Found'
+            ), 404);
+        }
     }
 
     private static function getPostByUserId($user_id)
     {
-        return Post::where('user_id', $user_id)->first();
+        $result = Post::with('votes')->where('user_id', $user_id)->where('isPublished', 1)->first();
+        if($result != null){
+            $result->vote_count = $result->votes->count();
+            return $result;
+        }else{
+            return Response::json(array(
+                'result' => false,
+                'message' => 'Not Found'
+            ), 404);
+        }
     }
 
     public static function getPosts($category_id = null, $pageNumber = 1, $pageSize = 8)
     {
         if ($category_id != 'all') {
-            return Response::json(array(
-                'data' => Post::where('category_id', intval($category_id))->latest()->get()->forPage(intval($pageNumber), $pageSize),
-                'total' => Post::where('category_id', intval($category_id))->count()
-            ));
+            return Post::leftJoin('votes', 'votes.post_id', '=', 'posts.id')
+                ->groupBy('posts.id')
+                ->where('category_id', intval($category_id))
+                ->where('isPublished', 1)
+                ->latest()
+                ->get(['posts.id', 'posts.image_path', 'posts.created_at', 'posts.category_id', DB::raw('count(votes.id) as vote_count')])
+                ->forPage(intval($pageNumber), $pageSize);
         }
+        return Post::leftJoin('votes', 'votes.post_id', '=', 'posts.id')
+        ->groupBy('posts.id')
+        ->where('isPublished', 1)
+        ->latest()
+        ->get(['posts.id', 'posts.image_path', 'posts.kid_nickname', 'posts.kid_name', 'posts.created_at', DB::raw('count(votes.id) as vote_count')])
+        ->forPage(intval($pageNumber), $pageSize);
+    }
+
+    public static function getPostsAdmin($order = null, $pageSize = 10, $pageNumber = 1)
+    {
+        $data = Post::leftJoin('votes', 'votes.post_id', '=', 'posts.id')
+            ->groupBy('posts.id')
+            ->get(['posts.id', 'posts.image_path', 'posts.kid_name', 'posts.kid_nickname', 'posts.kid_year', 'posts.kid_month',
+                'posts.created_at', 'posts.isPublished', 'posts.created_at', 'posts.updated_at',  DB::raw('count(votes.id) as vote_count')])
+            ->sortByDesc($order)
+            ->values()
+            ->forPage(intval($pageNumber), $pageSize);
+
+        $count = Post::all()->count();
         return Response::json(array(
-            'data' => Post::latest()->get()->forPage(intval($pageNumber), $pageSize),
-            'total' => Post::all()->count()
+            'data' => $data,
+            'count' => $count
         ));
     }
 
     public static function getPopularVote($size = 3)
     {
-        return Post::all()->sortByDesc('vote_count')->values()->forPage(1, $size);
+        return Post::join('votes', 'votes.post_id', '=', 'posts.id')
+            ->groupBy('posts.id')
+            ->where('isPublished', 1)
+            ->get(['posts.id', 'posts.image_path', 'posts.kid_nickname', 'posts.kid_name', 'posts.created_at', DB::raw('count(votes.id) as vote_count')])
+            ->sortByDesc('vote_count')
+            ->values()
+            ->forPage(1, $size);
     }
 
     private static function randomNumber($min, $max)
@@ -139,5 +183,21 @@ class PostController extends Controller
                 ), 400);
             }
         }
+    }
+
+    public static function unpublish($idList)
+    {
+        DB::table('posts')
+            ->whereIn('id', $idList)
+            ->update(['isPublished' => 0]);
+        return Response::json();
+    }
+
+    public static function publish($idList)
+    {
+        DB::table('posts')
+            ->whereIn('id', $idList)
+            ->update(['isPublished' => 1]);
+        return Response::json();
     }
 }

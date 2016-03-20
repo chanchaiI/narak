@@ -17,9 +17,10 @@
                             <div ng-message="required" style="color: rgb(244,67,54)">กรุณาเลือกกรอบรูป</div>
                         </div>
                         <div layout="row" layout-align="center">
-
-                            <md-radio-group name="selectedTemplate" ng-model="vm.selectedTemplate" layout="row" layout-sm="column">
-                                <md-radio-button ng-repeat="(key, value) in vm.categories" ng-value="value" style="margin-right:20px;" flex>
+                            <md-radio-group name="selectedTemplate" ng-model="vm.selectedTemplate"
+                                            layout-wrap
+                                            layout-sm="column" layout-xs="column" layout="row" required>
+                                <md-radio-button ng-repeat="(key, value) in vm.categories" ng-value="value" style="margin-right:20px;" flex flex-xs="80">
                                     <div flex>{{value.name}}</div>
                                     <div flex>
                                         <img style="background-color: #FFF;width:200px;height:200px;" src="{{vm.templatePath + value.path}}">
@@ -30,7 +31,7 @@
 
                         <div layout="row" layout-align="center">
                             <md-button class="md-raised animated infinite" ng-class="vm.classAnimation"
-                                       ng-click="vm.next()" flex="20" flex-sm="80">
+                                       ng-click="vm.next()" flex="20" flex-xs="80">
                                 Next
                             </md-button>
                         </div>

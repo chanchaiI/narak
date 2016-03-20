@@ -1,0 +1,55 @@
+<div layout="vertical" layout-fill>
+    <md-content flex>
+        <div ng-cloak layout="row" layout-align="center">
+            <a class="main-logo"><img src="assets/images/narakjung.png"></a></div>
+        <section flex layout-align="center">
+            <md-toolbar class="md-table-toolbar md-default" ng-hide="vm.options.rowSelection && vm.selected.length">
+                <div class="md-toolbar-tools">
+                    <span>Submitted Post</span>
+                </div>
+            </md-toolbar>
+
+            <md-toolbar class="md-table-toolbar" style="background-color:#FD578F;" ng-show="vm.options.rowSelection && vm.selected.length">
+                <div class="md-toolbar-tools">
+                    <span>{{vm.selected.length}} {{vm.selected.length > 1 ? 'items' : 'item'}} selected</span>
+                    <div flex></div>
+                    <md-button ng-click="vm.unPublish()">UnPublish</md-button>
+                    <md-button ng-click="vm.publish()">Publish</md-button>
+                </div>
+            </md-toolbar>
+
+            <md-table-container>
+                <table md-table md-row-select="vm.options.rowSelection" ng-model="vm.selected">
+                    <thead md-head md-order="vm.query.order" md-on-reorder="vm.$scope.onReorder">
+                    <tr md-row>
+                        <th md-column><span>Id</span></th>
+                        <th md-column>Image</th>
+                        <th md-column>Kid's name</th>
+                        <th md-column>Kid's nickname</th>
+                        <th md-column>Kid's age</th>
+                        <th md-column md-numeric>Vote</th>
+                        <th md-column>Status</th>
+                        <th md-column>Submitted Date</th>
+                    </tr>
+                    </thead>
+                    <tbody md-body>
+                    <tr md-row md-select="post" md-select-id="{{post.id}}" md-auto-select
+                        ng-repeat="post in vm.posts.data">
+                        <td md-cell>{{post.id}}</td>
+                        <td md-cell ng-click="vm.showImage(post)"><img src="{{vm.constant.domainUrl + vm.constant.uploadedPath + post.image_path}}" style="width:50px"></td>
+                        <td md-cell>{{post.kid_name}}</td>
+                        <td md-cell>{{post.kid_nickname}}</td>
+                        <td md-cell>{{post.kid_year}} ปี {{post.kid_month}} เดือน</td>
+                        <td md-cell>{{post.vote_count}}</td>
+                        <td md-cell>{{post.isPublished ? 'Published':'Unpublished'}}</td>
+                        <td md-cell>{{post.created_at}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </md-table-container>
+
+            <md-table-pagination md-limit="vm.query.limit" md-page="vm.query.page" md-total="{{vm.posts.count}}"
+                                 md-on-paginate="vm.$scope.onPaginate" md-page-select></md-table-pagination>
+        </section>
+    </md-content>
+</div>

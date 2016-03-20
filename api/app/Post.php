@@ -14,4 +14,9 @@ class Post extends Model
     {
         return $this->hasOne('App\User');
     }
+
+    public function votes()
+    {
+        return $this->hasMany('App\Vote', 'post_id', 'id');
+    }
 }

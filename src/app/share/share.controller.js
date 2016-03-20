@@ -1,5 +1,5 @@
 export class ShareController {
-    constructor(toastr, $scope, $window, Facebook, $state, $log, $http, CONSTANT, DataService) {
+    constructor($scope, $window, Facebook, $state, $log, $http, CONSTANT, DataService) {
         'ngInject';
 
         this.facebook = Facebook;
@@ -11,6 +11,8 @@ export class ShareController {
         this.$http = $http;
         this.constant = CONSTANT;
         this.dataService = DataService;
+        this.post = {};
+        this.activate();
 
         this.$scope.$watch(() => {
             return this.facebook.isReady();
@@ -19,10 +21,14 @@ export class ShareController {
             this.getLoginStatus(()=>{
                 this.share();
             });
-        })
+        });
 
     }
 
+    activate(){
+        this.post = this.dataService.get('post');
+        this.imagePath = this.constant.domainUrl + this.constant.uploadedPath + this.post.image_path;
+    }
     getLoginStatus(callback) {
         this.facebook.getLoginStatus(callback);
     }
@@ -32,10 +38,9 @@ export class ShareController {
     }
 
     share(){
-        var post = this.dataService.get('post');
         var sharingUrl = '';
-        if(!!post){
-            sharingUrl = this.constant.domainUrl + 'post/' + post.id;
+        if(!!this.post){
+            sharingUrl = this.constant.domainUrl + '?id=' + this.post.id;
         }else{
             sharingUrl = this.constant.domainUrl;
         }

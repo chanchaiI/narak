@@ -2,13 +2,6 @@ export function routerConfig($stateProvider, $urlRouterProvider) {
     'ngInject';
     $stateProvider
 
-        .state('vote', {
-            url: '/vote',
-            templateUrl: 'app/vote/vote.html',
-            controller: 'VoteController',
-            controllerAs: 'vm'
-        })
-
         .state('intro', {
             url: '/',
             templateUrl: 'app/intro/intro.html',

@@ -1,0 +1,32 @@
+<md-dialog aria-label="Vote" ng-cloak>
+    <form>
+        <md-toolbar style="background-color: #0a9bcb;">
+            <div class="md-toolbar-tools">
+                <h2 style="color:white;">โหวตให้กับน้อง{{im.nickname}}</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="im.cancel()">
+                    <md-icon md-font-library="material-icons" aria-label="Close dialog">close</md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content style="overflow: hidden;text-align: center;">
+            <div class="md-dialog-content" ng-class="{'no-side-padding': im.isFullScreen}">
+                <img src="{{im.imgUrl}}" style="width: 100%;">
+                <div>
+                    <span>คะแนนโหวต</span><span style="color:#E91E63;margin-left: 5px;">{{im.voteCount}}</span>
+                </div>
+            </div>
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+            <span flex></span>
+            <md-button ng-click="im.answer('cancel')" style="margin-right:20px;">
+                <md-icon md-font-library="material-icons" style="margin-top: -4px;margin-right: 3px;">close</md-icon>
+                Cancel
+            </md-button>
+            <md-button ng-click="im.answer('vote')" style="color:#E91E63;">
+                <md-icon md-font-library="material-icons" class="gold" style="margin-top: -4px;margin-right: 3px;">star</md-icon>
+                Vote
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

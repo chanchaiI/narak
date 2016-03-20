@@ -1,24 +1,29 @@
-
 <div layout="vertical" layout-fill>
     <md-content flex>
-        <div ng-cloak layout="row" layout-align="center"><a class="main-logo"><img src="assets/images/narakjung.png"></a></div>
+        <div ng-cloak layout="row" layout-align="center"><a class="main-logo"><img
+                src="assets/images/narakjung.png"></a></div>
         <h2>
             Upload รูปภาพ
         </h2>
-        <section flex layout="column" flex layout-align="center">
-            <div flex layout="row" layout-sm="column" layout-align="center">
-                <div layout-align="center" flex>
-                    <narak-file-upload model="vm.croppedImage"></narak-file-upload>
+        <section flex layout="column" layout-align="center">
+            <form name="mainForm" novalidate>
+                <div ng-messages="mainForm.picFile.$error" role="alert">
+                    <div ng-message="required">กรุณาอัพโหลดรูปภาพ</div>
                 </div>
-                <div layout-align="center" flex>
-                    <canvas id="preview"></canvas>
+                <div flex layout="row" layout-sm="column" layout-align="center" layout-wrap>
+                    <div layout-align="center" flex flex-sm="100" flex-xs="100">
+                        <narak-file-upload model="vm.croppedImage"></narak-file-upload>
+                    </div>
+                    <div layout-align="center" flex flex-sm="100" flex-xs="100">
+                        <canvas id="preview"></canvas>
+                    </div>
                 </div>
-            </div>
-            <div flex layout="row" layout-align="center">
-                <md-button flex="20" flex-sm="80" class="md-raised animated infinite" ng-click="vm.submit()">
-                    Upload & Share
-                </md-button>
-            </div>
+                <div flex layout="row" layout-align="center">
+                    <md-button flex="20" flex-sm="80" flex-xs="80" class="md-raised animated infinite" ng-click="vm.submit()">
+                        Upload & Share
+                    </md-button>
+                </div>
+            </form>
         </section>
     </md-content>
 </div>
