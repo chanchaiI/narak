@@ -1,10 +1,9 @@
 
 export class DataCaptureController {
-    constructor(toastr, $scope, $state, DataService) {
+    constructor($scope, $state, DataService) {
         'ngInject';
 
         this.pageClass = 'page-data-capture';
-        this.toastr = toastr;
         this.$scope = $scope;
         this.$state = $state;
         this.dataService = DataService;

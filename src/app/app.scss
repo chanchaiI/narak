@@ -132,6 +132,10 @@ md-input-container [ng-message]{
   line-height: 19px;
 }
 
+[ng-message]{
+  color: rgb(244,67,54);
+}
+
 .md-button.md-raised{
   color: #E91E63;
 }
@@ -166,7 +170,7 @@ md-input-container [ng-message]{
 }
 
 .page-vote {
-  padding-top: 50px;
+  //padding-top: 50px;
 }
 
 [layout=row] {
@@ -209,6 +213,35 @@ section.jumbotron {
       width: 100px;
     }
   }
+}
+
+
+md-card {
+  background-color: transparent;
+  box-shadow: none;
+  md-card-content{
+    padding: 5px;
+  }
+  md-card-actions{
+    margin: 0;
+    .vote-count{
+      margin-top: 10px;
+      color: #FFF;
+    }
+    .vote-btn{
+      margin-top: -10px !important;
+    }
+  }
+}
+
+.gold{
+  color: gold !important;
+  text-shadow: 0 0 1px #9C7000 !important;
+}
+
+.no-side-padding{
+  padding-left: 0 !important;
+  padding-right: 0 !important;
 }
 
 #loading-bar .bar {
@@ -258,16 +291,15 @@ section.jumbotron {
 
 /* Vote */
 .popular-vote{
-  background-color: lightblue;
+  //background-color: lightblue;
 }
 .popular-vote header{
   font-size: 2em;
-  color: #FFF;
+  color: #E91E63;
   font-weight: 600;
 }
-.popular-vote .body{
-  padding: 20px;
-}
+
+
 .vote-item{
   height: 300px;
 }
@@ -278,6 +310,14 @@ section.jumbotron {
 
 .category-selector{
   margin-right: 20px;
+  [md-ink-ripple-checkbox]{
+    display: none;
+  }
+  md-radio-button.md-checked .md-label{
+    border-width: 2px 0;
+    border-color: #E91E63;
+    border-style: solid;
+  }
 }
 
 
@@ -285,10 +325,35 @@ section.jumbotron {
   margin-top: 30px;
 }
 
+.vote-media img{
+  width: 100%;
+  height: auto;
+}
 
 
+// Table //
+table.md-table th.md-column{
+  font-size: 24px;
+}
 
+table.md-table td.md-cell{
+  font-size: 20px;
+}
 
+table.md-table thead.md-head>tr.md-row{
+  background-color: #FFF;
+}
+
+table.md-table tbody.md-body>tr.md-row, table.md-table tfoot.md-foot>tr.md-row{
+  background-color: #FFF;
+}
+.md-table-pagination{
+  font-size: 20px;
+}
+
+md-toolbar .md-toolbar-tools{
+  font-size: 30px;
+}
 
 /* rotate and fall */
 @-webkit-keyframes rotateFall {

@@ -1,10 +1,7 @@
-//import { NarakFileUploadComponent } from '../components/narak.fileupload/narak.fileupload'
-
 export class MainController {
-    constructor(toastr, $scope, Upload, $timeout, $document, $window, $http, $state, CONSTANT, DataService, $log) {
+    constructor($scope, Upload, $timeout, $document, $window, $http, $state, CONSTANT, DataService, $log) {
         'ngInject';
 
-        this.toastr = toastr;
         this.$scope = $scope;
         this.upload = Upload;
         this.$timeout = $timeout;
@@ -20,12 +17,12 @@ export class MainController {
 
     activate() {
         this.croppedImage = '';
-        //
-        //this.user = this.dataService.get('user');
-        //if(!this.user){
-        //    this.$state.go('intro');
-        //    return;
-        //}
+
+        this.user = this.dataService.get('user');
+        if(!this.user){
+            this.$state.go('intro');
+            return;
+        }
 
         this.baby = this.dataService.get('baby');
         if (!this.baby) {
@@ -96,23 +93,25 @@ export class MainController {
     }
 
     submit() {
-        var uploadUrl = this.constant.serviceBaseUrl + 'post/' + this.user.id + '/upload';
-        var canvas = angular.element(document.querySelector('#preview'))[0];
-        var data = {
-            baby: this.baby,
-            template: this.selectedTemplate
-        };
-        this.upload.http({
-            url: uploadUrl,
-            headers: {
-                'Content-Type': this.croppedImage.type
-            },
-            data: canvas.toDataURL() + ',data=' + angular.toJson(data)
-        }).success((response)=>{
-            this.dataService.set('post', response);
-            this.$state.go('share');
-        }).error((response)=>{
-            alert(response.message);
-        });
+        if(this.$scope.mainForm.$valid){
+            var uploadUrl = this.constant.serviceBaseUrl + 'post/' + this.user.id + '/upload';
+            var canvas = angular.element(document.querySelector('#preview'))[0];
+            var data = {
+                baby: this.baby,
+                template: this.selectedTemplate
+            };
+            this.upload.http({
+                url: uploadUrl,
+                headers: {
+                    'Content-Type': this.croppedImage.type
+                },
+                data: canvas.toDataURL() + ',data=' + angular.toJson(data)
+            }).success((response)=>{
+                this.dataService.set('post', response.data);
+                this.$state.go('share');
+            }).error((response)=>{
+                alert(response.message);
+            });
+        }
     }
 }

@@ -8,7 +8,7 @@
         </header>
         <section flex layout="column" flex layout-align="center">
             <div layout="row" flex="100" layout-align="center">
-                <div layout="row" flex="50" flex-sm="80">
+                <div layout="row" flex="50" flex-xs="80">
                     <form name="form" novalidate flex>
                         <div flex layout="row">
                             <label flex="20" layout="column" layout-align="center">เพศ</label>
@@ -47,26 +47,31 @@
                             <md-input-container flex>
                                 <label for="babyYears">ปี</label>
                                 <input type="number" id="babyYears" name="babyYears" ng-model="vm.baby.years"
-                                       aria-label="ปี" max="5"
+                                       aria-label="ปี" style="text-align: center;"
+                                       min="0"
+                                       max="7"
                                        required>
                                 <div ng-messages="form.babyYears.$error" role="alert">
                                     <div ng-message="required">กรุณากรอกข้อมูล</div>
+                                    <div ng-message="min">ข้อมูลไม่ถูกต้อง</div>
+                                    <div ng-message="max">อายุห้ามเกิน 7 ปี</div>
                                 </div>
                             </md-input-container>
                             <md-input-container flex>
                                 <label for="babyMonths">เดือน</label>
                                 <input type="number" id="babyMonths" name="babyMonths" ng-model="vm.baby.months"
-                                       aria-label="เดือน"
+                                       aria-label="เดือน" style="text-align: center;"
                                        min="1"
                                        max="12" required>
                                 <div ng-messages="form.babyMonths.$error" role="alert">
                                     <div ng-message="required">กรุณากรอกข้อมูล</div>
+                                    <div ng-message="min">ข้อมูลไม่ถูกต้อง</div>
                                 </div>
                             </md-input-container>
                         </div>
                         <div layout="row" layout-align="center">
                             <md-button class="md-raised animated infinite" ng-class="vm.classAnimation"
-                                       ng-click="vm.next()" flex="30" flex-sm="80">
+                                       ng-click="vm.next()" flex="30" flex-xs="80">
                                 Next
                             </md-button>
                         </div>

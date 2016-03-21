@@ -5,13 +5,13 @@ namespace App\Http\Controllers\Post;
 use Request;
 use App\Http\Controllers\Controller;
 use Response;
-use App\Post;
+use App\Vote;
 
 class VoteController extends Controller
 {
 
 
-    public static function createVote()
+    public static function createVote($id)
     {
         $request = Request::instance();
         // Now we can get the content from it
@@ -19,14 +19,14 @@ class VoteController extends Controller
         $data = json_decode($request_body);
 
 
-        if(self::hasVoted($data->post_id, $data->facebook_id)){
+        if(self::hasVoted(intval($id), $data->facebook_id)){
             return Response::json(array(
                 'result' => false,
                 'message' => 'Voted'
             ), 400);
         }else{
             return Vote::create([
-                'post_id' => $data->post_id,
+                'post_id' => intval($id),
                 'facebook_id' => $data->facebook_id,
                 'email' => $data->email,
             ]);
@@ -50,7 +50,7 @@ class VoteController extends Controller
 //    }
 
     private static function hasVoted($post_id, $facebook_id){
-        return Vote::where('facebook_id', $facebook_id)->count > 0;
+        return Vote::where('facebook_id', $facebook_id)->count() > 0;
     }
 
 }

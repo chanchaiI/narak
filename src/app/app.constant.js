@@ -5,7 +5,7 @@ export var constant = {
     serviceBaseUrl: 'https://narak-app.azurewebsites.net/api/public/v1/',
     //serviceBaseUrl: 'http://localhost:8888/narak/api/public/v1/',
     domainUrl: 'https://narak-app.azurewebsites.net/',
-    uploadedPath: '/uploads/images/',
+    uploadedPath: 'uploads/images/',
     templatePath: 'assets/templates/',
     categories: {
         template1: {

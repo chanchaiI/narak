@@ -1,5 +1,5 @@
 export class IntroController {
-    constructor(toastr, $scope, $window, Facebook, $state, $log, $http, CONSTANT, DataService) {
+    constructor($scope, $window, Facebook, $state, $log, $http, CONSTANT, DataService) {
         'ngInject';
 
         this.pageClass = 'page-intro';
