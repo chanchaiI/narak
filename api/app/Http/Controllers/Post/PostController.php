@@ -80,10 +80,12 @@ class PostController extends Controller
 
     public static function getPostsAdmin($order = null, $pageSize = 10, $pageNumber = 1)
     {
-        $data = Post::leftJoin('votes', 'votes.post_id', '=', 'posts.id')
+        $data = Post::
+            join('users', 'users.id', '=', 'posts.user_id')
+            ->leftJoin('votes', 'votes.post_id', '=', 'posts.id')
             ->groupBy('posts.id')
-            ->get(['posts.id', 'posts.image_path', 'posts.kid_name', 'posts.kid_nickname', 'posts.kid_year', 'posts.kid_month',
-                'posts.created_at', 'posts.isPublished', 'posts.created_at', 'posts.updated_at',  DB::raw('count(votes.id) as vote_count')])
+            ->get(['posts.id', 'posts.image_path', 'posts.kid_gender', 'posts.kid_name', 'posts.kid_nickname', 'posts.kid_year', 'posts.kid_month',
+                'posts.created_at', 'posts.isPublished', 'posts.created_at', 'posts.updated_at', 'users.name', 'users.email', 'users.facebook_id',  DB::raw('count(votes.id) as vote_count')])
             ->sortByDesc($order)
             ->values()
             ->forPage(intval($pageNumber), $pageSize);
@@ -165,6 +167,7 @@ class PostController extends Controller
                     'kid_nickname' => $baby->nickname,
                     'kid_year' => $baby->years,
                     'kid_month' => $baby->months,
+                    'kid_gender' => $baby->gender,
                     'random_no' => $random_no,
                     'image_path' => $fileName,
                     'category_id' => $baby->category_id,

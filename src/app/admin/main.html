@@ -28,6 +28,8 @@
                         <th md-column>Kid's nickname</th>
                         <th md-column>Kid's age</th>
                         <th md-column md-numeric>Vote</th>
+                        <th md-column>Email</th>
+                        <th md-column>Submitted User</th>
                         <th md-column>Status</th>
                         <th md-column>Submitted Date</th>
                     </tr>
@@ -37,10 +39,12 @@
                         ng-repeat="post in vm.posts.data">
                         <td md-cell>{{post.id}}</td>
                         <td md-cell ng-click="vm.showImage(post)"><img src="{{vm.constant.domainUrl + vm.constant.uploadedPath + post.image_path}}" style="width:50px"></td>
-                        <td md-cell>{{post.kid_name}}</td>
-                        <td md-cell>{{post.kid_nickname}}</td>
+                        <td md-cell>{{post.gender}} {{post.kid_name}}</td>
+                        <td md-cell>น้อง{{post.kid_nickname}}</td>
                         <td md-cell>{{post.kid_year}} ปี {{post.kid_month}} เดือน</td>
                         <td md-cell>{{post.vote_count}}</td>
+                        <td md-cell>{{post.email}}</td>
+                        <td md-cell><a href="http://www.facebook.com/{{post.facebook_id}}" target="_blank">{{post.name}}</a></td>
                         <td md-cell>{{post.isPublished ? 'Published':'Unpublished'}}</td>
                         <td md-cell>{{post.created_at}}</td>
                     </tr>

@@ -33,53 +33,53 @@ export class VoteController {
         this.activate();
     }
 
-    activate(){
+    activate() {
         this.getPopularVotes(3);
         this.nextPage();
         this.openDetail();
     }
 
-    getPopularVotes(size){
-        this.postService.getPopular(size).then((response)=>{
+    getPopularVotes(size) {
+        this.postService.getPopular(size).then((response)=> {
             this.popularVotes = response.data;
         });
     }
 
-    changeCategory(){
+    changeCategory() {
         this.posts = [];
         this.currentPage = 0;
         this.empty = false;
         this.nextPage();
     }
 
-    nextPage(){
+    nextPage() {
         if (this.busy) return;
         this.busy = true;
 
         var pageNumber = this.currentPage + 1;
 
-        if(!this.empty){
+        if (!this.empty) {
             this.postService.getPosts(this.selectedCategory, pageNumber)
-                .then((response)=>{
-                    if(response.data.length > 0){
+                .then((response)=> {
+                    if (response.data.length > 0) {
                         this.posts = this.posts.concat(response.data);
                         this.currentPage = pageNumber;
-                    }else{
+                    } else {
                         this.empty = true;
                     }
                     this.busy = false;
-                }, ()=>{
+                }, ()=> {
                     this.busy = false;
                 });
-        }else{
+        } else {
             this.busy = false;
         }
     }
 
-    openDetail(){
-        if(this.$location.search().id){
-            this.postService.getPostById(this.$location.search().id).then((response)=>{
-                if(response.data){
+    openDetail() {
+        if (this.$location.search().id) {
+            this.postService.getPostById(this.$location.search().id).then((response)=> {
+                if (response.data) {
                     this.showImageDialog(response.data);
                 }
             })
@@ -95,7 +95,7 @@ export class VoteController {
                 controllerAs: 'im',
                 templateUrl: 'app/vote/image.dialog.html',
                 parent: angular.element(this.$document.body),
-                clickOutsideToClose:true,
+                clickOutsideToClose: true,
                 fullscreen: this.customFullscreen,
                 locals: {
                     imgUrl: imgUrl,
@@ -104,57 +104,70 @@ export class VoteController {
                 }
             })
             .then((answer) => {
-                if(answer === 'vote')
+                if (answer === 'vote')
                     this.vote(post);
-            }, ()=>{
+            }, ()=> {
             });
     }
 
-    vote(post){
-        // From now on you can use the Facebook service just as Facebook api says
-        this.facebook.login(() => {
-            this.me((response)=>{
-                var voteUrl = this.constant.serviceBaseUrl + 'vote/' + post.id;
-                this.$http.post(voteUrl, {facebook_id: response.id, email: response.email}).then((response)=>{
-                    post.vote_count += 1;
-                    this.$mdDialog.show(
-                        this.$mdDialog.alert()
-                            .parent(angular.element(this.$document.body))
-                            .clickOutsideToClose(true)
-                            .title('สำเร็จ!')
-                            .textContent('ทำการโหวตเรียบร้อย')
-                            .ariaLabel('Success')
-                            .ok('OK')
-                    );
-                },(response)=>{
-                    if(response.status === 400){
-                        this.$mdDialog.show(
-                            this.$mdDialog.alert()
-                                .parent(angular.element(this.$document.body))
-                                .clickOutsideToClose(true)
-                                .title('ไม่สำเร็จ!')
-                                .textContent('คุณได้ทำการโหวตรายการนี้ไปแล้ว')
-                                .ariaLabel('Error')
-                                .ok('OK')
-                        );
-                    }
-                });
-            });
-        }, { scope: 'public_profile,email' });
+    confirmVote() {
+        let confirm = this.$mdDialog.confirm()
+            .title('ยืนยัน')
+            .textContent('คุณสามารถทำการโหวตได้เพียงหนึ่งครั้ง คุณยังคงยืนยันที่จะโหวตรูปภาพนี้?')
+            .ariaLabel('Confirmation')
+            .ok('Yes')
+            .cancel('No');
+        return this.$mdDialog.show(confirm);
     }
 
-    share(post){
+    vote(post) {
+        this.confirmVote().then(()=> {
+                // From now on you can use the Facebook service just as Facebook api says
+                this.facebook.login(() => {
+                    this.me((response)=> {
+                        var voteUrl = this.constant.serviceBaseUrl + 'vote/' + post.id;
+                        this.$http.post(voteUrl, {facebook_id: response.id, email: response.email}).then((response)=> {
+                            post.vote_count += 1;
+                            this.$mdDialog.show(
+                                this.$mdDialog.alert()
+                                    .parent(angular.element(this.$document.body))
+                                    .clickOutsideToClose(true)
+                                    .title('สำเร็จ!')
+                                    .textContent('ทำการโหวตเรียบร้อย')
+                                    .ariaLabel('Success')
+                                    .ok('OK')
+                            );
+                        }, (response)=> {
+                            if (response.status === 400) {
+                                this.$mdDialog.show(
+                                    this.$mdDialog.alert()
+                                        .parent(angular.element(this.$document.body))
+                                        .clickOutsideToClose(true)
+                                        .title('ไม่สำเร็จ!')
+                                        .textContent('คุณได้ทำการโหวตไปแล้ว')
+                                        .ariaLabel('Error')
+                                        .ok('OK')
+                                );
+                            }
+                        });
+                    });
+                }, {scope: 'public_profile,email'})
+            }
+        );
+    }
+
+    share(post) {
         var sharingUrl = '';
-        if(post){
+        if (post) {
             sharingUrl = this.constant.domainUrl + '?id=' + post.id;
-        }else{
+        } else {
             sharingUrl = this.constant.domainUrl;
         }
 
         this.facebook.ui({
             method: 'share',
             href: sharingUrl
-        }, (response)=>{
+        }, (response)=> {
 
         })
     }
@@ -164,20 +177,24 @@ export class VoteController {
 
         // From now on you can use the Facebook service just as Facebook api says
         this.facebook.login(() => {
-            this.me((response)=>{
-                this.$http.post(registerUrl, {name: response.name, id: response.id, email: response.email}).success((user)=>{
+            this.me((response)=> {
+                this.$http.post(registerUrl, {
+                    name: response.name,
+                    id: response.id,
+                    email: response.email
+                }).success((user)=> {
                     this.dataService.set('user', user);
                     this.$state.go('data-capture');
                 });
             });
-        }, { scope: 'public_profile,email' });
+        }, {scope: 'public_profile,email'});
     }
 
     getLoginStatus() {
         this.facebook.getLoginStatus((response) => {
             this.loggedIn = response.status === 'connected';
-            if(this.loggedIn){
-                this.me((response)=>{
+            if (this.loggedIn) {
+                this.me((response)=> {
 
                 });
             }

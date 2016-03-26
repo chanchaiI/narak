@@ -100,6 +100,7 @@ export class MainController {
                 baby: this.baby,
                 template: this.selectedTemplate
             };
+
             this.upload.http({
                 url: uploadUrl,
                 headers: {
