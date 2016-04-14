@@ -13,17 +13,17 @@
                         <h2>
                             เลือกกรอบรูป
                         </h2>
-                        <div ng-messages="selectForm.selectedTemplate.$error" role="alert">
+                        <div ng-messages="selectForm.selectedTemplate.$error" role="alert" ng-if="selectForm.$submitted">
                             <div ng-message="required" style="color: rgb(244,67,54)">กรุณาเลือกกรอบรูป</div>
                         </div>
                         <div layout="row" layout-align="center">
                             <md-radio-group name="selectedTemplate" ng-model="vm.selectedTemplate"
                                             layout-wrap
                                             layout-sm="column" layout-xs="column" layout="row" required>
-                                <md-radio-button ng-repeat="(key, value) in vm.categories" ng-value="value" style="margin-right:20px;" flex flex-xs="80">
+                                <md-radio-button ng-repeat="(key, value) in vm.categories" ng-value="value" style="margin-left:20px;" flex flex-xs="80">
                                     <div flex>{{value.name}}</div>
                                     <div flex>
-                                        <img style="background-color: #FFF;width:200px;height:200px;" src="{{vm.templatePath + value.path}}">
+                                        <img style="background-color: #FFF;width:200px;height:200px;" ng-src="{{vm.templatePath + value.path}}">
                                     </div>
                                 </md-radio-button>
                             </md-radio-group>

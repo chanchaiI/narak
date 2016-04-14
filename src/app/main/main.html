@@ -1,13 +1,13 @@
 <div layout="vertical" layout-fill>
     <md-content flex>
-        <div ng-cloak layout="row" layout-align="center"><a class="main-logo"><img
-                src="assets/images/narakjung.png"></a></div>
+        <div ng-cloak layout="row" layout-align="center"><a class="main-logo">
+            <img src="assets/images/narakjung.png"></a></div>
         <h2>
             Upload รูปภาพ
         </h2>
         <section flex layout="column" layout-align="center">
             <form name="mainForm" novalidate>
-                <div ng-messages="mainForm.picFile.$error" role="alert">
+                <div ng-messages="mainForm.picFile.$error" role="alert" ng-if="mainForm.$submitted">
                     <div ng-message="required">กรุณาอัพโหลดรูปภาพ</div>
                 </div>
                 <div flex layout="row" layout-sm="column" layout-align="center" layout-wrap>

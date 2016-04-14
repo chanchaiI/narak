@@ -12,6 +12,7 @@ export class SelectTemplateController {
     }
 
     next(){
+        this.$scope.selectForm.$submitted = true;
         if (this.$scope.selectForm.$valid) {
             this.dataService.set('selectedTemplate', this.selectedTemplate);
             this.$state.go('main');

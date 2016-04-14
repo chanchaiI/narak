@@ -15,7 +15,7 @@
                             <md-radio-group ng-model="vm.baby.gender" name="babyGender">
                                 <md-radio-button value="ด.ช.">ชาย</md-radio-button>
                                 <md-radio-button value="ด.ญ.">หญิง</md-radio-button>
-                                <div ng-messages="form.babyGender.$error" role="alert">
+                                <div ng-messages="form.babyGender.$error" role="alert" ng-if="form.$submitted">
                                     <div ng-message="required">This field is required.</div>
                                 </div>
                             </md-radio-group>
@@ -26,7 +26,7 @@
                                 <label for="babyName">ชื่อ</label>
                                 <input type="text" id="babyName" name="babyName" ng-model="vm.baby.name"
                                        aria-label="ชื่อ" required>
-                                <div ng-messages="form.babyName.$error" role="alert">
+                                <div ng-messages="form.babyName.$error" role="alert" ng-if="form.$submitted">
                                     <div ng-message="required">กรุณากรอกข้อมูล</div>
                                 </div>
                             </md-input-container>
@@ -37,7 +37,7 @@
                                 <label for="babyNickName">ชื่อเล่น</label>
                                 <input type="text" id="babyNickName" name="babyNickName" ng-model="vm.baby.nickname"
                                        aria-label="ชื่อเล่น" required>
-                                <div ng-messages="form.babyNickName.$error" role="alert">
+                                <div ng-messages="form.babyNickName.$error" role="alert" ng-if="form.$submitted">
                                     <div ng-message="required">กรุณากรอกข้อมูล</div>
                                 </div>
                             </md-input-container>
@@ -51,7 +51,7 @@
                                        min="0"
                                        max="7"
                                        required>
-                                <div ng-messages="form.babyYears.$error" role="alert">
+                                <div ng-messages="form.babyYears.$error" role="alert" ng-if="form.$submitted">
                                     <div ng-message="required">กรุณากรอกข้อมูล</div>
                                     <div ng-message="min">ข้อมูลไม่ถูกต้อง</div>
                                     <div ng-message="max">อายุห้ามเกิน 7 ปี</div>
@@ -61,11 +61,24 @@
                                 <label for="babyMonths">เดือน</label>
                                 <input type="number" id="babyMonths" name="babyMonths" ng-model="vm.baby.months"
                                        aria-label="เดือน" style="text-align: center;"
-                                       min="1"
+                                       min="0"
                                        max="12" required>
-                                <div ng-messages="form.babyMonths.$error" role="alert">
+                                <div ng-messages="form.babyMonths.$error" role="alert" ng-if="form.$submitted">
                                     <div ng-message="required">กรุณากรอกข้อมูล</div>
                                     <div ng-message="min">ข้อมูลไม่ถูกต้อง</div>
+                                </div>
+                            </md-input-container>
+                        </div>
+                        <div flex layout="row">
+                            <label flex="20" layout="column" layout-align="center">เบอร์โทรศัพท์</label>
+                            <md-input-container flex>
+                                <label for="telnumber">เบอร์โทรสำหรับทีมงานติดต่อกลับ</label>
+                                <input type="text" id="telnumber" name="telnumber" ng-model="vm.baby.telnumber"
+                                       aria-label="เบอร์โทรศัพท์" style="text-align: center;" ng-pattern="/^\(?(\d{2,3})\)?-?(\d{3})-?(\d{3,4})$/"
+                                       min="0"
+                                       max="12" required>
+                                <div ng-messages="form.telnumber.$error" role="alert" ng-if="form.$submitted">
+                                    <div ng-message="required">กรุณากรอกข้อมูล</div>
                                 </div>
                             </md-input-container>
                         </div>

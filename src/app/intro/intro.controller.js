@@ -27,22 +27,28 @@ export class IntroController {
         var checkUploadUrl = this.constant.serviceBaseUrl + 'post/';
 
         // From now on you can use the Facebook service just as Facebook api says
-        this.facebook.login(() => {
-            this.me((response)=>{
-                this.$http.post(registerUrl, {name: response.name, id: response.id, email: response.email}).success((user)=>{
-                    this.dataService.set('user', user);
-                    this.$http.get(checkUploadUrl + user.id + '/upload', {
-                        ignoreLoadingBar: true
-                    }).success((response)=>{
-                        if(!response.result){
-                            this.$state.go('data-capture');
-                        }else{
-                            this.dataService.set('post', response.data);
-                            this.$state.go('share');
-                        }
-                    })
+        this.facebook.login((login_response) => {
+            if (login_response.authResponse) {
+                this.me((response)=> {
+                    this.$http.post(registerUrl, {
+                        name: response.name,
+                        id: response.id,
+                        email: response.email
+                    }).success((user)=> {
+                        this.dataService.set('user', user);
+                        this.$http.get(checkUploadUrl + user.id + '/upload', {
+                            ignoreLoadingBar: true
+                        }).success((response)=> {
+                            if (!response.result) {
+                                this.$state.go('data-capture');
+                            } else {
+                                this.dataService.set('post', response.data);
+                                this.$state.go('share');
+                            }
+                        })
+                    });
                 });
-            });
+            }
         }, { scope: 'public_profile,email' });
     }
 

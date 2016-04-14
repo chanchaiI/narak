@@ -26,6 +26,10 @@ export class AdminLoginController {
                     .ariaLabel('Error')
                     .ok('OK')
             );
+            this.user = {
+                username: '',
+                password: ''
+            }
         });
     }
 }

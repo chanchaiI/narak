@@ -40,7 +40,7 @@ export class ShareController {
     share(){
         var sharingUrl = '';
         if(!!this.post){
-            sharingUrl = this.constant.domainUrl + '?id=' + this.post.id;
+            sharingUrl = this.constant.domainUrl + '?token=' + this.post.random_no;
         }else{
             sharingUrl = this.constant.domainUrl;
         }

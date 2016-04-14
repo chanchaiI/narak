@@ -35,6 +35,12 @@ export class PostService {
         return this.$http.get(getPostUrl);
     }
 
+
+    getPostByRandomNO(randomNO) {
+        var getPostUrl = this.constant.serviceBaseUrl + 'post/random/' + randomNO;
+        return this.$http.get(getPostUrl);
+    }
+
     getPopular(size) {
         var getPopularVoteUrl = this.constant.serviceBaseUrl + 'post/' + size + '/popular';
         return this.$http.get(getPopularVoteUrl, {

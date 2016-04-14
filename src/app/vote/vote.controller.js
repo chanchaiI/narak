@@ -1,5 +1,5 @@
 export class VoteController {
-    constructor($scope, $document, Facebook, $location, $state, $log, $http, CONSTANT, DataService, PostService, $mdDialog, $mdMedia) {
+    constructor($scope, $document, Facebook, $location, $state, $log, $http, CONSTANT, DataService, PostService, $mdDialog, $mdMedia, $timeout, FacebookService, $rootScope) {
         'ngInject';
 
         this.pageClass = 'page-vote';
@@ -22,12 +22,14 @@ export class VoteController {
         this.currentPage = 0;
         this.empty = false;
         this.selectedCategory = 'all';
+        this.$timeout = $timeout;
+        this.facebookService = FacebookService;
+        this.$rootScope = $rootScope;
 
         this.$scope.$watch(() => {
             return this.facebook.isReady();
         }, () => {
             this.isFacebookReady = true;
-            this.getLoginStatus();
         });
 
         this.activate();
@@ -83,6 +85,12 @@ export class VoteController {
                     this.showImageDialog(response.data);
                 }
             })
+        }else if(this.$location.search().token){
+            this.postService.getPostByRandomNO(this.$location.search().token).then((response)=> {
+                if (response.data) {
+                    this.showImageDialog(response.data);
+                }
+            })
         }
     }
 
@@ -110,6 +118,25 @@ export class VoteController {
             });
     }
 
+    vote(post) {
+
+        if(confirm('คุณสามารถทำการโหวตได้เพียงหนึ่งครั้ง คุณยังคงยืนยันที่จะโหวตรูปภาพนี้?')){
+            this.facebookLoginForVote(post);
+        }
+
+        //let confirm = this.$mdDialog.confirm()
+        //    .title('ยืนยัน')
+        //    .textContent('คุณสามารถทำการโหวตได้เพียงหนึ่งครั้ง คุณยังคงยืนยันที่จะโหวตรูปภาพนี้?')
+        //    .ariaLabel('Confirmation')
+        //    .targetEvent(ev)
+        //    .ok('Yes')
+        //    .cancel('No');
+        //this.$mdDialog.show(confirm).then(()=> {
+        //    this.$mdDialog.destroy();
+        //    this.$rootScope.$broadcast('facebook.login', post);
+        //});
+    }
+
     confirmVote() {
         let confirm = this.$mdDialog.confirm()
             .title('ยืนยัน')
@@ -120,40 +147,72 @@ export class VoteController {
         return this.$mdDialog.show(confirm);
     }
 
-    vote(post) {
-        this.confirmVote().then(()=> {
-                // From now on you can use the Facebook service just as Facebook api says
-                this.facebook.login(() => {
-                    this.me((response)=> {
-                        var voteUrl = this.constant.serviceBaseUrl + 'vote/' + post.id;
-                        this.$http.post(voteUrl, {facebook_id: response.id, email: response.email}).then((response)=> {
-                            post.vote_count += 1;
-                            this.$mdDialog.show(
-                                this.$mdDialog.alert()
-                                    .parent(angular.element(this.$document.body))
-                                    .clickOutsideToClose(true)
-                                    .title('สำเร็จ!')
-                                    .textContent('ทำการโหวตเรียบร้อย')
-                                    .ariaLabel('Success')
-                                    .ok('OK')
-                            );
-                        }, (response)=> {
-                            if (response.status === 400) {
-                                this.$mdDialog.show(
-                                    this.$mdDialog.alert()
-                                        .parent(angular.element(this.$document.body))
-                                        .clickOutsideToClose(true)
-                                        .title('ไม่สำเร็จ!')
-                                        .textContent('คุณได้ทำการโหวตไปแล้ว')
-                                        .ariaLabel('Error')
-                                        .ok('OK')
-                                );
-                            }
-                        });
+    facebookLoginForVote(post) {
+        this.$timeout(()=> {
+            this.$log.info("press ok");
+            this.facebookService.login({scope: 'public_profile,email'}).then((loginResponse) => {
+                if (loginResponse.authResponse) {
+                    this.facebookService.me().then((response)=> {
+                        this.doVote(response, post);
                     });
-                }, {scope: 'public_profile,email'})
-            }
-        );
+                }
+                else {
+                    this.$mdDialog.show(
+                        this.$mdDialog.alert()
+                            .parent(angular.element(this.$document.body))
+                            .clickOutsideToClose(true)
+                            .title('ไม่สำเร็จ!')
+                            .textContent('ทำการล็อคอินด้วย Facebook ไม่สำเร็จ')
+                            .ariaLabel('Error')
+                            .ok('OK')
+                    );
+                }
+
+            });
+        });
+    }
+
+    doVote(user, post) {
+        if (user.id) {
+            var voteUrl = this.constant.serviceBaseUrl + 'vote/' + post.id;
+            this.$http.post(voteUrl, {
+                facebook_id: user.id,
+                email: user.email
+            }).then(()=> {
+                post.vote_count += 1;
+                this.$mdDialog.show(
+                    this.$mdDialog.alert()
+                        .parent(angular.element(this.$document.body))
+                        .clickOutsideToClose(true)
+                        .title('สำเร็จ!')
+                        .textContent('ทำการโหวตเรียบร้อย')
+                        .ariaLabel('Success')
+                        .ok('OK')
+                );
+            }, (response)=> {
+                if (response.status === 400) {
+                    this.$mdDialog.show(
+                        this.$mdDialog.alert()
+                            .parent(angular.element(this.$document.body))
+                            .clickOutsideToClose(true)
+                            .title('ไม่สำเร็จ!')
+                            .textContent('คุณได้ทำการโหวตไปแล้ว')
+                            .ariaLabel('Error')
+                            .ok('OK')
+                    );
+                }
+            });
+        } else {
+            this.$mdDialog.show(
+                this.$mdDialog.alert()
+                    .parent(angular.element(this.$document.body))
+                    .clickOutsideToClose(true)
+                    .title('ไม่สำเร็จ!')
+                    .textContent('ทำการล็อคอินด้วย Facebook ไม่สำเร็จ')
+                    .ariaLabel('Error')
+                    .ok('OK')
+            );
+        }
     }
 
     share(post) {
@@ -167,42 +226,9 @@ export class VoteController {
         this.facebook.ui({
             method: 'share',
             href: sharingUrl
-        }, (response)=> {
+        }, ()=> {
 
         })
-    }
-
-    login() {
-        var registerUrl = this.constant.serviceBaseUrl + 'auth';
-
-        // From now on you can use the Facebook service just as Facebook api says
-        this.facebook.login(() => {
-            this.me((response)=> {
-                this.$http.post(registerUrl, {
-                    name: response.name,
-                    id: response.id,
-                    email: response.email
-                }).success((user)=> {
-                    this.dataService.set('user', user);
-                    this.$state.go('data-capture');
-                });
-            });
-        }, {scope: 'public_profile,email'});
-    }
-
-    getLoginStatus() {
-        this.facebook.getLoginStatus((response) => {
-            this.loggedIn = response.status === 'connected';
-            if (this.loggedIn) {
-                this.me((response)=> {
-
-                });
-            }
-        })
-    }
-
-    me(callback) {
-        this.facebook.api('/me?locale=en_US&fields=name,email', callback);
     }
 
     go(stateName) {

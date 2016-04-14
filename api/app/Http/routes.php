@@ -36,6 +36,10 @@ Route::post('/v1/post/{id?}/upload', [ function($id = null) {
     return App\Http\Controllers\Post\PostController::upload($id);
 }]);
 
+Route::get('/v1/post/random/{randomNO?}', [ function($randomNO = null) {
+    return App\Http\Controllers\Post\PostController::getPostByRandomNO($randomNO);
+}]);
+
 Route::get('/v1/post/{id?}', [ function($id = null) {
     return App\Http\Controllers\Post\PostController::getPostById($id);
 }]);

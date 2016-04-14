@@ -24,7 +24,12 @@ export class DataCaptureController {
     }
 
     next(){
-        if (this.$scope.form.$valid) {
+        this.$scope.form.$submitted = true;
+        if(this.baby.years == 7 && this.baby.months > 0){
+            this.$scope.form.$valid = false;
+            this.$scope.form.babyYears.$error.max = true;
+        }
+        if(this.$scope.form.$valid) {
             this.dataService.set('baby', this.baby);
             this.$state.go('select-template');
         }

@@ -93,6 +93,8 @@ export class MainController {
     }
 
     submit() {
+        this.$scope.mainForm.$submitted = true;
+
         if(this.$scope.mainForm.$valid){
             var uploadUrl = this.constant.serviceBaseUrl + 'post/' + this.user.id + '/upload';
             var canvas = angular.element(document.querySelector('#preview'))[0];

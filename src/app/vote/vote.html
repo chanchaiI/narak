@@ -1,7 +1,8 @@
 <div layout="vertical" layout-fill>
     <md-content flex>
-        <div ng-cloak layout="row" layout-align="center"><a class="main-logo"><img
-                src="assets/images/narakjung.png"></a></div>
+        <div ng-cloak layout="row" layout-align="center">
+            <a class="main-logo">
+                <img src="assets/images/narakjung.png"></a></div>
         <section layout="column" class="popular-vote">
             <header>
                 POPULAR VOTE
@@ -13,16 +14,13 @@
                     <md-card-content layout="row" layout-align="space-around">
                         <div class="md-media-l card-media vote-media"
                              ng-click="vm.showImageDialog(item)">
-                            <img src="{{ vm.constant.uploadedPath + item.image_path}}">
+                            <img ng-src="{{ vm.constant.uploadedPath + item.image_path}}">
                         </div>
                         <md-card-actions layout="column">
-                            <span class="vote-count">{{item.vote_count}}</span>
+                            <md-button class="md-icon-button vote-count" ng-click="vm.vote(item);">{{item.vote_count}}</md-button>
                             <md-button class="md-icon-button vote-btn" aria-label="Vote">
                                 <md-icon md-font-library="material-icons" ng-click="vm.vote(item);" class="gold">star
                                 </md-icon>
-                            </md-button>
-                            <md-button class="md-icon-button" aria-label="Detail">
-                                <md-icon md-font-library="material-icons" ng-click="vm.showImageDialog(item)">more_horiz</md-icon>
                             </md-button>
                             <md-button class="md-icon-button" aria-label="Share">
                                 <md-icon md-font-library="material-icons" ng-click="vm.share(item);">share</md-icon>
@@ -52,7 +50,7 @@
                         <div flex>น่ารักนักสร้างสรรค์</div>
                     </md-radio-button>
                     <md-radio-button value="4" flex flex-sm="40" flex-xs="100">
-                        <div flex>น่ารักนักสร้างสรรค์2</div>
+                        <div flex>น่ารักนักยิ้ม</div>
                     </md-radio-button>
                 </md-radio-group>
             </header>
@@ -62,16 +60,14 @@
                     <md-card-content layout="row" layout-align="space-between">
                         <div class="md-media-l card-media vote-media"
                              ng-click="vm.showImageDialog(item)">
-                            <img src="{{ vm.constant.uploadedPath + item.image_path}}">
+                            <img ng-src="{{ vm.constant.uploadedPath + item.image_path}}">
                         </div>
                         <md-card-actions layout="column">
-                            <span class="vote-count">{{item.vote_count}}</span>
+                            <md-button class="md-icon-button vote-count" ng-click="vm.vote(item);">{{item.vote_count}}</md-button>
                             <md-button class="md-icon-button vote-btn" aria-label="Vote">
-                                <md-icon md-font-library="material-icons" ng-click="vm.vote(item);" class="gold">star
+                                <md-icon md-font-library="material-icons" ng-click="vm.vote(item);" class="gold">
+                                    star
                                 </md-icon>
-                            </md-button>
-                            <md-button class="md-icon-button" aria-label="Detail">
-                                <md-icon md-font-library="material-icons" ng-click="vm.showImageDialog(item)">more_horiz</md-icon>
                             </md-button>
                             <md-button class="md-icon-button" aria-label="Share">
                                 <md-icon md-font-library="material-icons" ng-click="vm.share(item);">share</md-icon>
@@ -82,8 +78,5 @@
             </section>
             <footer ng-show='vm.busy'>Loading data...</footer>
         </section>
-        <!--<div flex layout="row" layout-align="end end">-->
-            <!--<md-button ng-click="vm.go('admin-login')" style="font-size: 15px;">Go Login</md-button>-->
-        <!--</div>-->
     </md-content>
 </div>

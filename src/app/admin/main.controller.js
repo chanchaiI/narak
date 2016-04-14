@@ -22,7 +22,7 @@ export class AdminMainController {
         };
 
         this.options = {
-            autoSelect: true,
+            autoSelect: false,
             boundaryLinks: false,
             largeEditDialog: false,
             pageSelector: false,

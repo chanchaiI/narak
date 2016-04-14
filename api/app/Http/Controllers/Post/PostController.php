@@ -45,6 +45,20 @@ class PostController extends Controller
         }
     }
 
+    public static function getPostByRandomNO($randomNO)
+    {
+        $result = Post::with('votes')->where('random_no', $randomNO)->where('isPublished', 1)->first();
+        if($result != null){
+            $result->vote_count = $result->votes->count();
+            return $result;
+        }else{
+            return Response::json(array(
+                'result' => false,
+                'message' => 'Not Found'
+            ), 404);
+        }
+    }
+
     private static function getPostByUserId($user_id)
     {
         $result = Post::with('votes')->where('user_id', $user_id)->where('isPublished', 1)->first();
@@ -84,7 +98,7 @@ class PostController extends Controller
             join('users', 'users.id', '=', 'posts.user_id')
             ->leftJoin('votes', 'votes.post_id', '=', 'posts.id')
             ->groupBy('posts.id')
-            ->get(['posts.id', 'posts.image_path', 'posts.kid_gender', 'posts.kid_name', 'posts.kid_nickname', 'posts.kid_year', 'posts.kid_month',
+            ->get(['posts.id', 'posts.image_path', 'posts.kid_gender', 'posts.kid_name', 'posts.kid_nickname', 'posts.kid_year', 'posts.kid_month', 'posts.tel_number',
                 'posts.created_at', 'posts.isPublished', 'posts.created_at', 'posts.updated_at', 'users.name', 'users.email', 'users.facebook_id',  DB::raw('count(votes.id) as vote_count')])
             ->sortByDesc($order)
             ->values()
@@ -171,7 +185,8 @@ class PostController extends Controller
                     'random_no' => $random_no,
                     'image_path' => $fileName,
                     'category_id' => $baby->category_id,
-                    'user_id' => $id
+                    'user_id' => $id,
+                    'tel_number' => $baby->telnumber
                 ]);
 
                 return Response::json(array(
