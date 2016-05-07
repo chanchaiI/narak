@@ -31,6 +31,12 @@ export function routerConfig($stateProvider, $urlRouterProvider) {
             templateUrl: 'app/share/share.html',
             controller: 'ShareController',
             controllerAs: 'vm'
+        })
+        .state('term', {
+            url: '/term',
+            templateUrl: 'app/term/term.html',
+            controller: 'TermController',
+            controllerAs: 'vm'
         });
 
     $urlRouterProvider.otherwise('/');

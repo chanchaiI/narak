@@ -25,6 +25,9 @@
                             <md-button class="md-icon-button" aria-label="Share">
                                 <md-icon md-font-library="material-icons" ng-click="vm.share(item);">share</md-icon>
                             </md-button>
+                            <md-button class="md-icon-button" aria-label="Share">
+                                <md-icon md-font-library="material-icons" ng-click="vm.copyLink(item);">code</md-icon>
+                            </md-button>
                         </md-card-actions>
                     </md-card-content>
                 </md-card>
@@ -72,11 +75,24 @@
                             <md-button class="md-icon-button" aria-label="Share">
                                 <md-icon md-font-library="material-icons" ng-click="vm.share(item);">share</md-icon>
                             </md-button>
+                            <md-button class="md-icon-button" aria-label="Share">
+                                <md-icon md-font-library="material-icons" ng-click="vm.copyLink(item);">code</md-icon>
+                            </md-button>
                         </md-card-actions>
                     </md-card-content>
                 </md-card>
             </section>
-            <footer ng-show='vm.busy'>Loading data...</footer>
+            <div ng-show='vm.busy'>Loading data...</div>
         </section>
     </md-content>
 </div>
+
+
+<footer class="footer-bar" flex layout="row" layout-align="space-between center">
+    <span>
+         COPYRIGHT © 2016 Narak Tiara
+    </span>
+    <md-button ng-click="vm.termClick()" class="highlight-color">
+        เข้าร่วมกิจกรรมส่งภาพ
+    </md-button>
+</footer>

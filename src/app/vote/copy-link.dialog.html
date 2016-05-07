@@ -1,0 +1,27 @@
+<md-dialog aria-label="Copy Link" ng-cloak style="max-height: 84%;">
+    <form>
+        <md-toolbar style="background-color: #0a9bcb;">
+            <div class="md-toolbar-tools">
+                <h2 style="color:white;">ลิงค์สำหรับโหวตให้กับน้อง{{nickname}}</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="answer('cancel')">
+                    <md-icon md-font-library="material-icons" aria-label="Close dialog">close</md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content style="text-align: center;">
+            <div class="md-dialog-content" >
+                <md-input-container flex>
+                    <input type="text" id="linkUrl" name="linkUrl" ng-model="linkUrl" aria-label="copy link" disabled>
+                </md-input-container>
+            </div>
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+            <span flex></span>
+            <md-button ng-click="answer('cancel')">
+                <md-icon md-font-library="material-icons" style="margin-top: -4px;margin-right: 3px;">close</md-icon>
+                Close
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

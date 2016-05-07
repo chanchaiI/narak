@@ -62,6 +62,11 @@ html {
   font-size: 25px;
 }
 
+ul,ol{
+  margin-top: 5px;
+  padding-left: 30px;
+}
+
 md-content{
   overflow: auto !important;
 }
@@ -77,6 +82,7 @@ md-content{
 
 body{
   background-color: #9CDCF9;
+  color: #464646;
 }
 
 .main-logo{
@@ -86,9 +92,32 @@ body{
   }
 }
 
+.highlight-color{
+  color: #E91E63;
+}
+
+.highlight-color.hover:hover{
+  color: #E91E63;
+}
+
+.highlight-color.focus:focus .md-select-value{
+  color: #E91E63;
+}
+
 md-content {
   background-color: #9CDCF9;
-  color: #0A9BCB;
+  color: #464646;
+}
+
+md-select-menu md-content{
+  background-color: #FFF;
+  color: #464646;
+  font-size: 20px;
+}
+
+md-option .md-text
+{
+  font-size: 25px;
 }
 
 md-card md-card-title {
@@ -130,6 +159,7 @@ md-radio-button .md-off, md-radio-button .md-label{
 h2,h3{
   color: #E91E63;
 }
+
 md-input-container .md-input{
   color: #E91E63;
   border-color: #FFF;
@@ -323,9 +353,17 @@ md-card {
   }
 }
 
+.underline{
+  text-decoration: underline;
+}
+
+.less-margin-bottom{
+  margin-bottom:5px;
+}
 
 .post-wrapper{
   margin-top: 30px;
+  margin-bottom: 40px;
 }
 
 .vote-media img{
@@ -333,6 +371,16 @@ md-card {
   height: auto;
 }
 
+.footer-bar{
+  height: 40px;
+  width: 100%;
+  background-color: white;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  padding: 0 20px;
+  font-size: 0.8em;
+}
 
 // Table //
 table.md-table th.md-column{

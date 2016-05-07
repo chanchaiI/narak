@@ -81,14 +81,14 @@ class PostController extends Controller
                 ->where('category_id', intval($category_id))
                 ->where('isPublished', 1)
                 ->latest()
-                ->get(['posts.id', 'posts.image_path', 'posts.created_at', 'posts.category_id', DB::raw('count(votes.id) as vote_count')])
+                ->get(['posts.id', 'posts.random_no', 'posts.image_path', 'posts.created_at', 'posts.category_id', DB::raw('count(votes.id) as vote_count')])
                 ->forPage(intval($pageNumber), $pageSize);
         }
         return Post::leftJoin('votes', 'votes.post_id', '=', 'posts.id')
         ->groupBy('posts.id')
         ->where('isPublished', 1)
         ->latest()
-        ->get(['posts.id', 'posts.image_path', 'posts.kid_nickname', 'posts.kid_name', 'posts.created_at', DB::raw('count(votes.id) as vote_count')])
+        ->get(['posts.id', 'posts.random_no', 'posts.image_path', 'posts.kid_nickname', 'posts.kid_name', 'posts.created_at', DB::raw('count(votes.id) as vote_count')])
         ->forPage(intval($pageNumber), $pageSize);
     }
 
@@ -116,7 +116,7 @@ class PostController extends Controller
         return Post::join('votes', 'votes.post_id', '=', 'posts.id')
             ->groupBy('posts.id')
             ->where('isPublished', 1)
-            ->get(['posts.id', 'posts.image_path', 'posts.kid_nickname', 'posts.kid_name', 'posts.created_at', DB::raw('count(votes.id) as vote_count')])
+            ->get(['posts.id', 'posts.random_no', 'posts.image_path', 'posts.kid_nickname', 'posts.kid_name', 'posts.created_at', DB::raw('count(votes.id) as vote_count')])
             ->sortByDesc('vote_count')
             ->values()
             ->forPage(1, $size);

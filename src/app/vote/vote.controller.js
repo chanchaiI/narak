@@ -119,32 +119,44 @@ export class VoteController {
     }
 
     vote(post) {
-
-        if(confirm('คุณสามารถทำการโหวตได้เพียงหนึ่งครั้ง คุณยังคงยืนยันที่จะโหวตรูปภาพนี้?')){
-            this.facebookLoginForVote(post);
-        }
-
-        //let confirm = this.$mdDialog.confirm()
-        //    .title('ยืนยัน')
-        //    .textContent('คุณสามารถทำการโหวตได้เพียงหนึ่งครั้ง คุณยังคงยืนยันที่จะโหวตรูปภาพนี้?')
-        //    .ariaLabel('Confirmation')
-        //    .targetEvent(ev)
-        //    .ok('Yes')
-        //    .cancel('No');
-        //this.$mdDialog.show(confirm).then(()=> {
-        //    this.$mdDialog.destroy();
-        //    this.$rootScope.$broadcast('facebook.login', post);
-        //});
-    }
-
-    confirmVote() {
-        let confirm = this.$mdDialog.confirm()
-            .title('ยืนยัน')
-            .textContent('คุณสามารถทำการโหวตได้เพียงหนึ่งครั้ง คุณยังคงยืนยันที่จะโหวตรูปภาพนี้?')
-            .ariaLabel('Confirmation')
-            .ok('Yes')
-            .cancel('No');
-        return this.$mdDialog.show(confirm);
+        this.$mdDialog.show({
+            clickOutsideToClose: true,
+            parent: angular.element(this.$document.body),
+            template: `<md-dialog aria-label="Vote" ng-cloak>
+                            <md-toolbar style="background-color: #0a9bcb;">
+                                <div class="md-toolbar-tools">
+                                    <h2 style="color:white;">ยืนยัน</h2>
+                                    <span flex></span>
+                                    <md-button class="md-icon-button" ng-click="answer(false)">
+                                        <md-icon md-font-library="material-icons" aria-label="Close dialog">close</md-icon>
+                                    </md-button>
+                                </div>
+                            </md-toolbar>
+                            <md-dialog-content style="background-color: white; color:#464646;">
+                                <section layout="column" layout-align="center stretch" class="md-dialog-content" style="padding: 10px;">
+                                    <div style="text-align: left;">
+                                        คุณสามารถทำการโหวตได้เพียงหนึ่งครั้ง คุณยังคงยืนยันที่จะโหวตรูปภาพนี้?
+                                    </div>
+                                    <div layout="row" layout-align="end end">
+                                        <md-button ng-click="answer(false)" style="color:#E91E63;">
+                                            ปิด
+                                        </md-button>
+                                        <md-button ng-click="answer(true)" style="color:white; background-color: #E91E63">
+                                            ยืนยัน
+                                        </md-button>
+                                    </div>
+                                </section>
+                            </md-dialog-content>
+                        </md-dialog>`,
+            controller: ['$scope', '$mdDialog', ($scope, $mdDialog) => {
+                $scope.answer = (answer) => {
+                    if(answer){
+                        this.facebookLoginForVote(post);
+                    }
+                    $mdDialog.hide(answer);
+                }
+            }]
+        });
     }
 
     facebookLoginForVote(post) {
@@ -218,7 +230,7 @@ export class VoteController {
     share(post) {
         var sharingUrl = '';
         if (post) {
-            sharingUrl = this.constant.domainUrl + '?id=' + post.id;
+            sharingUrl = this.constant.domainUrl + '?token=' + post.random_no + '&' + new Date().getTime();
         } else {
             sharingUrl = this.constant.domainUrl;
         }
@@ -230,8 +242,93 @@ export class VoteController {
 
         })
     }
+    
+    copyLink(post){
+
+        let sharingUrl = this.constant.domainUrl + '?token=' + post.random_no + '&' + new Date().getTime();
+
+        this.$mdDialog.show({
+            // clickOutsideToClose: true,
+            parent: angular.element(this.$document.body),
+            templateUrl: 'app/vote/copy-link.dialog.html',
+            fullscreen: this.customFullscreen,
+            locals: {
+                nickname: post.kid_nickname,
+                linkUrl: sharingUrl
+            },
+            controller: ['$scope', '$mdDialog', 'nickname', 'linkUrl', ($scope, $mdDialog, nickname, linkUrl) => {
+                this.$scope.nickname = nickname;
+                this.$scope.linkUrl = linkUrl;
+                this.$scope.answer = (answer) => {
+                    $mdDialog.hide(answer);
+                };
+            }]
+        });
+    }
+
 
     go(stateName) {
         this.$state.go(stateName);
+    }
+
+    termClick(){
+        this.$mdDialog.show({
+            // clickOutsideToClose: true,
+            parent: angular.element(this.$document.body),
+            templateUrl: 'app/term/term.html',
+            fullscreen: this.customFullscreen,
+            controller: ['$scope', '$mdDialog', ($scope, $mdDialog) => {
+                $scope.answer = (answer) => {
+                    if(answer){
+                        this.login();
+                    }
+                    $mdDialog.hide(answer);
+                }
+            }]
+        });
+    }
+
+    login() {
+        if(this.loggedIn){
+            this.register();
+        }else{
+            // From now on you can use the Facebook service just as Facebook api says
+            this.facebook.login((login_response) => {
+                if (login_response.authResponse) {
+                    this.register();
+                }
+            }, { scope: 'public_profile,email' });
+        }
+
+    }
+
+    register(){
+
+        var registerUrl = this.constant.serviceBaseUrl + 'auth';
+        var checkUploadUrl = this.constant.serviceBaseUrl + 'post/';
+
+        this.me((response)=> {
+            this.$http.post(registerUrl, {
+                name: response.name,
+                id: response.id,
+                email: response.email
+            }).success((user)=> {
+                this.dataService.set('user', user);
+                this.$http.get(checkUploadUrl + user.id + '/upload', {
+                    ignoreLoadingBar: true
+                }).success((response)=> {
+                    if (!response.result) {
+                        this.$location.url('/facebookApp/#/data-capture');
+                    } else {
+                        this.dataService.set('post', response.data);
+                        this.$location.url('/facebookApp/#/share');
+                    }
+                })
+            });
+        });
+    }
+
+    me(callback) {
+        this.facebook.api('/me?locale=en_US&fields=name,email', callback);
     }
 }

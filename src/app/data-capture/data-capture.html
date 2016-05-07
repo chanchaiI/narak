@@ -46,11 +46,16 @@
                             <label flex="20" layout="column" layout-align="center">อายุ</label>
                             <md-input-container flex>
                                 <label for="babyYears">ปี</label>
-                                <input type="number" id="babyYears" name="babyYears" ng-model="vm.baby.years"
-                                       aria-label="ปี" style="text-align: center;"
-                                       min="0"
-                                       max="7"
-                                       required>
+                                <md-select id="babyYears" name="babyYears" class="highlight-color focus" ng-model="vm.baby.years" aria-label="ปี" required>
+                                    <md-option>0</md-option>
+                                    <md-option>1</md-option>
+                                    <md-option>2</md-option>
+                                    <md-option>3</md-option>
+                                    <md-option>4</md-option>
+                                    <md-option>5</md-option>
+                                    <md-option>6</md-option>
+                                    <md-option>7</md-option>
+                                </md-select>
                                 <div ng-messages="form.babyYears.$error" role="alert" ng-if="form.$submitted">
                                     <div ng-message="required">กรุณากรอกข้อมูล</div>
                                     <div ng-message="min">ข้อมูลไม่ถูกต้อง</div>
@@ -59,10 +64,20 @@
                             </md-input-container>
                             <md-input-container flex>
                                 <label for="babyMonths">เดือน</label>
-                                <input type="number" id="babyMonths" name="babyMonths" ng-model="vm.baby.months"
-                                       aria-label="เดือน" style="text-align: center;"
-                                       min="0"
-                                       max="12" required>
+                                <md-select id="babyMonths" name="babyMonths" class="highlight-color focus" ng-model="vm.baby.months" aria-label="เดือน" ng-disabled="vm.baby.years == 7" required>
+                                    <md-option ng-selected="vm.baby.years == 7">0</md-option>
+                                    <md-option>1</md-option>
+                                    <md-option>2</md-option>
+                                    <md-option>3</md-option>
+                                    <md-option>4</md-option>
+                                    <md-option>5</md-option>
+                                    <md-option>6</md-option>
+                                    <md-option>7</md-option>
+                                    <md-option>8</md-option>
+                                    <md-option>9</md-option>
+                                    <md-option>10</md-option>
+                                    <md-option>11</md-option>
+                                </md-select>
                                 <div ng-messages="form.babyMonths.$error" role="alert" ng-if="form.$submitted">
                                     <div ng-message="required">กรุณากรอกข้อมูล</div>
                                     <div ng-message="min">ข้อมูลไม่ถูกต้อง</div>
@@ -76,7 +91,7 @@
                                 <input type="text" id="telnumber" name="telnumber" ng-model="vm.baby.telnumber"
                                        aria-label="เบอร์โทรศัพท์" style="text-align: center;" ng-pattern="/^\(?(\d{2,3})\)?-?(\d{3})-?(\d{3,4})$/"
                                        min="0"
-                                       max="12" required>
+                                       max="11" required>
                                 <div ng-messages="form.telnumber.$error" role="alert" ng-if="form.$submitted">
                                     <div ng-message="required">กรุณากรอกข้อมูล</div>
                                 </div>

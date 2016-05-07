@@ -1,5 +1,6 @@
 export class IntroController {
-    constructor($scope, $window, Facebook, $state, $log, $http, CONSTANT, DataService) {
+
+    constructor($scope, $window, Facebook, $state, $log, $http, CONSTANT, DataService, $mdDialog, $document, $mdMedia, $timeout) {
         'ngInject';
 
         this.pageClass = 'page-intro';
@@ -12,14 +13,35 @@ export class IntroController {
         this.$http = $http;
         this.constant = CONSTANT;
         this.dataService = DataService;
+        this.$mdDialog = $mdDialog;
+        this.customFullscreen = $mdMedia('xs') || $mdMedia('sm');
+        this.$document = $document;
+        this.$timeout = $timeout;
 
         this.$scope.$watch(() => {
             return this.facebook.isReady();
         }, () => {
             this.isFacebookReady = true;
             this.getLoginStatus();
-        })
+        });
 
+    }
+
+    termClick(){
+        this.$mdDialog.show({
+            // clickOutsideToClose: true,
+            parent: angular.element(this.$document.body),
+            templateUrl: 'app/term/term.html',
+            fullscreen: this.customFullscreen,
+            controller: ['$scope', '$mdDialog', ($scope, $mdDialog) => {
+                    $scope.answer = (answer) => {
+                        if(answer){
+                            this.login();
+                        }
+                        $mdDialog.hide(answer);
+                    }
+                }]
+        });
     }
 
     login() {
@@ -35,7 +57,6 @@ export class IntroController {
         }
 
     }
-
 
     getLoginStatus() {
         this.facebook.getLoginStatus((response) => {
