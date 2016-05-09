@@ -1,8 +1,8 @@
-<md-dialog aria-label="Copy Link" ng-cloak style="max-height: 84%;">
+<md-dialog aria-label="Copy Link" ng-cloak>
     <form>
         <md-toolbar style="background-color: #0a9bcb;">
             <div class="md-toolbar-tools">
-                <h2 style="color:white;">ลิงค์สำหรับโหวตให้กับน้อง{{nickname}}</h2>
+                <h2 style="color:white;">ลิงค์โหวตน้อง{{nickname}}</h2>
                 <span flex></span>
                 <md-button class="md-icon-button" ng-click="answer('cancel')">
                     <md-icon md-font-library="material-icons" aria-label="Close dialog">close</md-icon>
@@ -10,10 +10,16 @@
             </div>
         </md-toolbar>
         <md-dialog-content style="text-align: center;">
-            <div class="md-dialog-content" >
-                <md-input-container flex>
-                    <input type="text" id="linkUrl" name="linkUrl" ng-model="linkUrl" aria-label="copy link" disabled>
-                </md-input-container>
+            <div class="md-dialog-content">
+                <input type="text" id="linkUrl" style="width: 85%;font-size: 0.8em;color: #607D8B;"
+                       ng-model="linkUrl" aria-label="copy link" disabled>
+                <md-button class="md-icon-button" aria-label="Copy" ng-click="copyToClipboard();"
+                           style="padding: 0;margin: 0 0 0 3px;width: 30px;">
+                    <md-icon md-font-library="material-icons" ng-click="">link</md-icon>
+                    <md-tooltip md-direction="top">
+                        {{copyMessage}}
+                    </md-tooltip>
+                </md-button>
             </div>
         </md-dialog-content>
         <md-dialog-actions layout="row">

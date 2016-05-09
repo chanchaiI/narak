@@ -52,4 +52,9 @@ export class ShareController {
 
         })
     }
+
+    goVote(){
+        let sharingUrl = this.constant.domainUrl + '?token=' + this.post.random_no + '&' + new Date().getTime();
+        window.location = sharingUrl;
+    }
 }

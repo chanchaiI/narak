@@ -4,29 +4,30 @@
         <header>
             <div class="jumbotron" ng-if="!vm.isFacebookReady">Loading...</div>
         </header>
-        <section flex layout="column" flex>
-            <div layout="row" flex layout-align="center">
-                <div layout="row" flex="50" flex-md="80" flex-sm="90" flex-xs="90" style="color:#464646;">
-                    <div flex layout="row" layout-align="center">
-                        ประกวดภาพถ่ายหนูน้อย narakjung 2<br/>
-                        ตอน น่ารักคูณสอง (น่ารัก X 2)<br/>
-                        ชิงทุนการศึกษา และรางวัลอื่น ๆ รวมมูลค่ากว่า 150,000 บาท<br/>
-                        ระหว่างวันที่ 1 มิ.ย. – 31 ก.ค. 59<br/>
-                    </div>
-                </div>
+        <section layout="column" class="main-content" flex>
+            <div layout="row" flex layout-align="center" style="color:#464646;">
+                    ประกวดภาพถ่ายหนูน้อย narakjung 2<br/>
+                    ตอน น่ารักคูณสอง (น่ารัก X 2)<br/>
+                    ชิงทุนการศึกษา และรางวัลอื่น ๆ รวมมูลค่ากว่า 150,000 บาท<br/>
+                    ระหว่างวันที่ 1 มิ.ย. – 31 ก.ค. 59<br/><br/>
             </div>
-            <div flex layout="row" layout-align="center">
+            <div flex layout="row" layout-xs="column" layout-align="center">
                 <md-button class="md-raised animated infinite"
                            ng-click="vm.termClick();"
                            ng-if="vm.isFacebookReady" flex="20" flex-xs="80">
                     เข้าร่วมกิจกรรมส่งภาพ
                 </md-button>
                 <md-button class="md-raised animated infinite"
-                           ng-click="vm.termClick();"
-                           ng-if="vm.isFacebookReady" flex="20" flex-xs="80">
+                           ng-click="vm.go('vote');" flex="20" flex-xs="80">
                     เข้าร่วมโหวตภาพ
                 </md-button>
             </div>
         </section>
     </md-content>
 </div>
+
+<footer class="footer-bar" flex layout="row" layout-align="space-between center">
+    <span>
+         COPYRIGHT © 2016 Narak Tiara
+    </span>
+</footer>

@@ -1,5 +1,6 @@
 export class VoteController {
-    constructor($scope, $document, Facebook, $location, $state, $log, $http, CONSTANT, DataService, PostService, $mdDialog, $mdMedia, $timeout, FacebookService, $rootScope) {
+    constructor($scope, $document, Facebook, $location, $state, $log, $http, CONSTANT,
+                DataService, PostService, $mdDialog, $mdMedia, $timeout, FacebookService, $rootScope, clipboard) {
         'ngInject';
 
         this.pageClass = 'page-vote';
@@ -25,6 +26,7 @@ export class VoteController {
         this.$timeout = $timeout;
         this.facebookService = FacebookService;
         this.$rootScope = $rootScope;
+        this.clipboard = clipboard;
 
         this.$scope.$watch(() => {
             return this.facebook.isReady();
@@ -85,7 +87,7 @@ export class VoteController {
                     this.showImageDialog(response.data);
                 }
             })
-        }else if(this.$location.search().token){
+        } else if (this.$location.search().token) {
             this.postService.getPostByRandomNO(this.$location.search().token).then((response)=> {
                 if (response.data) {
                     this.showImageDialog(response.data);
@@ -150,7 +152,7 @@ export class VoteController {
                         </md-dialog>`,
             controller: ['$scope', '$mdDialog', ($scope, $mdDialog) => {
                 $scope.answer = (answer) => {
-                    if(answer){
+                    if (answer) {
                         this.facebookLoginForVote(post);
                     }
                     $mdDialog.hide(answer);
@@ -242,28 +244,11 @@ export class VoteController {
 
         })
     }
-    
-    copyLink(post){
 
+    copyLink(post) {
         let sharingUrl = this.constant.domainUrl + '?token=' + post.random_no + '&' + new Date().getTime();
-
-        this.$mdDialog.show({
-            // clickOutsideToClose: true,
-            parent: angular.element(this.$document.body),
-            templateUrl: 'app/vote/copy-link.dialog.html',
-            fullscreen: this.customFullscreen,
-            locals: {
-                nickname: post.kid_nickname,
-                linkUrl: sharingUrl
-            },
-            controller: ['$scope', '$mdDialog', 'nickname', 'linkUrl', ($scope, $mdDialog, nickname, linkUrl) => {
-                this.$scope.nickname = nickname;
-                this.$scope.linkUrl = linkUrl;
-                this.$scope.answer = (answer) => {
-                    $mdDialog.hide(answer);
-                };
-            }]
-        });
+        this.clipboard.copyText(sharingUrl);
+        post.showCopyTooltip = true;
     }
 
 
@@ -271,7 +256,7 @@ export class VoteController {
         this.$state.go(stateName);
     }
 
-    termClick(){
+    termClick() {
         this.$mdDialog.show({
             // clickOutsideToClose: true,
             parent: angular.element(this.$document.body),
@@ -279,7 +264,7 @@ export class VoteController {
             fullscreen: this.customFullscreen,
             controller: ['$scope', '$mdDialog', ($scope, $mdDialog) => {
                 $scope.answer = (answer) => {
-                    if(answer){
+                    if (answer) {
                         this.login();
                     }
                     $mdDialog.hide(answer);
@@ -289,20 +274,20 @@ export class VoteController {
     }
 
     login() {
-        if(this.loggedIn){
+        if (this.loggedIn) {
             this.register();
-        }else{
+        } else {
             // From now on you can use the Facebook service just as Facebook api says
             this.facebook.login((login_response) => {
                 if (login_response.authResponse) {
                     this.register();
                 }
-            }, { scope: 'public_profile,email' });
+            }, {scope: 'public_profile,email'});
         }
 
     }
 
-    register(){
+    register() {
 
         var registerUrl = this.constant.serviceBaseUrl + 'auth';
         var checkUploadUrl = this.constant.serviceBaseUrl + 'post/';
@@ -318,10 +303,10 @@ export class VoteController {
                     ignoreLoadingBar: true
                 }).success((response)=> {
                     if (!response.result) {
-                        this.$location.url('/facebookApp/#/data-capture');
+                        this.$state.go('data-capture');
                     } else {
                         this.dataService.set('post', response.data);
-                        this.$location.url('/facebookApp/#/share');
+                        this.$state.go('share');
                     }
                 })
             });

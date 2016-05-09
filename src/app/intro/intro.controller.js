@@ -97,4 +97,8 @@ export class IntroController {
     next(){
         this.$state.go('data-capture');
     }
+
+    go(state){
+        this.$state.go(state);
+    }
 }

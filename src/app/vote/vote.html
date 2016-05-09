@@ -25,34 +25,37 @@
                             <md-button class="md-icon-button" aria-label="Share">
                                 <md-icon md-font-library="material-icons" ng-click="vm.share(item);">share</md-icon>
                             </md-button>
-                            <md-button class="md-icon-button" aria-label="Share">
-                                <md-icon md-font-library="material-icons" ng-click="vm.copyLink(item);">code</md-icon>
+                            <md-button class="md-icon-button" aria-label="Link">
+                                <md-icon md-font-library="material-icons" ng-click="vm.copyLink(item);">link</md-icon>
+                                <md-tooltip md-direction="top" md-visible="item.showCopyTooltip">
+                                    Copied Link!
+                                </md-tooltip>
                             </md-button>
                         </md-card-actions>
                     </md-card-content>
                 </md-card>
             </section>
         </section>
-        <section layout="column" flex class="post-wrapper">
+        <section layout="column" flex class="post-wrapper main-content">
             <header flex layout="row" layout-align="center" style="margin-bottom: 20px;">
                 <md-radio-group name="category" class="category-selector"
                                 ng-model="vm.selectedCategory"
-                                layout="row" layout-sm="row" layout-xs="column" layout-wrap
-                                flex="80" layout-align="space-around"
+                                layout="row" layout-xs="column" layout-sm="column"
+                                flex="80"
                                 ng-change="vm.changeCategory()">
-                    <md-radio-button value="all" flex flex-sm="40" flex-xs="100">
+                    <md-radio-button value="all" flex flex-sm="40" flex-xs="100" class="category-item">
                         <div flex>น่ารักจังทั้งหมด</div>
                     </md-radio-button>
-                    <md-radio-button value="1" flex flex-sm="40" flex-xs="100">
+                    <md-radio-button value="1" flex flex-sm="40" flex-xs="100" class="category-item">
                         <div flex>น่ารักฉลาดเรียนรู้</div>
                     </md-radio-button>
-                    <md-radio-button value="2" flex flex-sm="40" flex-xs="100">
+                    <md-radio-button value="2" flex flex-sm="40" flex-xs="100" class="category-item">
                         <div flex>น่ารักอารมณ์ดี</div>
                     </md-radio-button>
-                    <md-radio-button value="3" flex flex-sm="40" flex-xs="100">
+                    <md-radio-button value="3" flex flex-sm="40" flex-xs="100" class="category-item">
                         <div flex>น่ารักนักสร้างสรรค์</div>
                     </md-radio-button>
-                    <md-radio-button value="4" flex flex-sm="40" flex-xs="100">
+                    <md-radio-button value="4" flex flex-sm="40" flex-xs="100" class="category-item">
                         <div flex>น่ารักนักยิ้ม</div>
                     </md-radio-button>
                 </md-radio-group>
@@ -75,8 +78,11 @@
                             <md-button class="md-icon-button" aria-label="Share">
                                 <md-icon md-font-library="material-icons" ng-click="vm.share(item);">share</md-icon>
                             </md-button>
-                            <md-button class="md-icon-button" aria-label="Share">
-                                <md-icon md-font-library="material-icons" ng-click="vm.copyLink(item);">code</md-icon>
+                            <md-button class="md-icon-button" aria-label="Link">
+                                <md-icon md-font-library="material-icons" ng-click="vm.copyLink(item);">link</md-icon>
+                                <md-tooltip md-direction="top" md-visible="item.showCopyTooltip">
+                                    Copied Link!
+                                </md-tooltip>
                             </md-button>
                         </md-card-actions>
                     </md-card-content>
@@ -88,11 +94,16 @@
 </div>
 
 
-<footer class="footer-bar" flex layout="row" layout-align="space-between center">
-    <span>
-         COPYRIGHT © 2016 Narak Tiara
-    </span>
-    <md-button ng-click="vm.termClick()" class="highlight-color">
+<footer class="footer-bar" layout="row" layout-xs="column" layout-align="space-between center">
+    <md-button ng-click="vm.termClick()" class="highlight-color" hide show-xs>
+        เข้าร่วมกิจกรรมส่งภาพ
+    </md-button>
+    <div layout="column" layout-align="start start">
+        <div layout="row">
+            COPYRIGHT © 2016 Narak Tiara
+        </div>
+    </div>
+    <md-button ng-click="vm.termClick()" class="highlight-color" hide-xs>
         เข้าร่วมกิจกรรมส่งภาพ
     </md-button>
 </footer>

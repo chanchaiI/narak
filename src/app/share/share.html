@@ -8,15 +8,33 @@
         </div>
         <header>
         </header>
-        <section flex layout="column" flex>
+        <section flex layout="column" class="main-content">
             <div layout="row" layout-align="center">
                 <img ng-src="{{vm.imagePath}}">
             </div>
-            <div layout="row" layout-align="center">
+            <div layout="row" layout-align="center" layout-wrap>
                 <md-button class="md-raised animated infinite" ng-click="vm.share()" flex="20" flex-sm="80" flex-xs="80">
                     Share on Facebook
                 </md-button>
+                <div flex="100">
+                    <br/>
+                </div>
+                <div flex="100">
+                    <br/>
+                </div>
             </div>
         </section>
     </md-content>
 </div>
+
+<footer class="footer-bar" layout="row" layout-xs="column" layout-align="space-between center">
+    <md-button ng-click="vm.goVote()" class="highlight-color" hide show-xs>
+        เข้าสู้หน้าโหวตภาพ
+    </md-button>
+    <div>
+        COPYRIGHT © 2016 Narak Tiara
+    </div>
+    <md-button ng-click="vm.goVote()" class="highlight-color" hide-xs>
+        เข้าสู้หน้าโหวตภาพ
+    </md-button>
+</footer>

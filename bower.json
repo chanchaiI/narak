@@ -21,6 +21,7 @@
     "ngInfiniteScroll": "1.0.0",
     "angular-material": "^1.0.7",
     "angular-material-data-table": "^0.9.14",
-    "angular-local-storage": "^0.2.7"
+    "angular-local-storage": "^0.2.7",
+    "angular-clipboard": "^1.4.1"
   }
 }

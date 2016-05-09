@@ -71,6 +71,9 @@ md-content{
   overflow: auto !important;
 }
 
+.main-content{
+}
+
 .page {
   bottom: 0;
   //padding-top: 120px;
@@ -209,10 +212,6 @@ md-input-container [ng-message]{
 
 .page-vote {
   //padding-top: 50px;
-}
-
-[layout=row] {
-  flex-direction: row;
 }
 
 .browsehappy {
@@ -363,7 +362,7 @@ md-card {
 
 .post-wrapper{
   margin-top: 30px;
-  margin-bottom: 40px;
+  padding-bottom: 70px;
 }
 
 .vote-media img{
@@ -379,7 +378,7 @@ md-card {
   bottom: 0;
   left: 0;
   padding: 0 20px;
-  font-size: 0.8em;
+  font-size: 0.7em;
 }
 
 // Table //
@@ -409,6 +408,21 @@ table.md-table.md-row-select td.md-cell:nth-child(n+3):nth-last-child(n+2), tabl
 
 md-toolbar .md-toolbar-tools{
   font-size: 30px;
+}
+
+.category-selector md-radio-button.category-item{
+  min-height: 50px;
+}
+
+@media screen and (max-width: 760px){
+  md-dialog {
+    width:100%;
+    max-width: 100%;
+  }
+  .footer-bar{
+    height: auto;
+    font-size: 0.6em;
+  }
 }
 
 /* rotate and fall */

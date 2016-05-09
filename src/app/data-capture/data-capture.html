@@ -6,7 +6,7 @@
         <header>
             <!--where navbar placed-->
         </header>
-        <section flex layout="column" flex layout-align="center">
+        <section layout="column" layout-align="center" class="main-content">
             <div layout="row" flex="100" layout-align="center">
                 <div layout="row" flex="50" flex-xs="80">
                     <form name="form" novalidate flex>
@@ -97,11 +97,17 @@
                                 </div>
                             </md-input-container>
                         </div>
-                        <div flex layout="row" layout-align="center">
+                        <div flex layout="row" layout-align="center" layout-wrap>
                             <md-button class="md-raised animated infinite" ng-class="vm.classAnimation"
                                        ng-click="vm.next()" flex="30" flex-xs="80">
                                 Next
                             </md-button>
+                            <div flex="100">
+                                <br/>
+                            </div>
+                            <div flex="100">
+                                <br/>
+                            </div>
                         </div>
                     </form>
                 </div>
@@ -109,3 +115,9 @@
         </section>
     </md-content>
 </div>
+
+<footer class="footer-bar" flex layout="row" layout-align="space-between center">
+    <span>
+         COPYRIGHT © 2016 Narak Tiara
+    </span>
+</footer>
