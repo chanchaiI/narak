@@ -27,9 +27,6 @@
                             </md-button>
                             <md-button class="md-icon-button" aria-label="Link">
                                 <md-icon md-font-library="material-icons" ng-click="vm.copyLink(item);">link</md-icon>
-                                <md-tooltip md-direction="top" md-visible="item.showCopyTooltip">
-                                    Copied Link!
-                                </md-tooltip>
                             </md-button>
                         </md-card-actions>
                     </md-card-content>
@@ -40,22 +37,22 @@
             <header flex layout="row" layout-align="center" style="margin-bottom: 20px;">
                 <md-radio-group name="category" class="category-selector"
                                 ng-model="vm.selectedCategory"
-                                layout="row" layout-xs="column" layout-sm="column"
+                                layout="row" layout-xs="column"
                                 flex="80"
                                 ng-change="vm.changeCategory()">
-                    <md-radio-button value="all" flex flex-sm="40" flex-xs="100" class="category-item">
+                    <md-radio-button value="all" flex flex-xs="100" class="category-item">
                         <div flex>น่ารักจังทั้งหมด</div>
                     </md-radio-button>
-                    <md-radio-button value="1" flex flex-sm="40" flex-xs="100" class="category-item">
+                    <md-radio-button value="1" flex flex-xs="100" class="category-item">
                         <div flex>น่ารักฉลาดเรียนรู้</div>
                     </md-radio-button>
-                    <md-radio-button value="2" flex flex-sm="40" flex-xs="100" class="category-item">
+                    <md-radio-button value="2" flex flex-xs="100" class="category-item">
                         <div flex>น่ารักอารมณ์ดี</div>
                     </md-radio-button>
-                    <md-radio-button value="3" flex flex-sm="40" flex-xs="100" class="category-item">
+                    <md-radio-button value="3" flex flex-xs="100" class="category-item">
                         <div flex>น่ารักนักสร้างสรรค์</div>
                     </md-radio-button>
-                    <md-radio-button value="4" flex flex-sm="40" flex-xs="100" class="category-item">
+                    <md-radio-button value="4" flex flex-xs="100" class="category-item">
                         <div flex>น่ารักนักยิ้ม</div>
                     </md-radio-button>
                 </md-radio-group>
@@ -80,9 +77,7 @@
                             </md-button>
                             <md-button class="md-icon-button" aria-label="Link">
                                 <md-icon md-font-library="material-icons" ng-click="vm.copyLink(item);">link</md-icon>
-                                <md-tooltip md-direction="top" md-visible="item.showCopyTooltip">
-                                    Copied Link!
-                                </md-tooltip>
+
                             </md-button>
                         </md-card-actions>
                     </md-card-content>
@@ -94,14 +89,14 @@
 </div>
 
 
-<footer class="footer-bar" layout="row" layout-xs="column" layout-align="space-between center">
-    <md-button ng-click="vm.termClick()" class="highlight-color" hide show-xs>
-        เข้าร่วมกิจกรรมส่งภาพ
-    </md-button>
-    <div layout="column" layout-align="start start">
-        <div layout="row">
-            COPYRIGHT © 2016 Narak Tiara
-        </div>
+<footer class="footer-bar" layout="row" layout-xs="column" layout-align="space-between center" layout-align-xs="start start">
+    <div layout="row" layout-align="center" style="width:100%">
+        <md-button ng-click="vm.termClick()" class="highlight-color footer-button" hide show-xs>
+            เข้าร่วมกิจกรรมส่งภาพ
+        </md-button>
+    </div>
+    <div layout="row" layout-align="start start">
+        COPYRIGHT © 2016 Narak Tiara
     </div>
     <md-button ng-click="vm.termClick()" class="highlight-color" hide-xs>
         เข้าร่วมกิจกรรมส่งภาพ

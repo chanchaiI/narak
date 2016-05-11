@@ -27,14 +27,16 @@
     </md-content>
 </div>
 
-<footer class="footer-bar" layout="row" layout-xs="column" layout-align="space-between center">
-    <md-button ng-click="vm.goVote()" class="highlight-color" hide show-xs>
-        เข้าสู้หน้าโหวตภาพ
-    </md-button>
-    <div>
+<footer class="footer-bar" layout="row" layout-xs="column" layout-align="space-between center" layout-align-xs="start start">
+    <div layout="row" layout-align="center" style="width:100%">
+        <md-button ng-click="vm.goVote()" class="highlight-color footer-button" hide show-xs>
+            เข้าสู่หน้าโหวตภาพ
+        </md-button>
+    </div>
+    <div layout="row" layout-align="start start">
         COPYRIGHT © 2016 Narak Tiara
     </div>
-    <md-button ng-click="vm.goVote()" class="highlight-color" hide-xs>
-        เข้าสู้หน้าโหวตภาพ
+    <md-button ng-click="vm.termClick()" class="highlight-color" hide-xs>
+        เข้าสู่หน้าโหวตภาพ
     </md-button>
 </footer>

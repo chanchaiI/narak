@@ -9,6 +9,7 @@ export class ShareController {
         this.$state = $state;
         this.$log = $log;
         this.$http = $http;
+        this.$window = $window;
         this.constant = CONSTANT;
         this.dataService = DataService;
         this.post = {};
@@ -39,7 +40,7 @@ export class ShareController {
 
     share(){
         var sharingUrl = '';
-        if(!!this.post){
+        if(this.post){
             sharingUrl = this.constant.domainUrl + '?token=' + this.post.random_no + '&' + new Date().getTime();
         }else{
             sharingUrl = this.constant.domainUrl;
@@ -48,13 +49,11 @@ export class ShareController {
         this.facebook.ui({
             method: 'share',
             href: sharingUrl
-        }, (response)=>{
-
-        })
+        }, ()=>{});
     }
 
     goVote(){
         let sharingUrl = this.constant.domainUrl + '?token=' + this.post.random_no + '&' + new Date().getTime();
-        window.location = sharingUrl;
+        this.$window.location = sharingUrl;
     }
 }

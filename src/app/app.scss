@@ -381,6 +381,11 @@ md-card {
   font-size: 0.7em;
 }
 
+.footer-bar .footer-button{
+  margin: 0;
+  padding: 0;
+}
+
 // Table //
 table.md-table th.md-column{
   font-size: 24px;
@@ -422,6 +427,13 @@ md-toolbar .md-toolbar-tools{
   .footer-bar{
     height: auto;
     font-size: 0.6em;
+  }
+
+  .main-logo img{
+    width: 130px;
+  }
+  .popular-vote header{
+    font-size: 1.5em;
   }
 }
 

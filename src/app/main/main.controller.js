@@ -64,9 +64,9 @@ export class MainController {
                 drawText(context, name, fontColor, {x: textPaddingLeft, y: templateImage.height - 28});
 
 
-                if (!!this.baby.years || !!this.baby.months) {
-                    drawText(context, (!!this.baby.years ? this.baby.years + ' ปี ' : '') +
-                        (!!this.baby.months ? this.baby.months + ' เดือน' : ''), fontColor,
+                if (this.baby.years || this.baby.months) {
+                    drawText(context, (this.baby.years ? this.baby.years + ' ปี ' : '') +
+                        (this.baby.months ? this.baby.months + ' เดือน' : ''), fontColor,
                         {x: textPaddingLeft, y: templateImage.height - 10});
                 }
             };
@@ -87,7 +87,7 @@ export class MainController {
             }
         };
 
-        if(!!this.selectedTemplate){
+        if(this.selectedTemplate){
             templateImage.src = this.constant.templatePath + this.selectedTemplate.path;
         }
     }

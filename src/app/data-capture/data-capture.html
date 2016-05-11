@@ -85,6 +85,9 @@
                             </md-input-container>
                         </div>
                         <div flex layout="row">
+                            <br/>
+                        </div>
+                        <div flex layout="row">
                             <label flex="20" layout="column" layout-align="center">เบอร์โทรศัพท์</label>
                             <md-input-container flex>
                                 <label for="telnumber">เบอร์โทรสำหรับทีมงานติดต่อกลับ</label>
@@ -94,6 +97,7 @@
                                        max="11" required>
                                 <div ng-messages="form.telnumber.$error" role="alert" ng-if="form.$submitted">
                                     <div ng-message="required">กรุณากรอกข้อมูล</div>
+                                    <div ng-message="pattern">กรุณากรอกข้อมูลให้ถูกต้อง</div>
                                 </div>
                             </md-input-container>
                         </div>

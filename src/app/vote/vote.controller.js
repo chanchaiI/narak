@@ -246,9 +246,32 @@ export class VoteController {
     }
 
     copyLink(post) {
+
         let sharingUrl = this.constant.domainUrl + '?token=' + post.random_no + '&' + new Date().getTime();
-        this.clipboard.copyText(sharingUrl);
-        post.showCopyTooltip = true;
+
+        this.$mdDialog.show({
+            clickOutsideToClose: true,
+            parent: angular.element(this.$document.body),
+            templateUrl: 'app/vote/copy-link.dialog.html',
+            locals: {
+                linkUrl: sharingUrl
+            },
+            controller: ['$scope', '$mdDialog', 'linkUrl', 'clipboard',
+                ($scope, $mdDialog, linkUrl, clipboard) => {
+                    $scope.linkUrl = linkUrl;
+                    $scope.showCopyTooltip = false;
+                    $scope.answer = (answer) => {
+                        $mdDialog.hide(answer);
+                    };
+                    $scope.copyToClipboard = () => {
+                        clipboard.copyText($scope.linkUrl);
+                        $scope.showCopyTooltip = true;
+                    }
+                }]
+        });
+
+        // this.clipboard.copyText(sharingUrl);
+        // post.showCopyTooltip = true;
     }
 
 
