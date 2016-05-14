@@ -28,7 +28,11 @@ export class ShareController {
 
     activate(){
         this.post = this.dataService.get('post');
-        this.imagePath = this.constant.domainUrl + this.constant.uploadedPath + this.post.image_path;
+        if(this.post.image_path){
+            this.imagePath = this.constant.domainUrl + this.constant.uploadedPath + this.post.image_path;
+        }else{
+            this.$state.go('intro');
+        }
     }
     getLoginStatus(callback) {
         this.facebook.getLoginStatus(callback);

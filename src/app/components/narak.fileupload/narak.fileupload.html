@@ -1,6 +1,6 @@
 <div class="upload-img-wrapper">
 
-    <input type="file" name="picFile" ngf-select ng-model="picFile" ngf-accept="'image/*;capture=camera'" ngf-capture="'camera'" required>
+    <input type="file" name="picFile" ngf-select ng-model="picFile" ngf-accept="'image/*'" required>
 
     <div ngf-drop ng-model="picFile" ngf-pattern="image/*" class="cropArea">
         <div style="margin: 120px auto; text-align: center;" ng-if="!picFile">Drop Image here</div>
