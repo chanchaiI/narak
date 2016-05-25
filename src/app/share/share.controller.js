@@ -1,5 +1,5 @@
 export class ShareController {
-    constructor($scope, $window, Facebook, $state, $log, $http, CONSTANT, DataService) {
+    constructor($scope, $window, Facebook, $state, $log, $http, $mdMedia, CONSTANT, DataService) {
         'ngInject';
 
         this.facebook = Facebook;
@@ -11,6 +11,7 @@ export class ShareController {
         this.$http = $http;
         this.$window = $window;
         this.constant = CONSTANT;
+        this.customFullscreen = $mdMedia('xs') || $mdMedia('sm');
         this.dataService = DataService;
         this.post = {};
         this.activate();

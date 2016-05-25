@@ -25,10 +25,14 @@ class VoteController extends Controller
                 'message' => 'Voted'
             ), 400);
         }else{
+            $email = null;
+            if(property_exists($data, 'email')){
+                $email = $data->email;
+            }
             return Vote::create([
                 'post_id' => intval($id),
                 'facebook_id' => $data->facebook_id,
-                'email' => $data->email,
+                'email' => $email,
             ]);
         }
     }

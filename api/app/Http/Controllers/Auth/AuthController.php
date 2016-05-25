@@ -12,10 +12,14 @@ class AuthController extends Controller
 
     private static function create($data)
     {
+        $email = null;
+        if(property_exists($data, 'email')){
+            $email = $data->email;
+        }
         return User::create([
             'name' => $data->name,
             'facebook_id' => $data->id,
-            'email' => $data->email
+            'email' => $email
         ]);
     }
 
