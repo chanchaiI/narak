@@ -50,7 +50,7 @@ export class MainController {
         templateImage.onload = () => {
             canvas.width = templateImage.width;
             canvas.height = templateImage.height;
-            context.font = this.selectedTemplate.font.name || '20px db_helvethaicamon_x75_bd';
+            context.font = this.selectedTemplate.font.name || '18px db_helvethaicamon_x75_bd';
             var fontColor = this.selectedTemplate.font.color || '#CCC';
 
             var kidImage = new Image();
@@ -58,16 +58,16 @@ export class MainController {
                 drawKidImage(context, this.selectedTemplate.position.kid.x || 30, this.selectedTemplate.position.kid.y || 40, kidImage);
                 drawTemplate(context, templateImage);
 
-                var textPaddingLeft = 43;
+                var textPaddingLeft = 35;
                 var name = this.baby.gender + ' ' + this.baby.name + ' ( น้อง' + this.baby.nickname + ' )';
 
-                drawText(context, name, fontColor, {x: textPaddingLeft, y: templateImage.height - 28});
+                drawText(context, name, fontColor, {x: textPaddingLeft, y: templateImage.height - 25});
 
 
                 if (this.baby.years || this.baby.months) {
                     drawText(context, (this.baby.years ? this.baby.years + ' ปี ' : '') +
                         (this.baby.months ? this.baby.months + ' เดือน' : ''), fontColor,
-                        {x: textPaddingLeft, y: templateImage.height - 10});
+                        {x: textPaddingLeft, y: templateImage.height - 7});
                 }
             };
 

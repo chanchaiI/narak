@@ -2,8 +2,8 @@
   background: #F8F8F8;
   border: 5px dashed #DDD;
   overflow: hidden;
-  width:400px;
-  height:300px;
+  width:250px;
+  height:250px;
 }
 form .progress {
   line-height: 15px;
@@ -17,4 +17,43 @@ form .progress {
   font-size: smaller;
   background: orange;
   width: 0;
+}
+.upload-img-wrapper{
+  width: 270px;
+  height: 270px;
+  background-color: rgba(255, 255, 255, 0.8);
+  margin-top: 30px;
+
+  .placeholder{
+    //margin: 10px;
+    //border: dashed 3px rgba(0, 0, 0, 0.5);
+  }
+
+  input{
+    font-size: 20px;
+  }
+
+  .image-cropper{
+    position: relative;
+
+    .delete-button{
+      position: absolute;
+      top: -32px;
+      right: -135px;
+      background-color: rgba(255, 255, 255, 1);
+      border: none;
+      border-radius: 5px;
+    }
+  }
+}
+
+.imgCropper-controls{
+  background-color: $primary-bg-color;
+  button{
+    font-size: 20px;
+    border: none;
+    background: none;
+    margin-right: 5px;
+    padding: 7px 10px 0;
+  }
 }

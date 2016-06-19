@@ -1,4 +1,4 @@
-export function config ($logProvider, FacebookProvider, cfpLoadingBarProvider, $locationProvider) {
+export function config ($logProvider, FacebookProvider, cfpLoadingBarProvider, $locationProvider, $mdIconProvider) {
   'ngInject';
   // Enable log
   $logProvider.debugEnabled(false);
@@ -6,4 +6,8 @@ export function config ($logProvider, FacebookProvider, cfpLoadingBarProvider, $
   FacebookProvider.init('1692839044337701');
 
   cfpLoadingBarProvider.spinnerTemplate = '<div class="loading-backdrop"></div>';
+
+
+  $mdIconProvider.fontSet('md', 'material-icons');
+
 }

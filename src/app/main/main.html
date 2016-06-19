@@ -1,41 +1,43 @@
 <div layout="vertical" layout-fill>
-    <md-content flex>
-        <div ng-cloak layout="row" layout-align="center"><a class="main-logo">
-            <img src="assets/images/narakjung.png"></a></div>
-        <h2>
-            Upload รูปภาพ
-        </h2>
-        <section flex layout="column" layout-align="center" class="main-content">
-            <form name="mainForm" novalidate>
+    <md-content class="main blue-yellow" flex>
+        <div class="content-wrapper" flex="100">
+            <div ng-cloak layout="row" layout-align="center" class="z-index-100">
+                <a class="main-logo">
+                    <img src="assets/images/narakjung.png">
+                </a>
+            </div>
+            <div flex layout="row" layout-align="center">
+                <div class="banner">
+                    <img src="/assets/images/main/upload-banner.png">
+                </div>
+            </div>
+            <div class="girl z-index-80">
+                <img src="/assets/images/common/girl-lg.png">
+            </div>
+            <form name="mainForm" class="z-index-100 main-form" novalidate>
                 <div ng-messages="mainForm.picFile.$error" role="alert" ng-if="mainForm.$submitted">
                     <div ng-message="required">กรุณาอัพโหลดรูปภาพ</div>
                 </div>
-                <div flex layout="row" layout-sm="column" layout-align="center" layout-wrap>
-                    <div layout-align="center" flex flex-sm="100" flex-xs="100">
+                <div flex layout="row" layout-sm="column" layout-align="center" layout-wrap style="overflow: hidden">
+                    <div layout-align="center" flex="25" flex-sm="100" flex-xs="100">
                         <narak-file-upload model="vm.croppedImage"></narak-file-upload>
                     </div>
-                    <div layout-align="center" flex flex-sm="100" flex-xs="100">
+                    <div layout-align="center" flex="25" flex-sm="100" flex-xs="100" class="preview-wrapper">
                         <canvas id="preview"></canvas>
                     </div>
                 </div>
                 <div flex layout="row" layout-align="center" layout-wrap>
                     <md-button flex="20" flex-sm="80" flex-xs="80" class="md-raised animated infinite" ng-click="vm.submit()">
-                        Upload & Share
+                        Upload | Share
                     </md-button>
-                    <div flex="100">
-                        <br/>
-                    </div>
                     <div flex="100">
                         <br/>
                     </div>
                 </div>
             </form>
-        </section>
+            <div class="boy z-index-80">
+                <img src="/assets/images/common/boy-lg.png">
+            </div>
+        </div>
     </md-content>
 </div>
-
-<footer class="footer-bar" flex layout="row" layout-align="space-between center">
-    <span>
-         COPYRIGHT © 2016 Narak Tiara
-    </span>
-</footer>

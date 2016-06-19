@@ -1,14 +1,21 @@
 <div class="upload-img-wrapper">
-
-    <input type="file" name="picFile" ngf-select ng-model="picFile" ngf-accept="'image/*'" required>
-
-    <div ngf-drop ng-model="picFile" ngf-pattern="image/*" class="cropArea">
-        <div style="margin: 120px auto; text-align: center;" ng-if="!picFile">Drop Image here</div>
-        <img-crop image="picFile | ngfDataUrl"
-                  result-image="image" result-image-size="300"
-                  area-type="square" ng-show="!!picFile" on-change="notifyChange()">
-        </img-crop>
+    <image-cropper ng-if="picFile | ngfDataUrl" class="image-cropper"
+                   image-url="{{picFile | ngfDataUrl}}"
+                   width="250"
+                   height="250"
+                   show-controls="true"
+                   fit-on-init="true"
+                   center-on-init="true"
+                   api="cropperReady"
+                   crop-callback="updateResultImage"
+                   zoom-step="0.05"
+                   action-labels="buttonLabels">
+        <button class="delete-button" ng-click="deleteImage();"><i class="material-icons">close</i></button>
+    </image-cropper>
+    <div class="placeholder" ng-if="!picFile" ng-click="openBrowseFile();">
+        <img src="assets/images/main/placeholder.png">
     </div>
-    <span ng-show="result">Upload Successful</span>
+    <input type="file" class="ng-hide" id="picFile" name="picFile" ngf-select ng-model="picFile" ngf-accept="'image/*'" required>
+
     <span class="err" ng-show="errorMsg">{{errorMsg}}</span>
 </div>

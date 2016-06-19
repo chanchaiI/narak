@@ -1,33 +1,43 @@
 <div layout="vertical" layout-fill>
-    <md-content flex>
-        <div ng-cloak layout="row" layout-align="center"><a class="main-logo"><img src="assets/images/narakjung.png"></a></div>
-        <header>
-            <div class="jumbotron" ng-if="!vm.isFacebookReady">Loading...</div>
-        </header>
-        <section layout="column" class="main-content" flex>
-            <div layout="row" flex layout-align="center" style="color:#464646;">
-                    ประกวดภาพถ่ายหนูน้อย narakjung 2<br/>
-                    ตอน น่ารักคูณสอง (น่ารัก X 2)<br/>
-                    ชิงทุนการศึกษา และรางวัลอื่น ๆ รวมมูลค่ากว่า 150,000 บาท<br/>
-                    ระหว่างวันที่ 1 มิ.ย. – 31 ก.ค. 59<br/><br/>
+    <md-content class="intro blue-white" flex>
+        <div class="bg"></div>
+        <div class="content-wrapper" flex="50" flex-xs="90">
+            <div class="girl" hide-xs>
+                <img src="/assets/images/intro/intro-girl.png">
             </div>
-            <div flex layout="row" layout-xs="column" layout-align="center">
-                <md-button class="md-raised animated infinite"
-                           ng-click="vm.termClick();"
-                           ng-if="vm.isFacebookReady" flex="20" flex-xs="80">
-                    เข้าร่วมกิจกรรมส่งภาพ
-                </md-button>
-                <md-button class="md-raised animated infinite"
-                           ng-click="vm.go('vote');" flex="20" flex-xs="80">
-                    เข้าร่วมโหวตภาพ
-                </md-button>
+            <div ng-cloak layout="row" layout-align="center">
+                <a class="main-logo z-index-100">
+                    <img src="assets/images/narakjung.png">
+                </a>
             </div>
-        </section>
+
+            <section layout="column" class="main-content" flex>
+                <div class="contest z-index-100">
+                    <img src="/assets/images/intro/contest.png"/>
+                </div>
+                <div flex layout-align="center" class="primary z-index-100 font-size-80">
+                    <span>ชิงทุนการศึกษา และรางวัลอื่นๆ รวมมูลค่ากว่า</span>
+                    <span class="secondary">&nbsp 150,000 &nbsp</span>
+                    <span>บาท</span>
+                    <br/>
+                    <span class="font-size-140">
+                        ระหว่างวันที่ 1 มิ.ย. - 31 ก.ค. 59
+                    </span>
+                </div>
+                <div flex layout="row" layout-align="center">
+                    <button class="narak-btn" ng-click="vm.go('vote');">
+                        <div class="rope left-rope"></div>
+                        โหวตภาพ
+                    </button>
+                    <button class="narak-btn no-margin" ng-click="vm.termClick();" ng-if="vm.isFacebookReady" >
+                        ร่วมสนุก
+                        <div class="rope right-rope"></div>
+                    </button>
+                </div>
+            </section>
+            <div class="boy" hide-xs>
+                <img src="/assets/images/intro/intro-boy.png">
+            </div>
+        </div>
     </md-content>
 </div>
-
-<footer class="footer-bar" flex layout="row" layout-align="space-between center">
-    <span>
-         COPYRIGHT © 2016 Narak Tiara
-    </span>
-</footer>

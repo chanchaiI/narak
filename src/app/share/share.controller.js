@@ -29,6 +29,7 @@ export class ShareController {
 
     activate(){
         this.post = this.dataService.get('post');
+        // this.imagePath = 'https://narakclub.com/uploads/images/4888.jpg';
         if(this.post.image_path){
             this.imagePath = this.constant.domainUrl + this.constant.uploadedPath + this.post.image_path;
         }else{

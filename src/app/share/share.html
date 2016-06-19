@@ -1,42 +1,53 @@
-
 <div layout="vertical" layout-fill>
-    <md-content flex>
-        <div ng-cloak layout="row" layout-align="center">
-            <a class="main-logo">
-                <img src="assets/images/narakjung.png">
-            </a>
+    <md-content class="share blue-yellow" flex>
+        <div class="content-wrapper" flex="100">
+            <div layout="row" layout-align="center" class="z-index-100">
+                <a class="main-logo">
+                    <img src="assets/images/narakjung.png">
+                </a>
+            </div>
+            <div flex layout="row" layout-align="center">
+                <div class="banner">
+                    <img src="/assets/images/share/share-banner.png">
+                </div>
+            </div>
+            <div class="girl z-index-80">
+                <img src="/assets/images/common/girl-ex-lg.png">
+            </div>
+            <section flex layout="column" class="main-content">
+                <div layout="row" layout-align="center" class="z-index-100">
+                    <img class="share-image" ng-src="{{vm.imagePath}}">
+                </div>
+                <div layout="row" layout-align="center" layout-wrap>
+                    <md-button class="md-raised animated infinite z-index-100" ng-click="vm.share()" flex="20" flex-sm="80"
+                               flex-xs="80">
+                        Share on Facebook
+                    </md-button>
+                    <div flex="100">
+                        <br/>
+                    </div>
+                    <div flex="100">
+                        <br/>
+                    </div>
+                </div>
+            </section>
+            <div class="boy z-index-80">
+                <img src="/assets/images/common/boy-ex-lg.png">
+            </div>
         </div>
-        <header>
-        </header>
-        <section flex layout="column" class="main-content">
-            <div layout="row" layout-align="center">
-                <img ng-src="{{vm.imagePath}}">
-            </div>
-            <div layout="row" layout-align="center" layout-wrap>
-                <md-button class="md-raised animated infinite" ng-click="vm.share()" flex="20" flex-sm="80" flex-xs="80">
-                    Share on Facebook
-                </md-button>
-                <div flex="100">
-                    <br/>
-                </div>
-                <div flex="100">
-                    <br/>
-                </div>
-            </div>
-        </section>
     </md-content>
 </div>
 
-<footer class="footer-bar" layout="row" layout-xs="column" layout-align="space-between center" layout-align-xs="start start">
-    <div layout="row" layout-align="center" style="width:100%" ng-if="vm.customFullscreen">
-        <md-button ng-click="vm.goVote()" class="highlight-color footer-button" hide show-xs>
-            เข้าสู่หน้าโหวตภาพ
-        </md-button>
-    </div>
-    <div layout="row" layout-align="start start">
-        COPYRIGHT © 2016 Narak Tiara
-    </div>
-    <md-button ng-click="vm.goVote()" class="highlight-color" hide-xs>
-        เข้าสู่หน้าโหวตภาพ
-    </md-button>
-</footer>
+<!--<footer class="footer-bar" layout="row" layout-xs="column" layout-align="space-between center" layout-align-xs="start start">-->
+<!--<div layout="row" layout-align="center" style="width:100%" ng-if="vm.customFullscreen">-->
+<!--<md-button ng-click="vm.goVote()" class="highlight-color footer-button" hide show-xs>-->
+<!--เข้าสู่หน้าโหวตภาพ-->
+<!--</md-button>-->
+<!--</div>-->
+<!--<div layout="row" layout-align="start start">-->
+<!--COPYRIGHT © 2016 Narak Tiara-->
+<!--</div>-->
+<!--<md-button ng-click="vm.goVote()" class="highlight-color" hide-xs>-->
+<!--เข้าสู่หน้าโหวตภาพ-->
+<!--</md-button>-->
+<!--</footer>-->
