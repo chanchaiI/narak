@@ -170,7 +170,7 @@ class PostController extends Controller
                 $destinationPath = public_path() . "/../.." . '/uploads/images/'; // upload path
                 $extension = 'jpg'; // getting image extension
                 $random_no = self::randomNumber(1111, 9999);
-                self::write_random_no($imageFile, $template->position->id->x, $template->position->id->y, $random_no, 15, $template->font->color);
+                self::write_random_no($imageFile, $template->position->id->x, $template->position->id->y, $random_no, 13, $template->font->color);
                 $fileName = $random_no . '.' . $extension; // renaming image
                 $success = imagejpeg($imageFile, $destinationPath . $fileName);
 

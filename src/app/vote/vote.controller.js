@@ -50,10 +50,14 @@ export class VoteController {
     }
 
     changeCategory() {
-        this.posts = [];
-        this.currentPage = 0;
-        this.empty = false;
-        this.nextPage();
+        if(this.selectedCategory === 'popular'){
+            this.posts = this.popularVotes;
+        }else{
+            this.posts = [];
+            this.currentPage = 0;
+            this.empty = false;
+            this.nextPage();
+        }
     }
 
     nextPage() {

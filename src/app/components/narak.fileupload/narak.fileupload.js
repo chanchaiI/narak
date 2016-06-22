@@ -8,9 +8,6 @@ export class NarakFileUploadComponent{
 
     constructor(){
         this.templateUrl = 'app/components/narak.fileupload/narak.fileupload.html';
-        this.bindings = {
-            model: '='
-        }
     }
 
     controller($scope, $rootScope, $document){
@@ -24,22 +21,12 @@ export class NarakFileUploadComponent{
             fit: '<i class="material-icons">refresh</i>'
         };
 
-        $scope.image = this.model;
-
-        $scope.$watch('image', (newModel)=>{
-            this.model = newModel;
-            $rootScope.$broadcast('img-change');
-        });
-
-        $scope.cropperReady = function(api){
+        $scope.cropperReady = (api) =>{
             $scope.image = api.crop();
         };
 
-        $scope.updateResultImage = function(base64) {
-            $scope.image = base64;
-            $scope.$apply(); // Apply the changes.
-
-            // $rootScope.$broadcast('img-change');
+        $scope.updateResultImage = (base64) => {
+            $rootScope.$broadcast('img-change', base64);
         };
         
         $scope.openBrowseFile = function(){

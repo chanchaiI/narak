@@ -36,12 +36,58 @@ export class MainController {
         }
         this.baby.category_id = this.selectedTemplate.id;
 
-        this.$scope.$on('img-change', ()=> {
+
+        this.preview();
+        this.$scope.$on('img-change', (event, value)=> {
+            this.croppedImage = value;
             this.preview();
         });
     }
 
     preview() {
+        if(!this.croppedImage){
+            this.drawTemplate();
+            return;
+        }
+
+        var canvas = angular.element(document.querySelector('#preview'))[0];
+        var context = canvas.getContext('2d');
+        var templateImage = new Image();
+
+        templateImage.onload = () => {
+            canvas.width = templateImage.width;
+            canvas.height = templateImage.height;
+            context.font = this.selectedTemplate.font.name || '18px db_helvethaicamon_x75_bd';
+            var fontColor = this.selectedTemplate.font.color || '#CCC';
+
+            var kidImage = new Image();
+            kidImage.onload = () => {
+                this.drawKidImage(context, this.selectedTemplate.position.kid.x || 30, this.selectedTemplate.position.kid.y || 40, kidImage);
+                this.drawFrame(context, templateImage);
+
+                var textPaddingLeft = 35;
+                var name = this.baby.gender + ' ' + this.baby.name + ' ( น้อง' + this.baby.nickname + ' )';
+
+                this.drawText(context, name, fontColor, {x: textPaddingLeft, y: templateImage.height - 25});
+
+
+                if (this.baby.years || this.baby.months) {
+                    this.drawText(context, (this.baby.years ? this.baby.years + ' ปี ' : '') +
+                        (this.baby.months ? this.baby.months + ' เดือน' : ''), fontColor,
+                        {x: textPaddingLeft, y: templateImage.height - 7});
+                }
+            };
+
+            kidImage.src = this.croppedImage;
+
+        };
+
+        if(this.selectedTemplate){
+            templateImage.src = this.constant.templatePath + this.selectedTemplate.path;
+        }
+    }
+
+    drawTemplate(){
         var canvas = angular.element(document.querySelector('#preview'))[0];
         var context = canvas.getContext('2d');
 
@@ -53,43 +99,36 @@ export class MainController {
             context.font = this.selectedTemplate.font.name || '18px db_helvethaicamon_x75_bd';
             var fontColor = this.selectedTemplate.font.color || '#CCC';
 
-            var kidImage = new Image();
-            kidImage.onload = () => {
-                drawKidImage(context, this.selectedTemplate.position.kid.x || 30, this.selectedTemplate.position.kid.y || 40, kidImage);
-                drawTemplate(context, templateImage);
+            this.drawFrame(context,templateImage);
 
-                var textPaddingLeft = 35;
-                var name = this.baby.gender + ' ' + this.baby.name + ' ( น้อง' + this.baby.nickname + ' )';
+            var textPaddingLeft = 35;
+            var name = this.baby.gender + ' ' + this.baby.name + ' ( น้อง' + this.baby.nickname + ' )';
 
-                drawText(context, name, fontColor, {x: textPaddingLeft, y: templateImage.height - 25});
+            this.drawText(context, name, fontColor, {x: textPaddingLeft, y: templateImage.height - 25});
 
-
-                if (this.baby.years || this.baby.months) {
-                    drawText(context, (this.baby.years ? this.baby.years + ' ปี ' : '') +
-                        (this.baby.months ? this.baby.months + ' เดือน' : ''), fontColor,
-                        {x: textPaddingLeft, y: templateImage.height - 7});
-                }
-            };
-
-            kidImage.src = this.croppedImage;
-
-            function drawKidImage(context, x, y, imageObj) {
-                context.drawImage(imageObj, x, y, imageObj.width, imageObj.height);
-            }
-
-            function drawTemplate(context, templateImage) {
-                context.drawImage(templateImage, 0, 0, templateImage.width, templateImage.height);
-            }
-
-            function drawText(context, text, style, position) {
-                context.fillStyle = style;
-                context.fillText(text, position.x, position.y);
+            if (this.baby.years || this.baby.months) {
+                this.drawText(context, (this.baby.years ? this.baby.years + ' ปี ' : '') +
+                    (this.baby.months ? this.baby.months + ' เดือน' : ''), fontColor,
+                    {x: textPaddingLeft, y: templateImage.height - 7});
             }
         };
 
         if(this.selectedTemplate){
             templateImage.src = this.constant.templatePath + this.selectedTemplate.path;
         }
+    }
+
+    drawKidImage(context, x, y, imageObj) {
+    context.drawImage(imageObj, x, y, imageObj.width, imageObj.height);
+    }
+
+    drawFrame(context, templateImage) {
+        context.drawImage(templateImage, 0, 0, templateImage.width, templateImage.height);
+    }
+
+    drawText(context, text, style, position) {
+        context.fillStyle = style;
+        context.fillText(text, position.x, position.y);
     }
 
     submit() {

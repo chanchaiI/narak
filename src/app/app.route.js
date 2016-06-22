@@ -54,7 +54,14 @@ export function routerConfig($stateProvider, $urlRouterProvider) {
             templateUrl: 'app/term/term.html',
             controller: 'TermController',
             controllerAs: 'vm'
-        });
+        })
+        .state('how-to-play', {
+            url: '/facebookApp/how-to-play',
+            templateUrl: 'app/how-to-play/how-to-play.html',
+            controller: 'HowToPlayController',
+            controllerAs: 'vm'
+        })
+    ;
 
     $urlRouterProvider.otherwise('/');
 }

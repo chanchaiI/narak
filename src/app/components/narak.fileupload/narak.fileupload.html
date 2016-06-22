@@ -1,14 +1,14 @@
 <div class="upload-img-wrapper">
     <image-cropper ng-if="picFile | ngfDataUrl" class="image-cropper"
                    image-url="{{picFile | ngfDataUrl}}"
-                   width="250"
-                   height="250"
+                   width="500"
+                   height="500"
                    show-controls="true"
                    fit-on-init="true"
                    center-on-init="true"
                    api="cropperReady"
                    crop-callback="updateResultImage"
-                   zoom-step="0.05"
+                   zoom-step="0.2"
                    action-labels="buttonLabels">
         <button class="delete-button" ng-click="deleteImage();"><i class="material-icons">close</i></button>
     </image-cropper>

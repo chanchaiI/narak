@@ -10,6 +10,7 @@ import {DataCaptureController} from './data-capture/data-capture.controller';
 import {SelectTemplateController} from './select-template/select-template.controller';
 import {MainController} from './main/main.controller';
 import {ShareController} from './share/share.controller';
+import {HowToPlayController} from './how-to-play/how-to-play.controller'
 import {PostService} from './services/post.service';
 import {PostAdminService} from './services/post.admin.service';
 import {AuthService} from './services/auth.service';
@@ -33,6 +34,7 @@ angular.module('narak', ['ngAnimate', 'ngSanitize', 'ngMessages', 'ngAria', 'ui.
     .controller('SelectTemplateController', SelectTemplateController)
     .controller('MainController', MainController)
     .controller('ShareController', ShareController)
+    .controller('HowToPlayController', HowToPlayController)
     .service('PostService', PostService)
     .service('PostAdminService', PostAdminService)
     .service('AuthService', AuthService)

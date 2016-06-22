@@ -1,104 +1,102 @@
 <div layout="vertical" layout-fill>
-    <md-content flex>
-        <div ng-cloak layout="row" layout-align="center">
-            <a class="main-logo">
-                <img src="assets/images/narakjung.png"></a></div>
-        <section layout="column" class="popular-vote">
-            <header>
-                POPULAR VOTE
-            </header>
-            <section layout="row" layout-align="center" layout-wrap class="body" style="background-color: pink;">
-                <md-card ng-repeat="item in vm.popularVotes"
-                         ng-class="{ 'flex-30': vm.popularVotes.length<=2, 'flex': vm.popularVotes.length>2}"
-                         flex-sm="45" flex-xs="100">
-                    <md-card-content layout="row" layout-align="space-around">
-                        <div class="md-media-l card-media vote-media"
-                             ng-click="vm.showImageDialog(item)">
-                            <img ng-src="{{ vm.constant.uploadedPath + item.image_path}}">
-                        </div>
-                        <md-card-actions layout="column">
-                            <md-button class="md-icon-button vote-count" ng-click="vm.vote(item);">{{item.vote_count}}</md-button>
-                            <md-button class="md-icon-button vote-btn" aria-label="Vote">
-                                <md-icon md-font-library="material-icons" ng-click="vm.vote(item);" class="gold">star
-                                </md-icon>
-                            </md-button>
-                            <md-button class="md-icon-button" aria-label="Share">
-                                <md-icon md-font-library="material-icons" ng-click="vm.share(item);">share</md-icon>
-                            </md-button>
-                            <md-button class="md-icon-button" aria-label="Link">
-                                <md-icon md-font-library="material-icons" ng-click="vm.copyLink(item);">link</md-icon>
-                            </md-button>
-                        </md-card-actions>
-                    </md-card-content>
-                </md-card>
+    <md-content class="vote blue-white" flex>
+        <div class="bg"></div>
+        <div class="girl" hide-xs>
+            <img src="/assets/images/intro/intro-girl.png">
+        </div>
+        <div layout="row" layout-align="center">
+            <a class="main-logo z-index-100">
+                <img src="assets/images/narakjung.png">
+            </a>
+        </div>
+        <div layout="row" layout-align="center">
+            <div style="position: relative">
+                <div class="rope left-rope z-index-80"></div>
+                <img class="z-index-100" src="/assets/images/vote/banner.png">
+                <div class="rope right-rope z-index-80"></div>
+            </div>
+        </div>
+        <div class="content-wrapper" flex="90" flex-xs="95">
+            <section layout="column" flex class="post-wrapper main-content">
+                <header flex layout="row" layout-align="end" style="margin-bottom: 20px;">
+                    <md-radio-group name="category" class="category-selector"
+                                    ng-model="vm.selectedCategory"
+                                    layout="row" layout-xs="column" layout-align="center"
+                                    flex="90" flex-xs="100"
+                                    ng-change="vm.changeCategory()">
+                        <md-radio-button value="popular" flex flex-xs="100" class="category-item">
+                            <div flex>Popular Vote</div>
+                        </md-radio-button>
+                        <md-radio-button value="all" flex flex-xs="100" class="category-item">
+                            <div flex>ทั้งหมด</div>
+                        </md-radio-button>
+                        <md-radio-button value="1" flex flex-xs="100" class="category-item">
+                            <div flex>น่ารักฉลาดเรียนรู้</div>
+                        </md-radio-button>
+                        <md-radio-button value="2" flex flex-xs="100" class="category-item">
+                            <div flex>น่ารักอารมณ์ดี</div>
+                        </md-radio-button>
+                        <md-radio-button value="3" flex flex-xs="100" class="category-item">
+                            <div flex>น่ารักนักสร้างสรรค์</div>
+                        </md-radio-button>
+                        <md-radio-button value="4" flex flex-xs="100" class="category-item">
+                            <div flex>น่ารักนักยิ้ม</div>
+                        </md-radio-button>
+                    </md-radio-group>
+                </header>
+                <section layout="row" layout-align="center" class="body" layout-wrap
+                         infinite-scroll='vm.nextPage()' infinite-scroll-disabled='vm.busy'>
+                    <md-card ng-repeat="item in vm.posts" flex="30" flex-sm="45" flex-xs="100">
+                        <md-card-content layout="columns" layout-wrap>
+                            <div class="md-media-l card-media vote-media" ng-click="vm.showImageDialog(item)">
+                                <img ng-src="{{ vm.constant.uploadedPath + item.image_path}}">
+                            </div>
+                            <md-card-actions class="vote-action" layout="row" layout-align="center center" flex="100">
+                                <md-button class="md-icon-button vote-btn" aria-label="Vote" ng-click="vm.vote(item);">
+                                    <md-icon md-font-library="material-icons">
+                                        star
+                                    </md-icon>
+                                    <span class="vote-count-label font-size-80">
+                                        {{item.vote_count}}
+                                    </span>
+                                </md-button>
+                                <span class="font-size-60" ng-click="vm.vote(item);">VOTE</span>
+                                <md-button class="md-icon-button" aria-label="Share">
+                                    <md-icon md-font-library="material-icons" ng-click="vm.share(item);">share</md-icon>
+                                </md-button>
+                                <span class="font-size-60" ng-click="vm.share(item);">SHARE</span>
+                                <md-button class="md-icon-button" aria-label="Link">
+                                    <md-icon md-font-library="material-icons" ng-click="vm.copyLink(item);">link
+                                    </md-icon>
+                                </md-button>
+                                <span class="font-size-60" ng-click="vm.copyLink(item);">COPY LINK</span>
+                            </md-card-actions>
+                        </md-card-content>
+                    </md-card>
+                </section>
+                <div ng-show='vm.busy'>Loading data...</div>
             </section>
-        </section>
-        <section layout="column" flex class="post-wrapper main-content">
-            <header flex layout="row" layout-align="center" style="margin-bottom: 20px;">
-                <md-radio-group name="category" class="category-selector"
-                                ng-model="vm.selectedCategory"
-                                layout="row" layout-xs="column"
-                                flex="80"
-                                ng-change="vm.changeCategory()">
-                    <md-radio-button value="all" flex flex-xs="100" class="category-item">
-                        <div flex>น่ารักจังทั้งหมด</div>
-                    </md-radio-button>
-                    <md-radio-button value="1" flex flex-xs="100" class="category-item">
-                        <div flex>น่ารักฉลาดเรียนรู้</div>
-                    </md-radio-button>
-                    <md-radio-button value="2" flex flex-xs="100" class="category-item">
-                        <div flex>น่ารักอารมณ์ดี</div>
-                    </md-radio-button>
-                    <md-radio-button value="3" flex flex-xs="100" class="category-item">
-                        <div flex>น่ารักนักสร้างสรรค์</div>
-                    </md-radio-button>
-                    <md-radio-button value="4" flex flex-xs="100" class="category-item">
-                        <div flex>น่ารักนักยิ้ม</div>
-                    </md-radio-button>
-                </md-radio-group>
-            </header>
-            <section layout="row" layout-align="center" class="body" layout-wrap
-                     infinite-scroll='vm.nextPage()' infinite-scroll-disabled='vm.busy'>
-                <md-card ng-repeat="item in vm.posts" flex="30" flex-sm="45" flex-xs="100">
-                    <md-card-content layout="row" layout-align="space-between">
-                        <div class="md-media-l card-media vote-media"
-                             ng-click="vm.showImageDialog(item)">
-                            <img ng-src="{{ vm.constant.uploadedPath + item.image_path}}">
-                        </div>
-                        <md-card-actions layout="column">
-                            <md-button class="md-icon-button vote-count" ng-click="vm.vote(item);">{{item.vote_count}}</md-button>
-                            <md-button class="md-icon-button vote-btn" aria-label="Vote">
-                                <md-icon md-font-library="material-icons" ng-click="vm.vote(item);" class="gold">
-                                    star
-                                </md-icon>
-                            </md-button>
-                            <md-button class="md-icon-button" aria-label="Share">
-                                <md-icon md-font-library="material-icons" ng-click="vm.share(item);">share</md-icon>
-                            </md-button>
-                            <md-button class="md-icon-button" aria-label="Link">
-                                <md-icon md-font-library="material-icons" ng-click="vm.copyLink(item);">link</md-icon>
+        </div>
 
-                            </md-button>
-                        </md-card-actions>
-                    </md-card-content>
-                </md-card>
-            </section>
-            <div ng-show='vm.busy'>Loading data...</div>
-        </section>
+        <div class="boy" hide-xs>
+            <img src="/assets/images/intro/intro-boy.png">
+        </div>
     </md-content>
 </div>
 
 
-<footer class="footer-bar" layout="row" layout-xs="column" layout-align="space-between center" layout-align-xs="start start">
-    <div layout="row" layout-align="center" style="width:100%" ng-if="vm.customFullscreen">
-        <md-button ng-click="vm.termClick()" class="highlight-color footer-button" hide show-xs>
-            เข้าร่วมกิจกรรมส่งภาพ
+<footer class="footer-bar z-index-110" flex="100" layout="row">
+    <!--<div layout="row" layout-align="center" style="width:100%" ng-if="vm.customFullscreen">-->
+    <!--<md-button ng-click="vm.termClick()" class="highlight-color footer-button" hide show-xs>-->
+    <!--เข้าร่วมกิจกรรมส่งภาพ-->
+    <!--</md-button>-->
+    <!--</div>-->
+    <div class="footer-content" flex="90" flex-xs="95" layout="row" layout-align="space-between center">
+        <div flex="20" flex-xs="60" layout-align="start">
+            COPYRIGHT © 2016 Narak Tiara
+        </div>
+        <md-button flex="10" ng-click="vm.termClick()" class="round-button">
+            ร่วมสนุก
         </md-button>
     </div>
-    <div layout="row" layout-align="start start">
-        COPYRIGHT © 2016 Narak Tiara
-    </div>
-    <md-button ng-click="vm.termClick()" class="highlight-color" hide-xs>
-        เข้าร่วมกิจกรรมส่งภาพ
-    </md-button>
 </footer>

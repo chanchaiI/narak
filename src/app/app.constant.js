@@ -22,8 +22,8 @@ export var constant = {
                     y: 30
                 },
                 id: {
-                    x: 273,
-                    y: 21
+                    x: 277,
+                    y: 17
                 },
                 name: {
                     x: 100,
@@ -49,8 +49,8 @@ export var constant = {
                     y: 27
                 },
                 id: {
-                    x: 273,
-                    y: 300
+                    x: 277,
+                    y: 301
                 },
                 name: {
                     x: 100,
@@ -76,8 +76,8 @@ export var constant = {
                     y: 35
                 },
                 id: {
-                    x: 273,
-                    y: 21
+                    x: 277,
+                    y: 17
                 },
                 name: {
                     x: 100,
@@ -103,8 +103,8 @@ export var constant = {
                     y: 35
                 },
                 id: {
-                    x: 273,
-                    y: 21
+                    x: 277,
+                    y: 17
                 },
                 name: {
                     x: 100,

@@ -137,6 +137,10 @@ body{
   font-size: $main-font-size;
 }
 
+button:focus{
+  outline: none !important;
+}
+
 img{
   width: 100%;
   height: auto;
@@ -258,6 +262,14 @@ md-input-container{
   }
 }
 
+.round-button{
+  color: white;
+  background-color: #EC5D7E;
+  padding: 2px 20px;
+  border-radius: 13px;
+  box-shadow: 0 3px rgba(0,0,0,0.3);
+}
+
 $boy-width: 270px;
 $boy-height: 300px;
 $boy-lg-width: 380px;
@@ -289,6 +301,7 @@ md-content {
   .banner{
     width: 260px;
     z-index: 100;
+    position: relative;
   }
 
   &.blue-white{
@@ -378,14 +391,14 @@ md-content {
 
         .left-rope{
           top: -600px;
-          left: 58px;
-          height: 645px;
+          left: 39px;
+          height: 642px;
           width: 25px;
         }
 
         .right-rope{
           top: -600px;
-          right: 58px;
+          right: 40px;
           height: 630px;
           width: 25px;
         }
@@ -423,6 +436,22 @@ md-content {
   }
 
   &.select-template{
+
+    .page-title-wrapper{
+      .left-rope{
+        top: -600px;
+        left: 32px;
+        height: 647px;
+        width: 25px;
+      }
+
+      .right-rope{
+        top: -600px;
+        right: 40px;
+        height: 633px;
+        width: 25px;
+      }
+    }
     .content-wrapper {
       background-color: rgba(255, 255, 255, 0.8);
       border-radius: 0 20px 20px 0;
@@ -467,6 +496,20 @@ md-content {
       position: relative;
       overflow: hidden;
 
+      .left-rope{
+        top: -600px;
+        left: 26px;
+        height: 637px;
+        width: 25px;
+      }
+
+      .right-rope{
+        top: -600px;
+        right: 33px;
+        height: 626px;
+        width: 25px;
+      }
+
       .girl{
         position: absolute;
         width: $girl-lg-width;
@@ -499,6 +542,20 @@ md-content {
       position: relative;
       overflow: hidden;
 
+      .left-rope{
+        top: -600px;
+        left: 26px;
+        height: 637px;
+        width: 25px;
+      }
+
+      .right-rope{
+        top: -600px;
+        right: 33px;
+        height: 626px;
+        width: 25px;
+      }
+
       .girl{
         position: absolute;
         width: $girl-ex-lg-width;
@@ -520,6 +577,180 @@ md-content {
         height: 310px;
         margin-bottom: 20px;
       }
+    }
+  }
+
+  &.how-to-play{
+    //
+    //background-image: url(/assets/images/how-to-play/sequence_w.png);
+    //background-size: 100% auto;
+    //.content-wrapper{
+    //}
+  }
+
+  /* Vote */
+
+  &.vote{
+
+    position: relative;
+
+    .bg{
+      position: absolute;
+      background-image: url(/assets/images/intro/bg-cloud.png);
+      background-size: 100%;
+      background-repeat: no-repeat;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+    }
+
+    .girl{
+      position: absolute;
+      width: $girl-width;
+      height: $girl-height;
+      top: 250px;
+      left: 0;
+    }
+
+    .boy{
+      position: absolute;
+      width: $boy-width;
+      height: $boy-height;
+      top: 100px;
+      right: 0;
+    }
+
+    .left-rope{
+      top: -300px;
+      left: 33px;
+      height: 340px;
+      width: 20px;
+    }
+
+    .right-rope{
+      top: -300px;
+      right: 33px;
+      height: 325px;
+      width: 20px;
+    }
+
+    .content-wrapper{
+      position: relative;
+      background-color: rgba(255, 255, 255, 0.8);
+      margin: 0 auto;
+      z-index: 1000;
+      border-radius: 10px;
+      padding-top: 20px;
+      box-shadow: 5px 0 7px rgba(0,0,0,0.3);
+
+      .category-selector {
+
+        md-radio-button.category-item{
+
+          font-size: 22px;
+          border-radius: 20px;
+          padding: 3px;
+          .md-label{
+            margin-left: 0;
+            width: 100%;
+            border-radius: 20px;
+            border: 3px dashed #FFF;
+          }
+
+          &.md-checked{
+            background-color: #EC5D7E;
+            .md-label {
+              color: #FFF;
+            }
+          }
+
+        }
+
+        [md-ink-ripple-checkbox]{
+          display: none;
+        }
+      }
+
+
+      md-card {
+        background-color: transparent;
+        box-shadow: none;
+        md-card-content{
+          padding: 5px;
+        }
+        md-card-actions{
+          margin: 0;
+          margin-top: -11px;
+          padding-top: 5px;
+
+          button.vote-count{
+            color: #FFF;
+            padding-bottom: 0 !important;
+            margin-bottom: 0 !important;
+          }
+          .vote-btn{
+            position: relative;
+            margin-top: -10px !important;
+            padding: 2px;
+
+            md-icon{
+              font-size: 40px;
+              color: #EC5D7E !important;
+              text-shadow: 0 0 1px #9C7000 !important;
+            }
+            .vote-count-label{
+              position: absolute;
+              width: 100%;
+              text-align: center;
+              left: 5%;
+              top: 23%;
+              font-size: 16px;
+              color: white;
+            }
+          }
+
+        }
+      }
+
+      .vote-action{
+        background-color: #FFF698;
+
+        .md-button.md-icon-button{
+          margin-right: 0;
+        }
+
+        span{
+          padding-top: 3px;
+        }
+      }
+    }
+
+    .vote-item{
+      height: 300px;
+    }
+
+    .post-item{
+      height: 250px;
+    }
+  }
+}
+
+.footer-bar{
+  height: 50px;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  font-size: 0.7em;
+  z-index: 1500;
+
+  .footer-content{
+    background-color: #FFF698;
+    margin: 0 auto;
+    padding: 0 20px;
+
+    md-button{
+      border-radius: 20px;
     }
   }
 }
@@ -658,31 +889,6 @@ section.jumbotron {
   }
 }
 
-
-md-card {
-  background-color: transparent;
-  box-shadow: none;
-  md-card-content{
-    padding: 5px;
-  }
-  md-card-actions{
-    margin: 0;
-    button.vote-count{
-      color: #FFF;
-      padding-bottom: 0 !important;
-      margin-bottom: 0 !important;
-    }
-    .vote-btn{
-      margin-top: -10px !important;
-    }
-  }
-}
-
-.gold{
-  color: gold !important;
-  text-shadow: 0 0 1px #9C7000 !important;
-}
-
 .no-side-padding{
   padding-left: 0 !important;
   padding-right: 0 !important;
@@ -726,38 +932,6 @@ md-card {
   display: inline-block;
 }
 
-
-/* Vote */
-.popular-vote{
-  //background-color: lightblue;
-}
-.popular-vote header{
-  font-size: 2em;
-  color: #E91E63;
-  font-weight: 600;
-}
-
-
-.vote-item{
-  height: 300px;
-}
-
-.post-item{
-  height: 250px;
-}
-
-.category-selector{
-  margin-right: 20px;
-  [md-ink-ripple-checkbox]{
-    display: none;
-  }
-  md-radio-button.md-checked .md-label{
-    border-width: 2px 0;
-    border-color: #E91E63;
-    border-style: solid;
-  }
-}
-
 .underline{
   text-decoration: underline;
 }
@@ -771,26 +945,14 @@ md-card {
   padding-bottom: 70px;
 }
 
-.vote-media img{
-  width: 100%;
-  height: auto;
+.vote-media {
+  outline: none;
+  img {
+    width: 100%;
+    height: auto;
+  }
 }
 
-.footer-bar{
-  height: 40px;
-  width: 100%;
-  background-color: white;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  padding: 0 20px;
-  font-size: 0.7em;
-}
-
-.footer-bar .footer-button{
-  margin: 0;
-  padding: 0;
-}
 
 // Table //
 table.md-table th.md-column{
@@ -819,10 +981,6 @@ table.md-table.md-row-select td.md-cell:nth-child(n+3):nth-last-child(n+2), tabl
 
 md-toolbar .md-toolbar-tools{
   font-size: 30px;
-}
-
-.category-selector md-radio-button.category-item{
-  min-height: 50px;
 }
 
 @media screen and (min-width: 600px) and (max-width: 1024px) {
@@ -889,7 +1047,15 @@ md-toolbar .md-toolbar-tools{
 
   .footer-bar{
     height: auto;
-    font-size: 0.6em;
+    font-size: 0.7em;
+    .footer-content{
+      padding: 0;
+
+      .md-button{
+        font-size: 25px !important;
+        padding: 2px 10px;
+      }
+    }
   }
 
   .main-logo{
@@ -963,8 +1129,8 @@ md-toolbar .md-toolbar-tools{
 
         .content-body {
           margin: 15px 0 15px 15px;
-          padding-left: 10px;
           padding-right: 20px;
+          padding-left: 10px;
           .title {
             font-size: 1.5em;
             margin: 10px 0;
@@ -1017,6 +1183,12 @@ md-toolbar .md-toolbar-tools{
         }
       }
 
+    }
+
+    &.vote{
+      .content-wrapper{
+        box-shadow: 2px 0 4px rgba(0,0,0,0.3);
+      }
     }
   }
 }

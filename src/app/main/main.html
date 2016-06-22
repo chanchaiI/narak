@@ -2,13 +2,15 @@
     <md-content class="main blue-yellow" flex>
         <div class="content-wrapper" flex="100">
             <div ng-cloak layout="row" layout-align="center" class="z-index-100">
-                <a class="main-logo">
+                <a class="main-logo z-index-110">
                     <img src="assets/images/narakjung.png">
                 </a>
             </div>
             <div flex layout="row" layout-align="center">
                 <div class="banner">
+                    <div class="rope left-rope z-index-80"></div>
                     <img src="/assets/images/main/upload-banner.png">
+                    <div class="rope right-rope z-index-80"></div>
                 </div>
             </div>
             <div class="girl z-index-80">
@@ -19,10 +21,15 @@
                     <div ng-message="required">กรุณาอัพโหลดรูปภาพ</div>
                 </div>
                 <div flex layout="row" layout-sm="column" layout-align="center" layout-wrap style="overflow: hidden">
-                    <div layout-align="center" flex="25" flex-sm="100" flex-xs="100">
+                    <div layout="row" layout-align="end center" layout-align-xs="center center" layout-align-sm="center center"
+                         flex="45" flex-sm="100" flex-xs="100">
                         <narak-file-upload model="vm.croppedImage"></narak-file-upload>
                     </div>
-                    <div layout-align="center" flex="25" flex-sm="100" flex-xs="100" class="preview-wrapper">
+                    <div layout="row" flex="10" hide-sm hide-xs>
+                        &nbsp;
+                    </div>
+                    <div layout="row" layout-align="start center" layout-align-xs="center center" layout-align-sm="center center"
+                         flex="45" flex-sm="100" flex-xs="100" class="preview-wrapper">
                         <canvas id="preview"></canvas>
                     </div>
                 </div>
