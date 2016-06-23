@@ -44,12 +44,16 @@ Route::get('/v1/post/{id?}', [ function($id = null) {
     return App\Http\Controllers\Post\PostController::getPostById($id);
 }]);
 
-Route::get('/v1/post/{size?}/popular/', [ function($size = 3) {
-    return App\Http\Controllers\Post\PostController::getPopularVote($size);
+Route::get('/v1/post/{pageNumber}/popular/', [ function($pageNumber) {
+    return App\Http\Controllers\Post\PostController::getPopularVote($pageNumber);
 }]);
 
 Route::get('/v1/post/{category_id?}/page/{pageNumber}/', [ function($category_id = null, $pageNumber = 1) {
     return App\Http\Controllers\Post\PostController::getPosts($category_id, $pageNumber);
+}]);
+
+Route::get('/v1/post/keyword/{keyword?}/page/{pageNumber}/', [ function($keyword = null, $pageNumber = 1) {
+    return App\Http\Controllers\Post\PostController::getPostsByKeyword($keyword, $pageNumber);
 }]);
 
 Route::post('/v1/vote/{id?}', [ function($id = null) {

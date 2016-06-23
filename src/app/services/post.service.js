@@ -30,6 +30,16 @@ export class PostService {
         });
     }
 
+    getPostsByKeyword(keyword, pageNumber){
+        var getPostUrl = this.constant.serviceBaseUrl + 'post/keyword/' + encodeURI(keyword) + '/page/' + pageNumber;
+        return this.$http.get(getPostUrl, {
+            ignoreLoadingBar: true
+        }).catch(function(){
+            var result = {data: []};
+            return result;
+        });
+    }
+
     getPostById(id) {
         var getPostUrl = this.constant.serviceBaseUrl + 'post/' + id;
         return this.$http.get(getPostUrl);
@@ -41,20 +51,12 @@ export class PostService {
         return this.$http.get(getPostUrl);
     }
 
-    getPopular(size) {
-        var getPopularVoteUrl = this.constant.serviceBaseUrl + 'post/' + size + '/popular';
+    getPopular(pageNumber) {
+        var getPopularVoteUrl = this.constant.serviceBaseUrl + 'post/' + pageNumber + '/popular';
         return this.$http.get(getPopularVoteUrl, {
             ignoreLoadingBar: true
         }).catch(function(){
             var result = {data: []};
-            //for (var i = 0; i < size; i++) {
-            //    result.data.push({
-            //        image_path: '7279.jpg',
-            //        kid_name: 'ด.ญ. น่ารัก เทียร่า',
-            //        kid_nickname: 'ณดา',
-            //        vote_count: i*30
-            //    })
-            //}
             return result;
         });
     }

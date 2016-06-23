@@ -18,7 +18,6 @@ export class VoteController {
         this.$mdDialog = $mdDialog;
         this.customFullscreen = $mdMedia('xs') || $mdMedia('sm');
         this.$document = $document;
-        this.popularVotes = [];
         this.posts = [];
         this.currentPage = 0;
         this.empty = false;
@@ -27,6 +26,8 @@ export class VoteController {
         this.facebookService = FacebookService;
         this.$rootScope = $rootScope;
         this.clipboard = clipboard;
+        this.showSearch = false;
+        this.keyword = '';
 
         this.$scope.$watch(() => {
             return this.facebook.isReady();
@@ -38,20 +39,15 @@ export class VoteController {
     }
 
     activate() {
-        this.getPopularVotes(3);
         this.nextPage();
         this.openDetail();
     }
 
-    getPopularVotes(size) {
-        this.postService.getPopular(size).then((response)=> {
-            this.popularVotes = response.data;
-        });
-    }
-
     changeCategory() {
-        if(this.selectedCategory === 'popular'){
-            this.posts = this.popularVotes;
+        if(this.selectedCategory === 'search'){
+            this.showSearch = true;
+            this.selectedCategory = 'all';
+            this.keyword = '';
         }else{
             this.posts = [];
             this.currentPage = 0;
@@ -60,25 +56,69 @@ export class VoteController {
         }
     }
 
+    cancelSearch(){
+        this.showSearch = false;
+        this.keyword = '';
+        this.selectedCategory = 'all';
+        this.changeCategory();
+    }
+
+    keywordChange(){
+        this.posts = [];
+        this.currentPage = 0;
+        this.empty = false;
+        this.nextPage();
+    }
+
     nextPage() {
+
         if (this.busy) return;
         this.busy = true;
 
         var pageNumber = this.currentPage + 1;
 
         if (!this.empty) {
-            this.postService.getPosts(this.selectedCategory, pageNumber)
-                .then((response)=> {
-                    if (response.data.length > 0) {
-                        this.posts = this.posts.concat(response.data);
-                        this.currentPage = pageNumber;
-                    } else {
-                        this.empty = true;
-                    }
-                    this.busy = false;
-                }, ()=> {
-                    this.busy = false;
-                });
+            if(this.showSearch && this.keyword.length > 0){
+                this.postService.getPostsByKeyword(this.keyword, pageNumber)
+                    .then((response)=> {
+                        if (response.data.length > 0) {
+                            this.posts = this.posts.concat(response.data);
+                            this.currentPage = pageNumber;
+                        } else {
+                            this.empty = true;
+                        }
+                        this.busy = false;
+                    }, ()=> {
+                        this.busy = false;
+                    });
+            }else if (this.selectedCategory === 'popular') {
+                this.postService.getPopular(pageNumber)
+                    .then((response)=> {
+                        if (response.data.length > 0) {
+                            this.posts = this.posts.concat(response.data);
+                            this.currentPage = pageNumber;
+                        } else {
+                            this.empty = true;
+                        }
+                        this.busy = false;
+                    }, ()=> {
+                        this.busy = false;
+                    });
+            }else
+            {
+                this.postService.getPosts(this.selectedCategory, pageNumber)
+                    .then((response)=> {
+                        if (response.data.length > 0) {
+                            this.posts = this.posts.concat(response.data);
+                            this.currentPage = pageNumber;
+                        } else {
+                            this.empty = true;
+                        }
+                        this.busy = false;
+                    }, ()=> {
+                        this.busy = false;
+                    });
+            }
         } else {
             this.busy = false;
         }

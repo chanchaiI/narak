@@ -73,6 +73,20 @@ class PostController extends Controller
         }
     }
 
+    public static function getPostsByKeyword($keyword = null, $pageNumber = 1, $pageSize = 8)
+    {
+        return Post::leftJoin('votes', 'votes.post_id', '=', 'posts.id')
+            ->groupBy('posts.id')
+            ->where('kid_name', 'like', '%'.$keyword.'%')
+            ->orWhere(function ($query) use ($keyword) {
+                $query->where('kid_nickname', 'like', '%'.$keyword.'%');
+            })
+            ->where('isPublished', 1)
+            ->latest()
+            ->get(['posts.id', 'posts.random_no', 'posts.image_path', 'posts.created_at', 'posts.kid_nickname', 'posts.kid_name', 'posts.category_id', DB::raw('count(votes.id) as vote_count')])
+            ->forPage(intval($pageNumber), $pageSize);
+    }
+
     public static function getPosts($category_id = null, $pageNumber = 1, $pageSize = 8)
     {
         if ($category_id != 'all') {
@@ -88,7 +102,7 @@ class PostController extends Controller
         ->groupBy('posts.id')
         ->where('isPublished', 1)
         ->latest()
-        ->get(['posts.id', 'posts.random_no', 'posts.image_path', 'posts.kid_nickname', 'posts.kid_name', 'posts.created_at', DB::raw('count(votes.id) as vote_count')])
+        ->get(['posts.id', 'posts.random_no', 'posts.image_path','posts.created_at', DB::raw('count(votes.id) as vote_count')])
         ->forPage(intval($pageNumber), $pageSize);
     }
 
@@ -111,7 +125,7 @@ class PostController extends Controller
         ));
     }
 
-    public static function getPopularVote($size = 3)
+    public static function getPopularVote($pageNumber = 1, $pageSize = 8)
     {
         return Post::join('votes', 'votes.post_id', '=', 'posts.id')
             ->groupBy('posts.id')
@@ -119,8 +133,9 @@ class PostController extends Controller
             ->get(['posts.id', 'posts.random_no', 'posts.image_path', 'posts.kid_nickname', 'posts.kid_name', 'posts.created_at', DB::raw('count(votes.id) as vote_count')])
             ->sortByDesc('vote_count')
             ->values()
-            ->forPage(1, $size);
+            ->forPage($pageNumber, $pageSize);
     }
+
 
     private static function randomNumber($min, $max)
     {
@@ -170,7 +185,7 @@ class PostController extends Controller
                 $destinationPath = public_path() . "/../.." . '/uploads/images/'; // upload path
                 $extension = 'jpg'; // getting image extension
                 $random_no = self::randomNumber(1111, 9999);
-                self::write_random_no($imageFile, $template->position->id->x, $template->position->id->y, $random_no, 13, $template->font->color);
+                self::write_random_no($imageFile, $template->position->id->x, $template->position->id->y, $random_no, 14, $template->font->color);
                 $fileName = $random_no . '.' . $extension; // renaming image
                 $success = imagejpeg($imageFile, $destinationPath . $fileName);
 

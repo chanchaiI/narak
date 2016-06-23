@@ -16,33 +16,51 @@
                 <div class="rope right-rope z-index-80"></div>
             </div>
         </div>
-        <div class="content-wrapper" flex="90" flex-xs="95">
+        <div class="content-wrapper" layout="row" flex="90" flex-xs="95">
             <section layout="column" flex class="post-wrapper main-content">
-                <header flex layout="row" layout-align="end" style="margin-bottom: 20px;">
+                <header flex layout="row" layout-align="end" layout-wrap style="margin-bottom: 20px;">
                     <md-radio-group name="category" class="category-selector"
                                     ng-model="vm.selectedCategory"
-                                    layout="row" layout-xs="column" layout-align="center"
-                                    flex="90" flex-xs="100"
+                                    layout="row" layout-align="center"
+                                    flex="90" flex-xs="100" layout-wrap
                                     ng-change="vm.changeCategory()">
-                        <md-radio-button value="popular" flex flex-xs="100" class="category-item">
+                        <md-radio-button value="search" flex flex-sm="30" flex-md="20" flex-xs="100" class="category-item">
+                            <div flex><md-icon md-font-library="material-icons">
+                                search
+                            </md-icon>Search</div>
+                        </md-radio-button>
+                        <md-radio-button value="popular" class="category-item"
+                                         flex flex-sm="30" flex-md="20" flex-xs="90" ng-hide="vm.showSearch">
                             <div flex>Popular Vote</div>
                         </md-radio-button>
-                        <md-radio-button value="all" flex flex-xs="100" class="category-item">
+                        <md-radio-button value="all" class="category-item"
+                                         flex flex-sm="30" flex-md="20" flex-xs="90" ng-hide="vm.showSearch">
                             <div flex>ทั้งหมด</div>
                         </md-radio-button>
-                        <md-radio-button value="1" flex flex-xs="100" class="category-item">
+                        <md-radio-button value="1" class="category-item"
+                                         flex flex-sm="30" flex-md="20" flex-xs="90" ng-hide="vm.showSearch">
                             <div flex>น่ารักฉลาดเรียนรู้</div>
                         </md-radio-button>
-                        <md-radio-button value="2" flex flex-xs="100" class="category-item">
+                        <md-radio-button value="2" class="category-item"
+                                         flex flex-sm="30" flex-md="20" flex-xs="90" ng-hide="vm.showSearch">
                             <div flex>น่ารักอารมณ์ดี</div>
                         </md-radio-button>
-                        <md-radio-button value="3" flex flex-xs="100" class="category-item">
+                        <md-radio-button value="3" class="category-item"
+                                         flex flex-sm="30" flex-md="20" flex-xs="90" ng-hide="vm.showSearch">
                             <div flex>น่ารักนักสร้างสรรค์</div>
                         </md-radio-button>
-                        <md-radio-button value="4" flex flex-xs="100" class="category-item">
+                        <md-radio-button value="4" class="category-item"
+                                         flex flex-sm="30" flex-md="20" flex-xs="90" ng-hide="vm.showSearch">
                             <div flex>น่ารักนักยิ้ม</div>
                         </md-radio-button>
                     </md-radio-group>
+                    <div flex="90" layout="row" layout-align="center" ng-show="vm.showSearch">
+                        <input type="text" name="keyword" ng-model="vm.keyword" ng-change="vm.keywordChange()"
+                                  flex="60" flex-xs="60"  style="font-size: 20px; border: solid 1px rgba(158,158,158,0.2)" />
+                        <md-button ng-click="vm.cancelSearch();" ng-disabled="vm.busy" flex="10" flex-xs="40" style="font-size: 25px;">
+                            Cancel
+                        </md-button>
+                    </div>
                 </header>
                 <section layout="row" layout-align="center" class="body" layout-wrap
                          infinite-scroll='vm.nextPage()' infinite-scroll-disabled='vm.busy'>
@@ -75,6 +93,8 @@
                     </md-card>
                 </section>
                 <div ng-show='vm.busy'>Loading data...</div>
+                <div ng-show="vm.posts.length <= 0 && !vm.busy && !vm.showSearch">ยังไม่มีภาพของหนูน้อยในหมวดนี้</div>
+                <div ng-show="vm.posts.length <= 0 && !vm.busy && vm.showSearch">ไม่มีข้อมูลที่ท่านค้นหา</div>
             </section>
         </div>
 
