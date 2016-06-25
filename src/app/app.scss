@@ -150,7 +150,7 @@ img{
 .main-logo{
   position: relative;
   padding-top: 15px;
-  width: 320px;
+  width: 280px;
   z-index: 100;
 }
 
@@ -324,6 +324,10 @@ md-content {
   // home background
   &.intro{
 
+    .main-logo{
+      width: 320px;
+    }
+
     .bg{
       position: absolute;
       background-image: url(/assets/images/intro/bg-cloud.png);
@@ -495,7 +499,6 @@ md-content {
 
     .content-wrapper{
       position: relative;
-      overflow: hidden;
 
       .left-rope{
         top: -600px;
@@ -541,7 +544,6 @@ md-content {
 
     .content-wrapper{
       position: relative;
-      overflow: hidden;
 
       .left-rope{
         top: -600px;
@@ -643,6 +645,7 @@ md-content {
       border-radius: 10px;
       padding-top: 20px;
       box-shadow: 5px 0 7px rgba(0,0,0,0.3);
+      max-height: none;
 
       .vote-media {
         outline: none;
@@ -661,6 +664,7 @@ md-content {
           border-radius: 20px;
           padding: 3px;
           margin: 0;
+          height: 38px;
           .md-label{
             margin-left: 0;
             width: 100%;
@@ -1162,6 +1166,7 @@ md-toolbar .md-toolbar-tools{
     &.main{
 
       .content-wrapper{
+        overflow-x: hidden;
         .girl{
           top: 350px;
           left: -134px;
@@ -1176,6 +1181,7 @@ md-toolbar .md-toolbar-tools{
     &.share{
 
       .content-wrapper{
+        overflow-x: hidden;
         .girl{
           top: 350px;
           left: -134px;
@@ -1190,6 +1196,7 @@ md-toolbar .md-toolbar-tools{
     &.vote{
       .content-wrapper{
         box-shadow: 2px 0 4px rgba(0,0,0,0.3);
+        padding-top: 0;
       }
     }
   }

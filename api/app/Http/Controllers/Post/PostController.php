@@ -49,7 +49,7 @@ class PostController extends Controller
     {
         $result = Post::with('votes')->where('random_no', $randomNO)->where('isPublished', 1)->first();
         if($result != null){
-            $result->vote_count = $result->votes->count();
+            //$result->vote_count = $result->votes->count();
             return $result;
         }else{
             return Response::json(array(
@@ -75,7 +75,7 @@ class PostController extends Controller
 
     public static function getPostsByKeyword($keyword = null, $pageNumber = 1, $pageSize = 8)
     {
-        return Post::leftJoin('votes', 'votes.post_id', '=', 'posts.id')
+        $result = Post::leftJoin('votes', 'votes.post_id', '=', 'posts.id')
             ->groupBy('posts.id')
             ->where('kid_name', 'like', '%'.$keyword.'%')
             ->orWhere(function ($query) use ($keyword) {
@@ -84,26 +84,33 @@ class PostController extends Controller
             ->where('isPublished', 1)
             ->latest()
             ->get(['posts.id', 'posts.random_no', 'posts.image_path', 'posts.created_at', 'posts.kid_nickname', 'posts.kid_name', 'posts.category_id', DB::raw('count(votes.id) as vote_count')])
-            ->forPage(intval($pageNumber), $pageSize);
+            ->forPage(intval($pageNumber), $pageSize)
+            ->values();
+
+        return Response::json($result);
     }
 
     public static function getPosts($category_id = null, $pageNumber = 1, $pageSize = 8)
     {
         if ($category_id != 'all') {
-            return Post::leftJoin('votes', 'votes.post_id', '=', 'posts.id')
-                ->groupBy('posts.id')
-                ->where('category_id', intval($category_id))
-                ->where('isPublished', 1)
-                ->latest()
-                ->get(['posts.id', 'posts.random_no', 'posts.image_path', 'posts.created_at', 'posts.category_id', DB::raw('count(votes.id) as vote_count')])
-                ->forPage(intval($pageNumber), $pageSize);
+            $result = Post::leftJoin('votes', 'votes.post_id', '=', 'posts.id')
+                    ->groupBy('posts.id')
+                    ->where('category_id', intval($category_id))
+                    ->where('isPublished', 1)
+                    ->latest()
+                    ->get(['posts.id', 'posts.random_no', 'posts.image_path', 'posts.created_at', 'posts.category_id', DB::raw('count(votes.id) as vote_count')])
+                    ->forPage(intval($pageNumber), $pageSize)
+                    ->values();
+        }else{
+            $result = Post::leftJoin('votes', 'votes.post_id', '=', 'posts.id')
+                  ->groupBy('posts.id')
+                  ->where('isPublished', 1)
+                  ->latest()
+                  ->get(['posts.id', 'posts.random_no', 'posts.image_path','posts.created_at', DB::raw('count(votes.id) as vote_count')])
+                  ->forPage(intval($pageNumber), $pageSize)
+                  ->values();
         }
-        return Post::leftJoin('votes', 'votes.post_id', '=', 'posts.id')
-        ->groupBy('posts.id')
-        ->where('isPublished', 1)
-        ->latest()
-        ->get(['posts.id', 'posts.random_no', 'posts.image_path','posts.created_at', DB::raw('count(votes.id) as vote_count')])
-        ->forPage(intval($pageNumber), $pageSize);
+        return Response::json($result);
     }
 
     public static function getPostsAdmin($order = null, $pageSize = 10, $pageNumber = 1)
@@ -185,7 +192,7 @@ class PostController extends Controller
                 $destinationPath = public_path() . "/../.." . '/uploads/images/'; // upload path
                 $extension = 'jpg'; // getting image extension
                 $random_no = self::randomNumber(1111, 9999);
-                self::write_random_no($imageFile, $template->position->id->x, $template->position->id->y, $random_no, 14, $template->font->color);
+                self::write_random_no($imageFile, $template->position->id->x, $template->position->id->y, $random_no, 28, $template->font->color);
                 $fileName = $random_no . '.' . $extension; // renaming image
                 $success = imagejpeg($imageFile, $destinationPath . $fileName);
 

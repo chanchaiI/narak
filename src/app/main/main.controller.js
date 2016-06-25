@@ -12,12 +12,16 @@ export class MainController {
         this.dataService = DataService;
         this.constant = CONSTANT;
         this.$log = $log;
+        this.canvasSize = {
+            width: 620,
+            height: 620
+        };
         this.activate();
     }
 
     activate() {
         this.croppedImage = '';
-
+        
         this.user = this.dataService.get('user');
         if(!this.user){
             this.$state.go('intro');
@@ -55,9 +59,9 @@ export class MainController {
         var templateImage = new Image();
 
         templateImage.onload = () => {
-            canvas.width = templateImage.width;
-            canvas.height = templateImage.height;
-            context.font = this.selectedTemplate.font.name || '18px db_helvethaicamon_x75_bd';
+            canvas.width = this.canvasSize.width;
+            canvas.height = this.canvasSize.height;
+            context.font = this.selectedTemplate.font.name || '36px db_helvethaicamon_x75_bd';
             var fontColor = this.selectedTemplate.font.color || '#CCC';
 
             var kidImage = new Image();
@@ -65,16 +69,16 @@ export class MainController {
                 this.drawKidImage(context, this.selectedTemplate.position.kid.x || 30, this.selectedTemplate.position.kid.y || 40, kidImage);
                 this.drawFrame(context, templateImage);
 
-                var textPaddingLeft = 35;
+                var textPaddingLeft = 70;
                 var name = this.baby.gender + ' ' + this.baby.name + ' ( น้อง' + this.baby.nickname + ' )';
 
-                this.drawText(context, name, fontColor, {x: textPaddingLeft, y: templateImage.height - 25});
+                this.drawText(context, name, fontColor, {x: textPaddingLeft, y: canvas.height - 50});
 
 
                 if (this.baby.years || this.baby.months) {
                     this.drawText(context, (this.baby.years ? this.baby.years + ' ปี ' : '') +
                         (this.baby.months ? this.baby.months + ' เดือน' : ''), fontColor,
-                        {x: textPaddingLeft, y: templateImage.height - 7});
+                        {x: textPaddingLeft, y: canvas.height - 14});
                 }
             };
 
@@ -94,22 +98,22 @@ export class MainController {
         var templateImage = new Image();
 
         templateImage.onload = () => {
-            canvas.width = templateImage.width;
-            canvas.height = templateImage.height;
-            context.font = this.selectedTemplate.font.name || '18px db_helvethaicamon_x75_bd';
+            canvas.width = this.canvasSize.width;
+            canvas.height = this.canvasSize.height;
+            context.font = this.selectedTemplate.font.name || '36px db_helvethaicamon_x75_bd';
             var fontColor = this.selectedTemplate.font.color || '#CCC';
 
             this.drawFrame(context,templateImage);
 
-            var textPaddingLeft = 35;
+            var textPaddingLeft = 70;
             var name = this.baby.gender + ' ' + this.baby.name + ' ( น้อง' + this.baby.nickname + ' )';
 
-            this.drawText(context, name, fontColor, {x: textPaddingLeft, y: templateImage.height - 25});
+            this.drawText(context, name, fontColor, {x: textPaddingLeft, y: canvas.height - 50});
 
             if (this.baby.years || this.baby.months) {
                 this.drawText(context, (this.baby.years ? this.baby.years + ' ปี ' : '') +
                     (this.baby.months ? this.baby.months + ' เดือน' : ''), fontColor,
-                    {x: textPaddingLeft, y: templateImage.height - 7});
+                    {x: textPaddingLeft, y: canvas.height - 14});
             }
         };
 
@@ -119,11 +123,11 @@ export class MainController {
     }
 
     drawKidImage(context, x, y, imageObj) {
-    context.drawImage(imageObj, x, y, imageObj.width, imageObj.height);
+        context.drawImage(imageObj, x, y, imageObj.width, imageObj.height);
     }
 
     drawFrame(context, templateImage) {
-        context.drawImage(templateImage, 0, 0, templateImage.width, templateImage.height);
+        context.drawImage(templateImage, 0, 0, this.canvasSize.width, this.canvasSize.height);
     }
 
     drawText(context, text, style, position) {

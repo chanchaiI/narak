@@ -17,52 +17,52 @@
             </div>
         </div>
         <div class="content-wrapper" layout="row" flex="90" flex-xs="95">
-            <section layout="column" flex class="post-wrapper main-content">
-                <header flex layout="row" layout-align="end" layout-wrap style="margin-bottom: 20px;">
+            <div layout="row" flex layout-wrap class="post-wrapper main-content">
+                <div flex="100" layout="row" layout-align="end" layout-wrap style="margin-bottom: 20px;">
                     <md-radio-group name="category" class="category-selector"
                                     ng-model="vm.selectedCategory"
                                     layout="row" layout-align="center"
                                     flex="90" flex-xs="100" layout-wrap
                                     ng-change="vm.changeCategory()">
-                        <md-radio-button value="search" flex flex-sm="30" flex-md="20" flex-xs="100" class="category-item">
+                        <md-radio-button value="popular" class="category-item"
+                                         flex flex-sm="30" flex-md="15" flex-xs="90" ng-hide="vm.showSearch">
+                            <div flex>Popular Vote</div>
+                        </md-radio-button>
+                        <md-radio-button value="all" class="category-item"
+                                         flex flex-sm="30" flex-md="10" flex-xs="90" ng-hide="vm.showSearch">
+                            <div flex>ทั้งหมด</div>
+                        </md-radio-button>
+                        <md-radio-button value="1" class="category-item"
+                                         flex flex-sm="30" flex-md="15" flex-xs="90" ng-hide="vm.showSearch">
+                            <div flex>น่ารักฉลาดเรียนรู้</div>
+                        </md-radio-button>
+                        <md-radio-button value="2" class="category-item"
+                                         flex flex-sm="30" flex-md="15" flex-xs="90" ng-hide="vm.showSearch">
+                            <div flex>น่ารักอารมณ์ดี</div>
+                        </md-radio-button>
+                        <md-radio-button value="3" class="category-item"
+                                         flex flex-sm="30" flex-md="15" flex-xs="90" ng-hide="vm.showSearch">
+                            <div flex>น่ารักนักสร้างสรรค์</div>
+                        </md-radio-button>
+                        <md-radio-button value="4" class="category-item"
+                                         flex flex-sm="30" flex-md="15" flex-xs="90" ng-hide="vm.showSearch">
+                            <div flex>น่ารักนักยิ้ม</div>
+                        </md-radio-button>
+                        <md-radio-button value="search" flex flex-sm="30" flex-md="15" flex-xs="100" class="category-item">
                             <div flex><md-icon md-font-library="material-icons">
                                 search
                             </md-icon>Search</div>
                         </md-radio-button>
-                        <md-radio-button value="popular" class="category-item"
-                                         flex flex-sm="30" flex-md="20" flex-xs="90" ng-hide="vm.showSearch">
-                            <div flex>Popular Vote</div>
-                        </md-radio-button>
-                        <md-radio-button value="all" class="category-item"
-                                         flex flex-sm="30" flex-md="20" flex-xs="90" ng-hide="vm.showSearch">
-                            <div flex>ทั้งหมด</div>
-                        </md-radio-button>
-                        <md-radio-button value="1" class="category-item"
-                                         flex flex-sm="30" flex-md="20" flex-xs="90" ng-hide="vm.showSearch">
-                            <div flex>น่ารักฉลาดเรียนรู้</div>
-                        </md-radio-button>
-                        <md-radio-button value="2" class="category-item"
-                                         flex flex-sm="30" flex-md="20" flex-xs="90" ng-hide="vm.showSearch">
-                            <div flex>น่ารักอารมณ์ดี</div>
-                        </md-radio-button>
-                        <md-radio-button value="3" class="category-item"
-                                         flex flex-sm="30" flex-md="20" flex-xs="90" ng-hide="vm.showSearch">
-                            <div flex>น่ารักนักสร้างสรรค์</div>
-                        </md-radio-button>
-                        <md-radio-button value="4" class="category-item"
-                                         flex flex-sm="30" flex-md="20" flex-xs="90" ng-hide="vm.showSearch">
-                            <div flex>น่ารักนักยิ้ม</div>
-                        </md-radio-button>
                     </md-radio-group>
                     <div flex="90" layout="row" layout-align="center" ng-show="vm.showSearch">
-                        <input type="text" name="keyword" ng-model="vm.keyword" ng-change="vm.keywordChange()"
+                        <input type="text" name="keyword" id="keyword" ng-model="vm.keyword" ng-change="vm.keywordChange()" ng-disabled="vm.busy"
                                   flex="60" flex-xs="60"  style="font-size: 20px; border: solid 1px rgba(158,158,158,0.2)" />
                         <md-button ng-click="vm.cancelSearch();" ng-disabled="vm.busy" flex="10" flex-xs="40" style="font-size: 25px;">
                             Cancel
                         </md-button>
                     </div>
-                </header>
-                <section layout="row" layout-align="center" class="body" layout-wrap
+                </div>
+                <div layout="row" layout-align="center" class="body" flex="100" layout-wrap
                          infinite-scroll='vm.nextPage()' infinite-scroll-disabled='vm.busy'>
                     <md-card ng-repeat="item in vm.posts" flex="30" flex-sm="45" flex-xs="100">
                         <md-card-content layout="columns" layout-wrap>
@@ -91,11 +91,11 @@
                             </md-card-actions>
                         </md-card-content>
                     </md-card>
-                </section>
-                <div ng-show='vm.busy'>Loading data...</div>
-                <div ng-show="vm.posts.length <= 0 && !vm.busy && !vm.showSearch">ยังไม่มีภาพของหนูน้อยในหมวดนี้</div>
-                <div ng-show="vm.posts.length <= 0 && !vm.busy && vm.showSearch">ไม่มีข้อมูลที่ท่านค้นหา</div>
-            </section>
+                </div>
+                <div flex="100" layout-align="center" ng-show='vm.busy'>Loading data...</div>
+                <div flex="100" layout-align="center" ng-show="vm.posts.length <= 0 && !vm.busy && !vm.showSearch">ยังไม่มีภาพของหนูน้อยในหมวดนี้</div>
+                <div flex="100" layout-align="center" ng-show="vm.posts.length <= 0 && !vm.busy && vm.showSearch">ไม่มีข้อมูลที่ท่านค้นหา</div>
+            </div>
         </div>
 
         <div class="boy" hide-xs>
@@ -112,10 +112,10 @@
     <!--</md-button>-->
     <!--</div>-->
     <div class="footer-content" flex="90" flex-xs="95" layout="row" layout-align="space-between center">
-        <div flex="20" flex-xs="60" layout-align="start">
+        <div flex="40" flex-xs="60" layout-align="start start" style="text-align: left;margin-left: 5px;">
             COPYRIGHT © 2016 Narak Tiara
         </div>
-        <md-button flex="10" ng-click="vm.termClick()" class="round-button">
+        <md-button flex="15" ng-click="vm.termClick()" class="round-button">
             ร่วมสนุก
         </md-button>
     </div>

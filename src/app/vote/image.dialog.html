@@ -9,9 +9,9 @@
                 </md-button>
             </div>
         </md-toolbar>
-        <md-dialog-content style="text-align: center;">
-            <div class="md-dialog-content" ng-class="{'no-side-padding': im.isFullScreen}">
-                <img ng-src="{{im.imgUrl}}" style="width: 100%;">
+        <md-dialog-content layout="row" layout-align="center">
+            <div class="md-dialog-content" ng-class="{'no-side-padding': im.isFullScreen}" style="padding: 16px">
+                <img ng-src="{{im.imgUrl}}" style="width: 100%; max-width: 380px;">
                 <div flex layout="row" layout-align="center">
                     <span>คะแนนโหวต</span><span style="color:#E91E63;margin-left: 5px;">{{im.voteCount}}</span>
                 </div>

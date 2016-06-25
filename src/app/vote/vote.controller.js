@@ -88,8 +88,14 @@ export class VoteController {
                             this.empty = true;
                         }
                         this.busy = false;
+                        this.$timeout(()=>{
+                            this.$document[0].body.querySelector('#keyword').focus();
+                        });
                     }, ()=> {
                         this.busy = false;
+                        this.$timeout(()=>{
+                            this.$document[0].body.querySelector('#keyword').focus();
+                        });
                     });
             }else if (this.selectedCategory === 'popular') {
                 this.postService.getPopular(pageNumber)
