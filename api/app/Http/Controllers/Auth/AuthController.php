@@ -46,7 +46,7 @@ class AuthController extends Controller
         if(strcmp($data->username, "narakAdmin") == 0 && strcmp($data->password, "123#nimda") == 0){
             return self::encryption(date("F j, Y, g:i a"));
         }else{
-            return Response::json(array(), 400);
+            return Response::json(array(), 401);
         }
     }
 

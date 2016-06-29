@@ -1,7 +1,17 @@
 <div layout="vertical" layout-fill>
     <md-content class="how-to-play" flex>
-        <img src="/assets/images/how-to-play/sequence_w.png" hide-xs hide-sm>
+        <div style="position: relative;">
+            <img src="/assets/images/how-to-play/sequence_w.png" hide-xs hide-sm>
+            <div class="join-btn-wrapper">
+                <button class="join-btn" ng-click="vm.termClick();"></button>
+            </div>
+        </div>
 
-        <img src="/assets/images/how-to-play/sequence_m.png" hide-gt-md hide-md>
+        <div style="position: relative;">
+            <img src="/assets/images/how-to-play/sequence_m.png" hide-gt-md hide-md>
+            <div class="join-btn-wrapper">
+                <button class="join-btn" ng-click="vm.termClick();"></button>
+            </div>
+        </div>
     </md-content>
 </div>

@@ -113,19 +113,50 @@ class PostController extends Controller
         return Response::json($result);
     }
 
-    public static function getPostsAdmin($order = null, $pageSize = 10, $pageNumber = 1)
+    public static function getPostsAdmin($order = null, $pageSize = 10, $pageNumber = 1, $filter = null)
     {
-        $data = Post::
-            join('users', 'users.id', '=', 'posts.user_id')
-            ->leftJoin('votes', 'votes.post_id', '=', 'posts.id')
-            ->groupBy('posts.id')
-            ->get(['posts.id', 'posts.image_path', 'posts.kid_gender', 'posts.kid_name', 'posts.kid_nickname', 'posts.kid_year', 'posts.kid_month', 'posts.tel_number',
-                'posts.created_at', 'posts.isPublished', 'posts.created_at', 'posts.updated_at', 'users.name', 'users.email', 'users.facebook_id',  DB::raw('count(votes.id) as vote_count')])
-            ->sortByDesc($order)
-            ->values()
-            ->forPage(intval($pageNumber), $pageSize);
+        if($filter != null && $filter != ''){
+           $data = Post::
+                    leftJoin('users', 'users.id', '=', 'posts.user_id')
+                    ->orWhere('users.email', 'like', '%'.$filter.'%')
+                        ->orWhere(function ($query) use ($filter) {
+                           $query->where('users.name', 'like', '%'.$filter.'%');
+                        })
+                    ->leftJoin('votes', 'votes.post_id', '=', 'posts.id')
+                    ->groupBy('posts.id')
+                    ->orWhere('kid_name', 'like', '%'.$filter.'%')
+                        ->orWhere(function ($query) use ($filter) {
+                            $query->where('kid_nickname', 'like', '%'.$filter.'%');
+                        })
+                        ->orWhere(function ($query) use ($filter) {
+                            $query->where('tel_number', 'like', '%'.$filter.'%');
+                        })
+                    ->get(['posts.id', 'posts.image_path', 'posts.kid_gender', 'posts.kid_name', 'posts.kid_nickname', 'posts.kid_year', 'posts.kid_month', 'posts.tel_number',
+                        'posts.created_at', 'posts.isPublished', 'posts.created_at', 'posts.updated_at', 'users.name', 'users.email', 'users.facebook_id',  DB::raw('count(votes.id) as vote_count')])
+                    ->sortByDesc($order)
+                    ->values()
+                    ->forPage(intval($pageNumber), $pageSize);
+            $count = Post::where('kid_name', 'like', '%'.$filter.'%')
+                           ->orWhere(function ($query) use ($filter) {
+                               $query->where('kid_nickname', 'like', '%'.$filter.'%');
+                           })
+                           ->orWhere(function ($query) use ($filter) {
+                               $query->where('tel_number', 'like', '%'.$filter.'%');
+                           })->count();
+        }else{
+           $data = Post::
+                    join('users', 'users.id', '=', 'posts.user_id')
+                    ->leftJoin('votes', 'votes.post_id', '=', 'posts.id')
+                    ->groupBy('posts.id')
+                    ->get(['posts.id', 'posts.image_path', 'posts.kid_gender', 'posts.kid_name', 'posts.kid_nickname', 'posts.kid_year', 'posts.kid_month', 'posts.tel_number',
+                        'posts.created_at', 'posts.isPublished', 'posts.created_at', 'posts.updated_at', 'users.name', 'users.email', 'users.facebook_id',  DB::raw('count(votes.id) as vote_count')])
+                    ->sortByDesc($order)
+                    ->values()
+                    ->forPage(intval($pageNumber), $pageSize);
 
-        $count = Post::all()->count();
+            $count = Post::all()->count();
+        }
+
         return Response::json(array(
             'data' => $data,
             'count' => $count

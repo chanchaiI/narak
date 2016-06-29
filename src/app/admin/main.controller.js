@@ -9,6 +9,7 @@ export class AdminMainController {
         this.$document = $document;
         this.postService = PostAdminService;
         this.authService = AuthService;
+        this.bookmark = null;
 
         this.authService.checkLogin().catch(()=>{
             $state.go('admin-login');
@@ -18,7 +19,8 @@ export class AdminMainController {
         this.query = {
             order: 'id',
             limit: 10,
-            page: 1
+            page: 1,
+            filter: ''
         };
 
         this.options = {
@@ -27,6 +29,11 @@ export class AdminMainController {
             largeEditDialog: false,
             pageSelector: false,
             rowSelection: true
+        };
+
+        this.filter = {
+            show: false,
+            options: {}
         };
 
         this.$scope.onPaginate = (page, limit)=>{
@@ -38,14 +45,34 @@ export class AdminMainController {
             this.getPosts(query);
         };
 
-        this.getPosts(this.query);
+        this.$scope.$watch('vm.query.filter', (newValue, oldValue) => {
+            if(!oldValue) {
+                this.bookmark = this.query.page;
+            }
 
+            if(newValue !== oldValue) {
+                this.query.page = 1;
+            }
+
+            if(!newValue) {
+                this.query.page = this.bookmark;
+            }
+
+            this.getPosts(this.query);
+        });
+
+        this.getPosts(this.query);
     }
 
     getPosts(query) {
         this.postService.getPosts(query).then((response)=>{
             this.posts = response.data;
         });
+    }
+
+    removeFilter(){
+        this.filter.show = false;
+        this.query.filter = '';
     }
 
     unPublish(){

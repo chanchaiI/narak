@@ -6,6 +6,11 @@
             <md-toolbar class="md-table-toolbar md-default" ng-hide="vm.options.rowSelection && vm.selected.length">
                 <div class="md-toolbar-tools">
                     <span>Submitted Post</span>
+                    <div flex="" class="flex"></div>
+                    <button class="md-icon-button md-button md-ink-ripple" type="button" ng-click="vm.filter.show = true" aria-label="filter_list">
+                        <md-icon class="material-icons">filter_list</md-icon>
+                        <div class="md-ripple-container"></div>
+                    </button>
                 </div>
             </md-toolbar>
 
@@ -15,6 +20,19 @@
                     <div flex></div>
                     <md-button ng-click="vm.unPublish()">UnPublish</md-button>
                     <md-button ng-click="vm.publish()">Publish</md-button>
+                </div>
+            </md-toolbar>
+
+            <md-toolbar class="md-table-toolbar md-default" ng-show="vm.filter.show && !vm.selected.length" aria-hidden="false">
+                <div class="md-toolbar-tools">
+                    <md-icon class="material-icons">search</md-icon>
+                    <form flex name="vm.filter.form" class="ng-pristine ng-valid flex">
+                        <input type="text" ng-model="vm.query.filter"
+                               ng-model-options="vm.filter.options" placeholder="search" style="width: 97%">
+                    </form>
+                    <button class="md-icon-button md-button" type="button" ng-click="vm.removeFilter()" aria-label="close">
+                        <md-icon class="material-icons">close</md-icon>
+                        <div class="md-ripple-container"></div></button>
                 </div>
             </md-toolbar>
 

@@ -60,6 +60,15 @@ Route::post('/v1/vote/{id?}', [ function($id = null) {
     return App\Http\Controllers\Post\VoteController::createVote($id);
 }]);
 
+Route::get('/v1/post/{order}/{size}/{page}/{filter}', [ function($order = null, $size, $page, $filter) {
+    $token = Request::header('token');
+    if($token && App\Http\Controllers\Auth\AuthController::validateToken($token)){
+        return App\Http\Controllers\Post\PostController::getPostsAdmin($order, $size, $page, $filter);
+    }else{
+        return Response::json(array(), 400);
+    }
+}]);
+
 Route::get('/v1/post/{order}/{size}/{page}', [ function($order = null, $size, $page) {
     $token = Request::header('token');
     if($token && App\Http\Controllers\Auth\AuthController::validateToken($token)){

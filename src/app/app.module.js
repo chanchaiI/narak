@@ -21,7 +21,8 @@ import {AdminLoginController} from './admin/login.controller';
 import {AdminMainController} from './admin/main.controller';
 import {} from './components/narak.fileupload/narak.fileupload';
 
-angular.module('narak', ['ngAnimate', 'ngSanitize', 'ngMessages', 'ngAria', 'ui.router', 'ngMaterial', 'facebook', 'narakFileUpload', 'angular-loading-bar', 'infinite-scroll', 'angular-clipboard'])
+angular.module('narak', ['ngAnimate', 'ngSanitize', 'ngMessages', 'ngAria', 'ui.router', 'ngMaterial', 'md.data.table',
+    'facebook', 'narakFileUpload', 'angular-loading-bar', 'infinite-scroll', 'angular-clipboard', 'LocalStorageModule'])
     .constant('malarkey', malarkey)
     .constant('moment', moment)
     .constant('CONSTANT', constant)

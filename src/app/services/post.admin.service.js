@@ -13,6 +13,9 @@ export class PostAdminService {
         let token = this.localStorageService.get('token');
         if (token) {
             let getUrl = this.constant.serviceBaseUrl + 'post/' + query.order + '/' + query.limit + '/' + query.page;
+            if(query.filter && query.filter.length > 0){
+                getUrl = getUrl + '/' + query.filter;
+            }
             return this.$http.get(getUrl, {headers: {token: token}});
         } else {
             throw 'No Token';
