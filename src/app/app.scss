@@ -598,7 +598,7 @@ md-content {
     position: relative;
 
     .bg{
-      position: absolute;
+      position: fixed;
       background-image: url(/assets/images/intro/bg-cloud.png);
       background-size: 100%;
       background-repeat: no-repeat;
@@ -608,7 +608,7 @@ md-content {
     }
 
     .girl{
-      position: absolute;
+      position: fixed;
       width: $girl-width;
       height: $girl-height;
       top: 250px;
@@ -616,7 +616,7 @@ md-content {
     }
 
     .boy{
-      position: absolute;
+      position: fixed;
       width: $boy-width;
       height: $boy-height;
       top: 100px;
