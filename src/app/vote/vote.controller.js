@@ -39,8 +39,9 @@ export class VoteController {
     }
 
     activate() {
-        this.nextPage();
-        this.openDetail();
+        this.showIntroDialog();
+        // this.nextPage();
+        // this.openDetail();
     }
 
     changeCategory() {
@@ -146,6 +147,16 @@ export class VoteController {
         }
     }
 
+    showIntroDialog(){
+      this.$mdDialog.show({
+        templateUrl: 'app/vote/intro.dialog.html',
+        parent: angular.element(this.$document.body),
+        clickOutsideToClose: false,
+        fullscreen: true,
+        escapeToClose: false
+      })
+    }
+
     showImageDialog(post) {
         var imgUrl = this.constant.uploadedPath + post.image_path;
         var nickname = post.kid_nickname;
@@ -165,8 +176,8 @@ export class VoteController {
             })
             .then((answer) => {
                 if (answer === 'vote')
-                    this.vote(post);
-            }, ()=> {
+                      this.vote(post);
+              }, ()=> {
             });
     }
 

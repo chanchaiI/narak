@@ -6,6 +6,7 @@ use Request;
 use App\Http\Controllers\Controller;
 use Response;
 use App\Post;
+use App\Vote;
 use Illuminate\Support\Facades\DB;
 
 class PostController extends Controller
@@ -31,11 +32,38 @@ class PostController extends Controller
         return Post::where('user_id', $user_id)->count() > 0;
     }
 
+
+    public static function getCommitteeAward(){
+
+        $content = file_get_contents(storage_path() . '/app/public/committee.json');
+        $json = json_decode($content, true);
+        $posts = Post::whereIn('id', $json)
+            ->get()->toArray();
+
+        for ($i = 0; $i < count($json); $i++) {
+            $json = array_replace($json, array($i => $posts[array_search($json[$i], array_column($posts, 'id'))]));
+        }
+
+        return $json;
+    }
+
+    public static function getPopularAward(){
+        return PostController::getPopularVote(1, 51);
+    }
+
+    public static function getLuckyVote(){
+        $content = file_get_contents(storage_path() . '/app/public/voter.json');
+        $json = json_decode($content, true);
+
+        return $json;
+    }
+
     public static function getPostById($id)
     {
-        $result = Post::with('votes')->where('id', $id)->where('isPublished', 1)->first();
+        $result = Post::where('id', $id)->where('isPublished', 1)->first();
+        $vote = Vote::where('post_id', $result->id);
         if($result != null){
-            $result->vote_count = $result->votes->count();
+            $result->vote_count = $vote->count();
             return $result;
         }else{
             return Response::json(array(
@@ -47,9 +75,10 @@ class PostController extends Controller
 
     public static function getPostByRandomNO($randomNO)
     {
-        $result = Post::with('votes')->where('random_no', $randomNO)->where('isPublished', 1)->first();
+        $result = Post::where('random_no', $randomNO)->where('isPublished', 1)->first();
+        $vote = Vote::where('post_id', $result->id);
         if($result != null){
-            //$result->vote_count = $result->votes->count();
+            $result->vote_count = $vote->count();
             return $result;
         }else{
             return Response::json(array(
@@ -98,7 +127,7 @@ class PostController extends Controller
                     ->where('category_id', intval($category_id))
                     ->where('isPublished', 1)
                     ->latest()
-                    ->get(['posts.id', 'posts.random_no', 'posts.image_path', 'posts.created_at', 'posts.category_id', DB::raw('count(votes.id) as vote_count')])
+                    ->get(['posts.id', 'posts.random_no', 'posts.kid_nickname', 'posts.image_path', 'posts.created_at', 'posts.category_id', DB::raw('count(votes.id) as vote_count')])
                     ->forPage(intval($pageNumber), $pageSize)
                     ->values();
         }else{
@@ -106,7 +135,7 @@ class PostController extends Controller
                   ->groupBy('posts.id')
                   ->where('isPublished', 1)
                   ->latest()
-                  ->get(['posts.id', 'posts.random_no', 'posts.image_path','posts.created_at', DB::raw('count(votes.id) as vote_count')])
+                  ->get(['posts.id', 'posts.random_no', 'posts.kid_nickname', 'posts.image_path', 'posts.created_at', DB::raw('count(votes.id) as vote_count')])
                   ->forPage(intval($pageNumber), $pageSize)
                   ->values();
         }
@@ -269,6 +298,13 @@ class PostController extends Controller
         DB::table('posts')
             ->whereIn('id', $idList)
             ->update(['isPublished' => 1]);
+        return Response::json();
+    }
+    
+    public static function delete($idList){
+        DB::table('posts')
+            ->whereIn('id', $idList)
+            ->delete();
         return Response::json();
     }
 }

@@ -28,6 +28,18 @@ Route::post('/v1/auth/login', [ function() {
     return App\Http\Controllers\Auth\AuthController::getToken();
 }]);
 
+Route::get('/v1/post/committee', [ function() {
+    return App\Http\Controllers\Post\PostController::getCommitteeAward();
+}]);
+
+Route::get('/v1/post/popular', [ function() {
+    return App\Http\Controllers\Post\PostController::getPopularAward();
+}]);
+
+Route::get('/v1/post/luckyvote', [ function() {
+    return App\Http\Controllers\Post\PostController::getLuckyVote();
+}]);
+
 Route::get('/v1/post/{id?}/upload', [ function($id = null) {
     return App\Http\Controllers\Post\PostController::checkUploaded($id);
 }]);
@@ -100,6 +112,17 @@ Route::put('/v1/post/publish', [ function() {
     $idList = json_decode($request_body)->idList;
 
     return App\Http\Controllers\Post\PostController::publish($idList);
+}]);
+
+Route::post('/v1/post/delete', [ function() {
+
+    $request = Request::instance();
+    // Now we can get the content from it
+    $request_body = $request->getContent();
+
+    $idList = json_decode($request_body)->idList;
+
+    return App\Http\Controllers\Post\PostController::delete($idList);
 }]);
 
 

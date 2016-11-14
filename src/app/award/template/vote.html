@@ -1,0 +1,16 @@
+<div layout="row" layout-align="center"  ng-show="vm.posts.length > 0">
+  <div layout="row" layout-align="center" layout-wrap>
+    <h4 layout="row" flex="100" layout-align="center">
+      รางวัลสำหรับผู้ร่วมโหวต 5 รางวัล ได้รับชุดของขวัญสุดเซอร์ไพรส์จากทีมน่ารักคลับ<br/>
+      รายชื่อผู้โชคดีที่ได้รับรางวัล สำหรับผู้ร่วม Vote 5 ท่าน  มีดังต่อไปนี้
+    </h4>
+    <div layout="row" flex="100" layout-align="center">
+      <ol layout="column">
+        <li ng-repeat="item in vm.posts" style="text-align: left; padding-left: 25px;">
+          Facebook: <a href="https://www.facebook.com/{{item.facebookId}}">{{item.facebook}}</a><br/>
+          Email: {{item.email}}<br/>
+        </li>
+      </ol>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,19 @@
+md-dialog.md-dialog-fullscreen {
+  min-height: 100%;
+  min-width: 100%;
+  border-radius: 0;
+}
+
+.end-bg{
+  width: 100%;
+  background-size: 100%;
+  background-repeat: no-repeat;
+
+  &.end-bg-web{
+    background-image: url(/assets/images/end/cover_web.png);
+  }
+  &.end-bg-mobile{
+    background-image: url(/assets/images/end/home_mobile.png);
+  }
+}
+

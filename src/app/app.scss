@@ -271,6 +271,23 @@ md-input-container{
   box-shadow: 0 3px rgba(0,0,0,0.3);
 }
 
+.black-ribbon {
+  position: fixed;
+  z-index: 9999;
+  width: 70px;
+}
+
+@media only all and (min-width: 768px) {
+  .black-ribbon {
+    width: auto;
+  }
+}
+
+.stick-left { left: 0; }
+.stick-right { right: 0; }
+.stick-top { top: 0; }
+.stick-bottom { bottom: 0; }
+
 $boy-width: 270px;
 $boy-height: 300px;
 $boy-lg-width: 380px;
@@ -641,11 +658,12 @@ md-content {
       position: relative;
       background-color: rgba(255, 255, 255, 0.8);
       margin: 0 auto;
-      z-index: 1000;
+      z-index: 20;
       border-radius: 10px;
       padding-top: 20px;
       box-shadow: 5px 0 7px rgba(0,0,0,0.3);
       max-height: none;
+      min-height: 500px;
 
       .vote-media {
         outline: none;
@@ -660,11 +678,11 @@ md-content {
 
         md-radio-button.category-item{
 
-          font-size: 22px;
+          font-size: 28px;
           border-radius: 20px;
           padding: 3px;
           margin: 0;
-          height: 38px;
+          height: 46px;
           .md-label{
             margin-left: 0;
             width: 100%;
@@ -686,10 +704,23 @@ md-content {
         }
       }
 
+      .search-button{
+        font-size: 28px;
+        border-radius: 10px;
+        padding: 5px;
+        margin: 10px 0;
+        height: 46px;
+        background-color:#9FDEF9;
+        //color: #FFF;
+        //md-icon{
+        //  color: #FFF;
+        //}
+      }
 
       md-card {
         background-color: transparent;
         box-shadow: none;
+        margin: 5px;
         md-card-content{
           padding: 5px;
         }
@@ -729,6 +760,7 @@ md-content {
 
       .vote-action{
         background-color: #FFF698;
+        font-size: 70%;
 
         .md-button.md-icon-button{
           margin-right: 0;

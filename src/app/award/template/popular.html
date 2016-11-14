@@ -1,0 +1,46 @@
+<div layout="column" flex>
+  <div ng-if="!vm.showSearch && vm.posts.length > 0" layout="row" flex layout-wrap>
+    <h4 layout="row" flex="100" layout-align="center">รายชื่อผู้ที่ได้รับรางวัลหนูน้อย “ป๊อปปูลาร์โหวต  รางวัลชนะเลิศ"</h4>
+    <div layout="row" layout-align="center" class="body" flex="100" layout-wrap>
+      <md-card flex="30" flex-sm="45" flex-xs="100">
+        <md-card-content layout="columns" layout-wrap>
+          <div class="md-media-l card-media vote-media" ng-click="vm.showImageDialog(vm.posts[0])">
+            <img ng-src="{{ vm.constant.uploadedPath + vm.posts[0].image_path}}">
+          </div>
+          <md-card-actions class="vote-action" layout="row" layout-align="center center" flex="100">
+            <span flex="90">
+              ได้รับทุนการศึกษามูลค่า 10,000 <br/>
+              บาท พร้อมชุดผลิตภัณฑ์เด็ก น่ารัก
+            </span>
+          </md-card-actions>
+        </md-card-content>
+      </md-card>
+    </div>
+    <h4 layout="row" flex="100" layout-align="center">
+      รางวัลผู้ที่ได้คะแนน Vote รองลงมา 50 รางวัล  <br> ได้รับชุดผลิตภัณฑ์เด็กน่ารัก <br>
+      รายชื่อหนูน้อยผู้ที่ได้คะแนน Vote รองลงมา 50 ท่าน  มีดังต่อไปนี้
+    </h4>
+  </div>
+
+  <div layout-align="center" layout="row" flex layout-wrap>
+    <md-card ng-if="!vm.showSearch && $index > 0" ng-repeat="item in vm.posts" flex="30" flex-sm="45" flex-xs="45">
+      <md-card-content layout="columns" layout-wrap>
+        <div class="md-media-l card-media vote-media" ng-click="vm.showImageDialog(item)">
+          <img ng-src="{{ vm.constant.uploadedPath + item.image_path}}">
+        </div>
+      </md-card-content>
+    </md-card>
+    <md-card ng-if="vm.showSearch;" ng-repeat="item in vm.filteredPosts" flex="30" flex-sm="45" flex-xs="45">
+      <md-card-content layout="columns" layout-wrap>
+        <div class="md-media-l card-media vote-media" ng-click="vm.showImageDialog(item)">
+          <img ng-src="{{ vm.constant.uploadedPath + item.image_path}}">
+        </div>
+      </md-card-content>
+    </md-card>
+  </div>
+  <div layout="row" flex="100" layout-align="center" ng-if="vm.showSearch && vm.filteredPosts.length === 0">
+    <div flex="100" style="width: 100%;">
+      Not Found
+    </div>
+  </div>
+</div>

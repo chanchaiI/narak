@@ -20,6 +20,7 @@ import {VoteController} from './vote/vote.controller';
 import {AdminLoginController} from './admin/login.controller';
 import {AdminMainController} from './admin/main.controller';
 import {} from './components/narak.fileupload/narak.fileupload';
+import {AwardController} from "./award/award.controller";
 
 angular.module('narak', ['ngAnimate', 'ngSanitize', 'ngMessages', 'ngAria', 'ui.router', 'ngMaterial', 'md.data.table',
     'facebook', 'narakFileUpload', 'angular-loading-bar', 'infinite-scroll', 'angular-clipboard', 'LocalStorageModule'])
@@ -42,6 +43,7 @@ angular.module('narak', ['ngAnimate', 'ngSanitize', 'ngMessages', 'ngAria', 'ui.
     .service('FacebookService', FacebookService)
     .controller('ImageDialogController', ImageDialogController)
     .controller('VoteController', VoteController)
+    .controller('AwardController', AwardController)
     .controller('AdminLoginController', AdminLoginController)
     .controller('AdminMainController', AdminMainController)
 ;

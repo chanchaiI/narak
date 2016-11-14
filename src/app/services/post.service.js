@@ -40,6 +40,16 @@ export class PostService {
         });
     }
 
+    getAwardPostByType(type){
+      var getPostUrl = this.constant.serviceBaseUrl + 'post/' + type;
+      return this.$http.get(getPostUrl, {
+        ignoreLoadingBar: true
+      }).catch(function(){
+        var result = {data: []};
+        return result;
+      });
+    }
+
     getPostById(id) {
         var getPostUrl = this.constant.serviceBaseUrl + 'post/' + id;
         return this.$http.get(getPostUrl);

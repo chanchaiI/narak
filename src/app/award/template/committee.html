@@ -1,0 +1,77 @@
+<div layout="column" flex>
+  <div ng-if="!vm.showSearch && vm.posts.length > 0" layout="row" flex layout-wrap>
+    <h4 layout="row" flex="100" layout-align="center">รายชื่อผู้ที่ได้รับรางวัลหนูน้อย “น่ารักจัง 2” </h4>
+    <div layout="row" layout-align="center" class="body" flex="100" layout-wrap>
+      <md-card flex="30" flex-sm="45" flex-xs="100">
+        <md-card-content layout="columns" layout-wrap>
+          <div class="md-media-l card-media vote-media" ng-click="vm.showImageDialog(vm.posts[0])">
+            <img ng-src="{{ vm.constant.uploadedPath + vm.posts[0].image_path}}">
+          </div>
+          <md-card-actions class="vote-action" layout="row" layout-align="center center" flex="100">
+            <span flex="90">
+              รางวัลชนะเลิศ  อันดับ 1 <br>
+              ได้รับทุนการศึกษามูลค่า 25,000 บาท   <br>พร้อมชุดผลิตภัณฑ์เด็ก น่ารัก
+            </span>
+          </md-card-actions>
+        </md-card-content>
+      </md-card>
+    </div>
+    <div layout="row" layout-align="center" class="body" flex="100" layout-wrap>
+      <md-card flex="30" flex-sm="45" flex-xs="45">
+        <md-card-content layout="columns" layout-wrap>
+          <div class="md-media-l card-media vote-media" ng-click="vm.showImageDialog(vm.posts[1])">
+            <!--<img ng-src="{{ vm.constant.uploadedPath + vm.posts[0].image_path}}">-->
+            <img ng-src="{{ vm.constant.uploadedPath + vm.posts[1].image_path}}">
+          </div>
+          <md-card-actions class="vote-action" layout="row" layout-align="center center" flex="100">
+            <span flex="90">
+              รางวัลรองชนะเลิศ  อันดับ 1 <br>
+              ได้รับทุนการศึกษามูลค่า 15,000 บาท  <br>พร้อมชุดผลิตภัณฑ์เด็ก น่ารัก
+            </span>
+          </md-card-actions>
+        </md-card-content>
+      </md-card>
+      <md-card flex="30" flex-sm="45" flex-xs="45">
+        <md-card-content layout="columns" layout-wrap>
+          <div class="md-media-l card-media vote-media" ng-click="vm.showImageDialog(vm.posts[2])">
+            <!--<img ng-src="{{ vm.constant.uploadedPath + vm.posts[0].image_path}}">-->
+            <img ng-src="{{ vm.constant.uploadedPath + vm.posts[2].image_path}}">
+          </div>
+          <md-card-actions class="vote-action" layout="row" layout-align="center center" flex="100">
+            <span>
+              รางวัลรองชนะเลิศ  อันดับ 2 <br>
+              ได้รับทุนการศึกษามูลค่า 5,000 บาท  <br>พร้อมชุดผลิตภัณฑ์เด็ก น่ารัก
+            </span>
+          </md-card-actions>
+        </md-card-content>
+      </md-card>
+    </div>
+
+    <h4 layout="row" flex="100" layout-align="center">
+      รางวัลหนูน้อย “น่ารักจัง 2” รางวัลชมเชย 50 รางวัล ได้รับ ชุดผลิตภัณฑ์เด็กน่ารัก<br/>
+      รายชื่อหนูน้อยผู้โชคดี 50 ท่าน มีดังต่อไปนี้
+    </h4>
+  </div>
+
+  <div layout-align="center" layout="row" flex layout-wrap>
+    <md-card ng-if="!vm.showSearch && $index > 2" ng-repeat="item in vm.posts" flex="30" flex-sm="45" flex-xs="45">
+      <md-card-content layout="columns" layout-wrap>
+        <div class="md-media-l card-media vote-media" ng-click="vm.showImageDialog(item)">
+          <img ng-src="{{ vm.constant.uploadedPath + item.image_path}}">
+        </div>
+      </md-card-content>
+    </md-card>
+    <md-card ng-if="vm.showSearch;" ng-repeat="item in vm.filteredPosts" flex="30" flex-sm="45" flex-xs="45">
+      <md-card-content layout="columns" layout-wrap>
+        <div class="md-media-l card-media vote-media" ng-click="vm.showImageDialog(item)">
+          <img ng-src="{{ vm.constant.uploadedPath + item.image_path}}">
+        </div>
+      </md-card-content>
+    </md-card>
+  </div>
+  <div layout="row" flex="100" layout-align="center" ng-if="vm.showSearch && vm.filteredPosts.length === 0">
+    <div flex="100" style="width: 100%;">
+      Not Found
+    </div>
+  </div>
+</div>

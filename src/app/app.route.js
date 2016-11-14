@@ -2,10 +2,16 @@ export function routerConfig($stateProvider, $urlRouterProvider) {
     'ngInject';
     $stateProvider
         .state('vote', {
-            url: '/',
+            url: '/vote',
             templateUrl: 'app/vote/vote.html',
             controller: 'VoteController',
             controllerAs: 'vm'
+        })
+        .state('award', {
+          url: '/',
+          templateUrl: 'app/award/award.html',
+          controller: 'AwardController',
+          controllerAs: 'vm'
         })
         .state('admin-login', {
             url: '/narakadmin/login',
